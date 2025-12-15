@@ -1,4 +1,4 @@
-# Welcome to your Jupyter Book
+# Python based Sequential Monte Carlo (SMC) Method
 
 This is a small sample book to give you a feel for how book content is
 structured.
