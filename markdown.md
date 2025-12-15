@@ -12,59 +12,146 @@ kernelspec:
   name: python3
 ---
 
-# Markdown Files
+# Sequential Monte Carlo (SMC) の全体像
 
-Yeee.
-Whether you write your book's content in Jupyter Notebooks (`.ipynb`) or
-in regular markdown files (`.md`), you'll write in the same flavor of markdown
-called **MyST Markdown**.
-This is a simple file to help you get started and show off some syntax.
+このページの目的は、コードを読む前に  
+**「SMCが頭の中でどう動いているのか」**というモデルを作ることです。
 
-## What is MyST?
+数式の厳密な導出や理論的証明は扱わず、  
+粒子がどのように動き、なぜその処理が必要なのかを  
+**直感的に理解できること**を目標とします。
 
-MyST stands for "Markedly Structured Text". It
-is a slight variation on a flavor of markdown called "CommonMark" markdown,
-with small syntax extensions to allow you to write **roles** and **directives**
-in the Sphinx ecosystem.
+---
 
-For more about MyST, see [the MyST Markdown Overview](https://jupyterbook.org/content/myst.html).
+## このページで伝えたいこと
 
-## Sample Roles and Directives
+Sequential Monte Carlo（SMC）は、
 
-Roles and directives are two of the most powerful tools in Jupyter Book. They
-are kind of like functions, but written in a markup language. They both
-serve a similar purpose, but **roles are written in one line**, whereas
-**directives span many lines**. They both accept different kinds of inputs,
-and what they do with those inputs depends on the specific role or directive
-that is being called.
+**「逐次的に難しくなる確率分布を、粒子集団で追いかけるアルゴリズム」**
 
-Here is a "note" directive:
+です。
 
-```{note}
-Here is a note
-```
+MCMCと比較したときの最大の違いは、以下の2点にあります。
 
-It will be rendered in a special box when you build your book.
+- 単一のサンプルではなく、**粒子集団**を同時に扱う
+- 分布が「時間（ステップ）」とともに**徐々に変化**していく
 
-Here is an inline directive to refer to a document: {doc}`markdown-notebooks`.
+この構造により、SMCでは  
+1回の実行で **分布全体とその不確実性** を同時に得ることができます。
+
+---
+
+## SMCを構成する基本要素
+
+SMCは、いくつかの単純な要素の組み合わせで構成されています。
+
+### 粒子（Particles）
+
+粒子とは、パラメータ空間上のサンプルです。  
+SMCでは、1つの点ではなく **多数の粒子の集合** を使って分布を表現します。
+
+### 重み（Importance Weights）
+
+各粒子には、その粒子が  
+「現在の目標分布にどれだけ適合しているか」を表す重みが割り当てられます。
+
+時間が進むにつれて、この重みは偏っていく傾向があります。
+
+### 再サンプリング（Resampling）
+
+重みが極端に偏ると、多くの粒子が実質的に意味を持たなくなります。  
+これを防ぐために、有効な粒子を複製し、  
+無効な粒子を捨てる操作が再サンプリングです。
+
+### 変化する目標分布
+
+SMCでは、最初から難しい分布を直接扱いません。
+
+- 最初は「簡単な分布」
+- 徐々に「目的とする難しい分布」
+
+へと移動していきます。
+
+この変化は、温度（tempering）やデータ数の増加によって実現されます。
+
+---
+
+## SMCアルゴリズムの基本フロー
+
+SMCの基本的な流れは、以下のように表せます。
+
+Initialize particles from prior
+
+for step = 1, 2, ..., K:
+- 重みの更新
+- ESSの計算
+- 必要なら再サンプリング
+- MCMCによる粒子の拡散（mutation）
 
 
-## Citations
+### 重みはなぜ偏るのか
 
-You can also cite references that are stored in a `bibtex` file. For example,
-the following syntax: `` {cite}`holdgraf_evidence_2014` `` will render like
-this: {cite}`holdgraf_evidence_2014`.
+分布が変化すると、  
+一部の粒子だけが新しい分布に適合し、  
+それ以外の粒子の重みは急激に小さくなります。
 
-Moreover, you can insert a bibliography into your page with this syntax:
-The `{bibliography}` directive must be used for all the `{cite}` roles to
-render properly.
-For example, if the references for your book are stored in `references.bib`,
-then the bibliography is inserted with:
+この現象を「粒子退化」と呼びます。
 
-<!-- ```{bibliography}
-``` -->
+### なぜ再サンプリングが必要なのか
 
-## Learn more
+粒子退化が進むと、  
+「粒子数は多いが、実質的には数個しか意味を持たない」  
+状態になります。
 
-This is just a simple starter to get you started.
-You can learn a lot more at [jupyterbook.org](https://jupyterbook.org).
+再サンプリングは、この問題を回避するために不可欠な操作です。
+
+---
+
+## Likelihood tempering と Data tempering
+
+SMCでは、「分布を徐々に難しくする」方法として  
+主に以下の2つが使われます。
+
+### Likelihood tempering
+
+尤度に指数（温度）をかけ、  
+その指数を 0 から 1 に徐々に増やしていく方法です。
+
+### Data tempering
+
+データを少数から徐々に追加していき、  
+観測情報を段階的に強くしていく方法です。
+
+どちらも、
+
+**「簡単な分布から難しい分布へ移動する」**
+
+という点で本質的には同じ考え方に基づいています。
+
+具体的な制御方法については、次のページで詳しく説明します。
+
+---
+
+## SMCの出力
+
+SMCを実行することで、以下の情報が得られます。
+
+- パラメータの事後分布
+- 推定値の不確実性（分散・信用区間など）
+- 正規化定数（Evidence）
+
+これは、点推定だけを行う手法とは大きく異なる利点です。
+
+---
+
+## 本コードで提供するもの
+
+本サイトで扱うSMCコードは、以下を目的として設計されています。
+
+- 汎用的に使えるSMCフレームワーク
+- Likelihood tempering / Data tempering の切り替え
+- 並列計算を前提とした設計
+- 研究用途を意識した再現性の確保
+
+次のページでは、  
+これらの挙動を制御する **ハイパーパラメータ** について説明します。

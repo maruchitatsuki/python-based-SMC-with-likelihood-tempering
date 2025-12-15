@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Markdown Files &#8212; My sample book</title>
+    <title>Sequential Monte Carlo (SMC) の全体像 &#8212; My sample book</title>
   
   
   
@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Content with notebooks" href="notebooks.html" />
-    <link rel="prev" title="Welcome to your Jupyter Book" href="intro.html" />
+    <link rel="prev" title="Python based Sequential Monte Carlo (SMC) Method" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -169,12 +169,12 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Welcome to your Jupyter Book
+                    Python based Sequential Monte Carlo (SMC) Method
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Markdown Files</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Sequential Monte Carlo (SMC) の全体像</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
@@ -362,7 +362,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Markdown Files</h1>
+    <h1>Sequential Monte Carlo (SMC) の全体像</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -372,10 +372,26 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-myst">What is MyST?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-roles-and-directives">Sample Roles and Directives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citations">Citations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learn-more">Learn more</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">このページで伝えたいこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smc">SMCを構成する基本要素</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#particles">粒子（Particles）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importance-weights">重み（Importance Weights）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling">再サンプリング（Resampling）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">変化する目標分布</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">SMCアルゴリズムの基本フロー</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">重みはなぜ偏るのか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">なぜ再サンプリングが必要なのか</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-tempering-data-tempering">Likelihood tempering と Data tempering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-tempering">Likelihood tempering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-tempering">Data tempering</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">SMCの出力</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">本コードで提供するもの</a></li>
 </ul>
             </nav>
         </div>
@@ -387,54 +403,129 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="markdown-files">
-<h1>Markdown Files<a class="headerlink" href="#markdown-files" title="Permalink to this heading">#</a></h1>
-<p>Yeee.
-Whether you write your book’s content in Jupyter Notebooks (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>) or
-in regular markdown files (<code class="docutils literal notranslate"><span class="pre">.md</span></code>), you’ll write in the same flavor of markdown
-called <strong>MyST Markdown</strong>.
-This is a simple file to help you get started and show off some syntax.</p>
-<section id="what-is-myst">
-<h2>What is MyST?<a class="headerlink" href="#what-is-myst" title="Permalink to this heading">#</a></h2>
-<p>MyST stands for “Markedly Structured Text”. It
-is a slight variation on a flavor of markdown called “CommonMark” markdown,
-with small syntax extensions to allow you to write <strong>roles</strong> and <strong>directives</strong>
-in the Sphinx ecosystem.</p>
-<p>For more about MyST, see <a class="reference external" href="https://jupyterbook.org/content/myst.html">the MyST Markdown Overview</a>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="sequential-monte-carlo-smc">
+<h1>Sequential Monte Carlo (SMC) の全体像<a class="headerlink" href="#sequential-monte-carlo-smc" title="Permalink to this heading">#</a></h1>
+<p>このページの目的は、コードを読む前に<br />
+**「SMCが頭の中でどう動いているのか」**というモデルを作ることです。</p>
+<p>数式の厳密な導出や理論的証明は扱わず、<br />
+粒子がどのように動き、なぜその処理が必要なのかを<br />
+<strong>直感的に理解できること</strong>を目標とします。</p>
+<hr class="docutils" />
+<section id="id1">
+<h2>このページで伝えたいこと<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>Sequential Monte Carlo（SMC）は、</p>
+<p><strong>「逐次的に難しくなる確率分布を、粒子集団で追いかけるアルゴリズム」</strong></p>
+<p>です。</p>
+<p>MCMCと比較したときの最大の違いは、以下の2点にあります。</p>
+<ul class="simple">
+<li><p>単一のサンプルではなく、<strong>粒子集団</strong>を同時に扱う</p></li>
+<li><p>分布が「時間（ステップ）」とともに<strong>徐々に変化</strong>していく</p></li>
+</ul>
+<p>この構造により、SMCでは<br />
+1回の実行で <strong>分布全体とその不確実性</strong> を同時に得ることができます。</p>
 </section>
-<section id="sample-roles-and-directives">
-<h2>Sample Roles and Directives<a class="headerlink" href="#sample-roles-and-directives" title="Permalink to this heading">#</a></h2>
-<p>Roles and directives are two of the most powerful tools in Jupyter Book. They
-are kind of like functions, but written in a markup language. They both
-serve a similar purpose, but <strong>roles are written in one line</strong>, whereas
-<strong>directives span many lines</strong>. They both accept different kinds of inputs,
-and what they do with those inputs depends on the specific role or directive
-that is being called.</p>
-<p>Here is a “note” directive:</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Here is a note</p>
-</div>
-<p>It will be rendered in a special box when you build your book.</p>
-<p>Here is an inline directive to refer to a document: <a class="reference internal" href="markdown-notebooks.html"><span class="doc">Notebooks with MyST Markdown</span></a>.</p>
+<hr class="docutils" />
+<section id="smc">
+<h2>SMCを構成する基本要素<a class="headerlink" href="#smc" title="Permalink to this heading">#</a></h2>
+<p>SMCは、いくつかの単純な要素の組み合わせで構成されています。</p>
+<section id="particles">
+<h3>粒子（Particles）<a class="headerlink" href="#particles" title="Permalink to this heading">#</a></h3>
+<p>粒子とは、パラメータ空間上のサンプルです。<br />
+SMCでは、1つの点ではなく <strong>多数の粒子の集合</strong> を使って分布を表現します。</p>
 </section>
-<section id="citations">
-<h2>Citations<a class="headerlink" href="#citations" title="Permalink to this heading">#</a></h2>
-<p>You can also cite references that are stored in a <code class="docutils literal notranslate"><span class="pre">bibtex</span></code> file. For example,
-the following syntax: <code class="docutils literal notranslate"><span class="pre">{cite}`holdgraf_evidence_2014`</span></code> will render like
-this: <span id="id1">[]</span>.</p>
-<p>Moreover, you can insert a bibliography into your page with this syntax:
-The <code class="docutils literal notranslate"><span class="pre">{bibliography}</span></code> directive must be used for all the <code class="docutils literal notranslate"><span class="pre">{cite}</span></code> roles to
-render properly.
-For example, if the references for your book are stored in <code class="docutils literal notranslate"><span class="pre">references.bib</span></code>,
-then the bibliography is inserted with:</p>
-<!-- ```{bibliography}
-``` -->
+<section id="importance-weights">
+<h3>重み（Importance Weights）<a class="headerlink" href="#importance-weights" title="Permalink to this heading">#</a></h3>
+<p>各粒子には、その粒子が<br />
+「現在の目標分布にどれだけ適合しているか」を表す重みが割り当てられます。</p>
+<p>時間が進むにつれて、この重みは偏っていく傾向があります。</p>
 </section>
-<section id="learn-more">
-<h2>Learn more<a class="headerlink" href="#learn-more" title="Permalink to this heading">#</a></h2>
-<p>This is just a simple starter to get you started.
-You can learn a lot more at <a class="reference external" href="https://jupyterbook.org">jupyterbook.org</a>.</p>
+<section id="resampling">
+<h3>再サンプリング（Resampling）<a class="headerlink" href="#resampling" title="Permalink to this heading">#</a></h3>
+<p>重みが極端に偏ると、多くの粒子が実質的に意味を持たなくなります。<br />
+これを防ぐために、有効な粒子を複製し、<br />
+無効な粒子を捨てる操作が再サンプリングです。</p>
+</section>
+<section id="id2">
+<h3>変化する目標分布<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>SMCでは、最初から難しい分布を直接扱いません。</p>
+<ul class="simple">
+<li><p>最初は「簡単な分布」</p></li>
+<li><p>徐々に「目的とする難しい分布」</p></li>
+</ul>
+<p>へと移動していきます。</p>
+<p>この変化は、温度（tempering）やデータ数の増加によって実現されます。</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>SMCアルゴリズムの基本フロー<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>SMCの基本的な流れは、以下のように表せます。</p>
+<p>Initialize particles from prior</p>
+<p>for step = 1, 2, …, K:</p>
+<ul class="simple">
+<li><p>重みの更新</p></li>
+<li><p>ESSの計算</p></li>
+<li><p>必要なら再サンプリング</p></li>
+<li><p>MCMCによる粒子の拡散（mutation）</p></li>
+</ul>
+<section id="id4">
+<h3>重みはなぜ偏るのか<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>分布が変化すると、<br />
+一部の粒子だけが新しい分布に適合し、<br />
+それ以外の粒子の重みは急激に小さくなります。</p>
+<p>この現象を「粒子退化」と呼びます。</p>
+</section>
+<section id="id5">
+<h3>なぜ再サンプリングが必要なのか<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>粒子退化が進むと、<br />
+「粒子数は多いが、実質的には数個しか意味を持たない」<br />
+状態になります。</p>
+<p>再サンプリングは、この問題を回避するために不可欠な操作です。</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="likelihood-tempering-data-tempering">
+<h2>Likelihood tempering と Data tempering<a class="headerlink" href="#likelihood-tempering-data-tempering" title="Permalink to this heading">#</a></h2>
+<p>SMCでは、「分布を徐々に難しくする」方法として<br />
+主に以下の2つが使われます。</p>
+<section id="likelihood-tempering">
+<h3>Likelihood tempering<a class="headerlink" href="#likelihood-tempering" title="Permalink to this heading">#</a></h3>
+<p>尤度に指数（温度）をかけ、<br />
+その指数を 0 から 1 に徐々に増やしていく方法です。</p>
+</section>
+<section id="data-tempering">
+<h3>Data tempering<a class="headerlink" href="#data-tempering" title="Permalink to this heading">#</a></h3>
+<p>データを少数から徐々に追加していき、<br />
+観測情報を段階的に強くしていく方法です。</p>
+<p>どちらも、</p>
+<p><strong>「簡単な分布から難しい分布へ移動する」</strong></p>
+<p>という点で本質的には同じ考え方に基づいています。</p>
+<p>具体的な制御方法については、次のページで詳しく説明します。</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h2>SMCの出力<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<p>SMCを実行することで、以下の情報が得られます。</p>
+<ul class="simple">
+<li><p>パラメータの事後分布</p></li>
+<li><p>推定値の不確実性（分散・信用区間など）</p></li>
+<li><p>正規化定数（Evidence）</p></li>
+</ul>
+<p>これは、点推定だけを行う手法とは大きく異なる利点です。</p>
+</section>
+<hr class="docutils" />
+<section id="id7">
+<h2>本コードで提供するもの<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<p>本サイトで扱うSMCコードは、以下を目的として設計されています。</p>
+<ul class="simple">
+<li><p>汎用的に使えるSMCフレームワーク</p></li>
+<li><p>Likelihood tempering / Data tempering の切り替え</p></li>
+<li><p>並列計算を前提とした設計</p></li>
+<li><p>研究用途を意識した再現性の確保</p></li>
+</ul>
+<p>次のページでは、<br />
+これらの挙動を制御する <strong>ハイパーパラメータ</strong> について説明します。</p>
 </section>
 </section>
 
@@ -474,7 +565,7 @@ You can learn a lot more at <a class="reference external" href="https://jupyterb
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Welcome to your Jupyter Book</p>
+        <p class="prev-next-title">Python based Sequential Monte Carlo (SMC) Method</p>
       </div>
     </a>
     <a class="right-next"
@@ -502,10 +593,26 @@ You can learn a lot more at <a class="reference external" href="https://jupyterb
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-myst">What is MyST?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-roles-and-directives">Sample Roles and Directives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citations">Citations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learn-more">Learn more</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">このページで伝えたいこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smc">SMCを構成する基本要素</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#particles">粒子（Particles）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importance-weights">重み（Importance Weights）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling">再サンプリング（Resampling）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">変化する目標分布</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">SMCアルゴリズムの基本フロー</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">重みはなぜ偏るのか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">なぜ再サンプリングが必要なのか</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-tempering-data-tempering">Likelihood tempering と Data tempering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-tempering">Likelihood tempering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-tempering">Data tempering</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">SMCの出力</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">本コードで提供するもの</a></li>
 </ul>
   </nav></div>
 
