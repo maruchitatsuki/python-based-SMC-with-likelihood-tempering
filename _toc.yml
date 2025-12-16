@@ -12,6 +12,6 @@ format: jb-book
 root: intro
 
 chapters:
-  - file: notebooks
-  - file: markdown
-  - file: markdown-notebooks
+  - file: Example
+  - file: Hyper_parameters
+  - file: How_to_use
