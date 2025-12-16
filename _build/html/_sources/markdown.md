@@ -12,9 +12,14 @@ kernelspec:
   name: python3
 ---
 
-# python based sequential monte carlo method with likelihood tempering
+# Sequential Monte Carlo (SMC) の全体像
 
-このウェブサイトの目的は、likelihood tempering を用いた逐次モンテカルロ法(SMC法)に対する理解を深める手がかりを与えること、そして、私たちが実装したSMCコードの簡単な説明、ハイパーパラメータの解説、使用例、利用方法を示すことです。
+このページの目的は、コードを読む前に  
+**「SMCが頭の中でどう動いているのか」**というモデルを作ることです。
+
+数式の厳密な導出や理論的証明は扱わず、  
+粒子がどのように動き、なぜその処理が必要なのかを  
+**直感的に理解できること**を目標とします。
 
 ---
 
@@ -36,6 +41,7 @@ MCMCと比較したときの最大の違いは、以下の2点にあります。
 - data tempering
 - likelihood tempering (bridge approach)
 と呼ばれています。
+
 data tempering は徐々にデータを追加し，分布を遷移させていく手法です．時系列データに適しており，データを追加する順序によって推定精度に影響が生じます．
 likelihood tempering は data tempering よりも利用例が少ない手法で、尤度の影響を徐々に強めていくことで，滑らかに事前分布から事後分布へと遷移させていく手法です。
 ---
