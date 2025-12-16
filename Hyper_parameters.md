@@ -23,7 +23,8 @@ kernelspec:
 
 ## 主要なハイパーパラメータ
 
-### ESS_limit {#HP_main_1}
+(HP_main_1)=
+### ESS_limit
 
 ### γ_reduction_rate
 
@@ -33,5 +34,5 @@ kernelspec:
 
 ## 補足的なハイパーパラメータ
 
-### 
+### yeee
 
