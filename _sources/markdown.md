@@ -12,9 +12,7 @@ kernelspec:
   name: python3
 ---
 
-# How to use our code
-
-私たちのコードをどのように使うのか、注意点やTIPS等をまとめています。
+# Hyper parameters
 
 
 ---

@@ -12,7 +12,10 @@ kernelspec:
   name: python3
 ---
 
-# Hyper parameters
+
+# How to use our code
+
+私たちのコードをどのように使うのか、注意点やTIPS等をまとめています。
 
 Jupyter Book also lets you write text-based notebooks using MyST Markdown.
 See [the Notebooks with MyST Markdown documentation](https://jupyterbook.org/file-types/myst-notebooks.html) for more detailed instructions.
