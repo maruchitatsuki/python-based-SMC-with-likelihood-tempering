@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Sequential Monte Carlo (SMC) の全体像 &#8212; My sample book</title>
+    <title>How to use our code &#8212; My sample book</title>
   
   
   
@@ -65,8 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'markdown';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Example code of Michaelis-Menten" href="notebooks.html" />
-    <link rel="prev" title="python based sequential monte carlo method with likelihood tempering" href="intro.html" />
+    <link rel="prev" title="Hyper parameters" href="markdown-notebooks.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -174,9 +173,9 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Sequential Monte Carlo (SMC) の全体像</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">Example code of Michaelis-Menten</a></li>
 <li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Hyper parameters</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">How to use our code</a></li>
 </ul>
 
     </div>
@@ -362,7 +361,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Sequential Monte Carlo (SMC) の全体像</h1>
+    <h1>How to use our code</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -373,8 +372,6 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">このページで伝えたいこと</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-tempering-likelihood-tempering-data-tempering">data tempering は徐々にデータを追加し，分布を遷移させていく手法です．時系列データに適しており，データを追加する順序によって推定精度に影響が生じます．
-likelihood tempering は data tempering よりも利用例が少ない手法で、尤度の影響を徐々に強めていくことで，滑らかに事前分布から事後分布へと遷移させていく手法です。</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smc">SMCを構成する基本要素</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#particle">Particle</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">重み</a></li>
@@ -409,13 +406,9 @@ likelihood tempering は data tempering よりも利用例が少ない手法で�
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="sequential-monte-carlo-smc">
-<h1>Sequential Monte Carlo (SMC) の全体像<a class="headerlink" href="#sequential-monte-carlo-smc" title="Permalink to this heading">#</a></h1>
-<p>このページの目的は、コードを読む前に<br />
-**「SMCが頭の中でどう動いているのか」**というモデルを作ることです。</p>
-<p>数式の厳密な導出や理論的証明は扱わず、<br />
-粒子がどのように動き、なぜその処理が必要なのかを<br />
-<strong>直感的に理解できること</strong>を目標とします。</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-use-our-code">
+<h1>How to use our code<a class="headerlink" href="#how-to-use-our-code" title="Permalink to this heading">#</a></h1>
+<p>私たちのコードをどのように使うのか、注意点やTIPS等をまとめています。</p>
 <hr class="docutils" />
 <section id="id1">
 <h2>このページで伝えたいこと<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
@@ -435,11 +428,10 @@ likelihood tempering は data tempering よりも利用例が少ない手法で�
 <li><p>likelihood tempering (bridge approach)
 と呼ばれています。</p></li>
 </ul>
+<p>data tempering は徐々にデータを追加し，分布を遷移させていく手法です．時系列データに適しており，データを追加する順序によって推定精度に影響が生じます．
+likelihood tempering は data tempering よりも利用例が少ない手法で、尤度の影響を徐々に強めていくことで，滑らかに事前分布から事後分布へと遷移させていく手法です。</p>
 </section>
-<section id="data-tempering-likelihood-tempering-data-tempering">
-<h2>data tempering は徐々にデータを追加し，分布を遷移させていく手法です．時系列データに適しており，データを追加する順序によって推定精度に影響が生じます．
-likelihood tempering は data tempering よりも利用例が少ない手法で、尤度の影響を徐々に強めていくことで，滑らかに事前分布から事後分布へと遷移させていく手法です。<a class="headerlink" href="#data-tempering-likelihood-tempering-data-tempering" title="Permalink to this heading">#</a></h2>
-</section>
+<hr class="docutils" />
 <section id="smc">
 <h2>SMCを構成する基本要素<a class="headerlink" href="#smc" title="Permalink to this heading">#</a></h2>
 <section id="particle">
@@ -597,22 +589,13 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="markdown-notebooks.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">python based sequential monte carlo method with likelihood tempering</p>
+        <p class="prev-next-title">Hyper parameters</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="notebooks.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Example code of Michaelis-Menten</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -631,8 +614,6 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">このページで伝えたいこと</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-tempering-likelihood-tempering-data-tempering">data tempering は徐々にデータを追加し，分布を遷移させていく手法です．時系列データに適しており，データを追加する順序によって推定精度に影響が生じます．
-likelihood tempering は data tempering よりも利用例が少ない手法で、尤度の影響を徐々に強めていくことで，滑らかに事前分布から事後分布へと遷移させていく手法です。</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smc">SMCを構成する基本要素</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#particle">Particle</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">重み</a></li>
