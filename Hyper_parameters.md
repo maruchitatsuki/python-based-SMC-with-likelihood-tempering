@@ -24,11 +24,14 @@ kernelspec:
 ## 主要なハイパーパラメータ
 
 (HP_main_1)=
-### ESS_limit
+### $ESS_{\mathrm{limit}}$
 
+(HP_main_2)=
 ### γ_reduction_rate
 
-### tempering factor
+(HP_main_3)=
+### $N_{\mathrm{particle}}$
+
 
 ---
 
