@@ -464,18 +464,18 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
 <section id="ess">
 <span id="smc-main-ess"></span><h3>ESS<a class="headerlink" href="#ess" title="Permalink to this heading">#</a></h3>
 <p>ESSは有効粒子採択数の略称であり、以下の式で定義される。</p>
-<p>[
-\mathrm{ESS} = \frac{1}{\sum_{m=1}^{N_p} w_m^2}
-]</p>
+<p>$\mathrm{ESS} = \frac{1}{\sum_{m=1}^{N_p} w_m^2}$</p>
 <p>この指標は重みの偏りの度合いを定量化し、有効に活用されている粒子の数を示す。
 極端な例を考えてみる。Np個の粒子のうち、一つだけに重みが偏っている場合はESS=Npとなる。
 一方、Np個の粒子全てが等価であり、等しく活用されているときはESS=1となる。</p>
-<p>私たちのアルゴリズムでは、ESSが<a class="reference internal" href="Hyper_parameters.html#hp-main-ess-limit"><span class="std std-ref">$ESS_{\mathrm{limit}}$</span></a>を上回っているか否かによって推定の進行を制御している。</p>
+<p>私たちのアルゴリズムでは、ESSが<a class="reference internal" href="Hyper_parameters.html#hp-main-ess-limit"><span class="std std-ref">ESS_limit</span></a>（<span class="math notranslate nohighlight">\(ESS_{\mathrm{limit}}\)</span>）を上回っているか否かによって推定の進行を制御している。</p>
 </section>
 <section id="tempering-factor">
 <span id="smc-main"></span><h3>γ(tempering factor)<a class="headerlink" href="#tempering-factor" title="Permalink to this heading">#</a></h3>
 <p>尤度の寄与を制御するスカラーで、0 から 1 に向かって逐次的に増加する。</p>
-<p><span class="math notranslate nohighlight">\(π(\theta \mid \theta, y) \propto p(y \mid \theta)^\gamma_i\, p(\theta)\)</span></p>
+<p><span class="math notranslate nohighlight">\(π(\theta \mid \theta, y) \propto p(y \mid \theta)^{\gamma_i}\, p(\theta)\)</span></p>
+<p>ここで、<span class="math notranslate nohighlight">\(π(\theta \mid \theta, y)\)</span>は中間分布を表し、<span class="math notranslate nohighlight">\(p(y \mid \theta)\)</span>は尤度<span class="math notranslate nohighlight">\(p(\theta)\)</span>は事前分布を表している。
+<span class="math notranslate nohighlight">\({\gamma_i}\)</span>はが大きいほど中間分布に対する尤度の影響が大きくなる。また、iはSMCのイテレーションの数を表し、i=0のとき<span class="math notranslate nohighlight">\({\gamma_i}\)</span>=0である。推定が終了するとき、<span class="math notranslate nohighlight">\({\gamma_i}\)</span>=1となる。</p>
 </section>
 <section id="id3">
 <h3>事前分布・中間分布・事後分布<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>

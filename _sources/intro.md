@@ -60,23 +60,23 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
 ESSは有効粒子採択数の略称であり、以下の式で定義される。
 
 
-\[
-\mathrm{ESS} = \frac{1}{\sum_{m=1}^{N_p} w_m^2}
-\]
+$\mathrm{ESS} = \frac{1}{\sum_{m=1}^{N_p} w_m^2}\$
 
 この指標は重みの偏りの度合いを定量化し、有効に活用されている粒子の数を示す。
 極端な例を考えてみる。Np個の粒子のうち、一つだけに重みが偏っている場合はESS=Npとなる。
 一方、Np個の粒子全てが等価であり、等しく活用されているときはESS=1となる。
 
-私たちのアルゴリズムでは、ESSが{ref}`$ESS_{\mathrm{limit}}$<HP_main_ESS_limit>`を上回っているか否かによって推定の進行を制御している。
+私たちのアルゴリズムでは、ESSが{ref}`ESS_limit <HP_main_ESS_limit>`（$ESS_{\mathrm{limit}}$）を上回っているか否かによって推定の進行を制御している。
 
 (SMC_main_γ)=
 ### γ(tempering factor)
 
 尤度の寄与を制御するスカラーで、0 から 1 に向かって逐次的に増加する。
 
-$π(\theta \mid \theta, y) \propto p(y \mid \theta)^\gamma_i\, p(\theta)$
+$π(\theta \mid \theta, y) \propto p(y \mid \theta)^{\gamma_i}\, p(\theta)$
 
+ここで、$π(\theta \mid \theta, y)$は中間分布を表し、$p(y \mid \theta)$は尤度$p(\theta)$は事前分布を表している。
+${\gamma_i}$はが大きいほど中間分布に対する尤度の影響が大きくなる。また、iはSMCのイテレーションの数を表し、i=0のとき${\gamma_i}$=0である。推定が終了するとき、${\gamma_i}$=1となる。
 
 ### 事前分布・中間分布・事後分布
 
