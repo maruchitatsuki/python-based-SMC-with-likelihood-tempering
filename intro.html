@@ -378,6 +378,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#particle">Particle</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">重み</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling">Resampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ess">ESS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tempering-factor">γ(tempering factor)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">事前分布・中間分布・事後分布</a></li>
 </ul>
 </li>
@@ -454,8 +456,23 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
 これを防ぐために、有効な粒子を複製し、<br />
 無効な粒子を捨てる操作がResamplingです。
 このとき、極端に重みの大きな粒子が存在すると、粒子集団の多様性が失われ<b>縮退</b>と呼ばれる現象が起こります。
-これを防ぐために、ESSという指標が重要になっており、私たちのアルゴリズムではこのESSに基づいて尤度の影響を変化させていきます。
-<a class="reference internal" href="Hyper_parameters.html#hp-main-1"><span class="std std-ref">ESS_limit</span></a></p>
+これを防ぐために、<a class="reference internal" href="#smc-main-ess"><span class="std std-ref">ESS</span></a>という指標が重要になっており、私たちのアルゴリズムではこのESSに基づいて尤度の影響を変化させていきます。</p>
+</section>
+<section id="ess">
+<span id="smc-main-ess"></span><h3>ESS<a class="headerlink" href="#ess" title="Permalink to this heading">#</a></h3>
+<p>ESSは有効粒子採択数の略称であり、以下の式で定義される。</p>
+<p>[
+\mathrm{ESS} = \frac{1}{\sum_{m=1}^{N_p} w_m^2}
+]</p>
+<p>この指標は重みの偏りの度合いを定量化し、有効に活用されている粒子の数を示す。
+極端な例を考えてみる。Np個の粒子のうち、一つだけに重みが偏っている場合はESS=Npとなる。
+一方、Np個の粒子全てが等価であり、等しく活用されているときはESS=1となる。</p>
+<p>私たちのアルゴリズムでは、ESSが<a class="reference internal" href="Hyper_parameters.html#hp-main-ess-limit"><span class="std std-ref">$ESS_{\mathrm{limit}}$</span></a>を上回っているか否かによって推定の進行を制御している。</p>
+<p>(SMC_main_γ)</p>
+</section>
+<section id="tempering-factor">
+<h3>γ(tempering factor)<a class="headerlink" href="#tempering-factor" title="Permalink to this heading">#</a></h3>
+<p>尤度の寄与を制御するスカラーで、0 から 1 に向かって逐次的に増加する。</p>
 </section>
 <section id="id3">
 <h3>事前分布・中間分布・事後分布<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
@@ -629,6 +646,8 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#particle">Particle</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">重み</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling">Resampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ess">ESS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tempering-factor">γ(tempering factor)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">事前分布・中間分布・事後分布</a></li>
 </ul>
 </li>
