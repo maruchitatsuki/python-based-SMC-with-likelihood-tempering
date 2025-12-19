@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -389,7 +391,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3. Resampling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mutation">4. Mutation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">重みはなぜ偏るのか</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">なぜ再サンプリングが必要なのか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">なぜResamplingが必要なのか</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-tempering-data-tempering">Likelihood tempering と Data tempering</a><ul class="nav section-nav flex-column">
@@ -438,6 +440,7 @@ likelihood tempering は data tempering よりも利用例が少ない手法で�
 <hr class="docutils" />
 <section id="smc">
 <h2>SMCを構成する基本要素<a class="headerlink" href="#smc" title="Permalink to this heading">#</a></h2>
+<p>SMCアルゴリズムに関する詳細な説明は、<a class="reference external" href="https://github.com/maruchitatsuki/python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering/tree/main/SMC_Algorithm">GitHub repository</a>か、コードを読むと良い。</p>
 <section id="particle">
 <h3>Particle<a class="headerlink" href="#particle" title="Permalink to this heading">#</a></h3>
 <p>粒子とは、パラメータ空間上のサンプルです。<br />
@@ -468,11 +471,11 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
 極端な例を考えてみる。Np個の粒子のうち、一つだけに重みが偏っている場合はESS=Npとなる。
 一方、Np個の粒子全てが等価であり、等しく活用されているときはESS=1となる。</p>
 <p>私たちのアルゴリズムでは、ESSが<a class="reference internal" href="Hyper_parameters.html#hp-main-ess-limit"><span class="std std-ref">$ESS_{\mathrm{limit}}$</span></a>を上回っているか否かによって推定の進行を制御している。</p>
-<p>(SMC_main_γ)</p>
 </section>
 <section id="tempering-factor">
-<h3>γ(tempering factor)<a class="headerlink" href="#tempering-factor" title="Permalink to this heading">#</a></h3>
+<span id="smc-main"></span><h3>γ(tempering factor)<a class="headerlink" href="#tempering-factor" title="Permalink to this heading">#</a></h3>
 <p>尤度の寄与を制御するスカラーで、0 から 1 に向かって逐次的に増加する。</p>
+<p><span class="math notranslate nohighlight">\(π(\gamma_i \mid \theta, y) \propto p(\gamma_i \mid \theta)\, p(y \mid \theta, \gamma_i)\)</span></p>
 </section>
 <section id="id3">
 <h3>事前分布・中間分布・事後分布<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
@@ -525,7 +528,7 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
 <p>この現象を「粒子退化」と呼びます。</p>
 </section>
 <section id="id7">
-<h3>なぜ再サンプリングが必要なのか<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<h3>なぜResamplingが必要なのか<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
 <p>粒子退化が進むと、<br />
 「粒子数は多いが、実質的には数個しか意味を持たない」<br />
 状態になります。</p>
@@ -657,7 +660,7 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3. Resampling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mutation">4. Mutation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">重みはなぜ偏るのか</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">なぜ再サンプリングが必要なのか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">なぜResamplingが必要なのか</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-tempering-data-tempering">Likelihood tempering と Data tempering</a><ul class="nav section-nav flex-column">
