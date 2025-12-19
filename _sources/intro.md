@@ -30,6 +30,8 @@ likelihood tempering は data tempering よりも利用例が少ない手法で�
 
 ## SMCを構成する基本要素
 
+SMCアルゴリズムに関する詳細な説明は、[GitHub repository](https://github.com/maruchitatsuki/python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering/tree/main/SMC_Algorithm)か、コードを読むと良い。
+
 ### Particle
 粒子とは、パラメータ空間上のサンプルです。  
 SMCでは、1つの点ではなく多数の粒子の集合を使って分布を表現します。
@@ -68,10 +70,12 @@ ESSは有効粒子採択数の略称であり、以下の式で定義される�
 
 私たちのアルゴリズムでは、ESSが{ref}`$ESS_{\mathrm{limit}}$<HP_main_ESS_limit>`を上回っているか否かによって推定の進行を制御している。
 
-(SMC_main_γ)
+(SMC_main_γ)=
 ### γ(tempering factor)
 
 尤度の寄与を制御するスカラーで、0 から 1 に向かって逐次的に増加する。
+
+$π(\gamma_i \mid \theta, y) \propto p(\gamma_i \mid \theta)\, p(y \mid \theta, \gamma_i)$
 
 
 ### 事前分布・中間分布・事後分布
@@ -129,7 +133,7 @@ Resampling後の粒子は、同一パラメータを持つ集団が複数存在�
 
 この現象を「粒子退化」と呼びます。
 
-### なぜ再サンプリングが必要なのか
+### なぜResamplingが必要なのか
 
 粒子退化が進むと、  
 「粒子数は多いが、実質的には数個しか意味を持たない」  
