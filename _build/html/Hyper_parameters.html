@@ -377,12 +377,21 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">このページについて</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">主要なハイパーパラメータ</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ess-mathrm-limit"><span class="math notranslate nohighlight">\(ESS_{\mathrm{limit}}\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reduction-rate">γ_reduction_rate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r-mathrm-threshold"><span class="math notranslate nohighlight">\(r_{\mathrm{threshold}}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#n-mathrm-particle"><span class="math notranslate nohighlight">\(N_{\mathrm{particle}}\)</span></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">補足的なハイパーパラメータ</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yeee">yeee</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mhstep-mathrm-factor"><span class="math notranslate nohighlight">\(MHstep_{\mathrm{factor}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mhstep-mathrm-factor-cov"><span class="math notranslate nohighlight">\(MHstep_{\mathrm{factor\_cov}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#n-mathrm-mh-mathrm-adaptive"><span class="math notranslate nohighlight">\(N_{\mathrm{MH}}^{\mathrm{adaptive}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#n-mathrm-mh"><span class="math notranslate nohighlight">\(N_{\mathrm{MH}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mhstep-mathrm-ratio"><span class="math notranslate nohighlight">\(MHstep_{\mathrm{ratio}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r-mathrm-threshold-mathrm-final"><span class="math notranslate nohighlight">\(r_{\mathrm{threshold}}^{\mathrm{final}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r-mathrm-threshold-mathrm-min"><span class="math notranslate nohighlight">\(r_{\mathrm{threshold}}^{\mathrm{min}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#delta-gamma-max"><span class="math notranslate nohighlight">\(\Delta \gamma_{\max}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathrm-reduction-itr"><span class="math notranslate nohighlight">\(γ_{\mathrm{reduction_itr}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathrm-reduction-rate"><span class="math notranslate nohighlight">\(γ_{\mathrm{reduction_rate}}\)</span></a></li>
 </ul>
 </li>
 </ul>
@@ -401,25 +410,85 @@ document.write(`
 <hr class="docutils" />
 <section id="id1">
 <h2>このページについて<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>本節では、本研究で用いた Sequential Monte Carlo（SMC）アルゴリズムにおける
+ハイパーパラメータを整理し、それぞれがアルゴリズムの安定性・効率・精度において果たす役割をまとめる。</p>
 </section>
 <hr class="docutils" />
 <section id="id2">
 <h2>主要なハイパーパラメータ<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>特に重要なハイパーパラメータは<a class="reference internal" href="#hp-main-ess-limit"><span class="std std-ref">$ESS_{\mathrm{limit}}$</span></a>, <a class="reference internal" href="#hp-main-r-threshold"><span class="std std-ref">$r_{\mathrm{threshold}}$</span></a>, <a class="reference internal" href="#hp-main-n-particle"><span class="std std-ref">$N_{\mathrm{particle}}$</span></a>の3つであり、サンプリング精度及びサンプリング時間に大きな影響を及ぼす。</p>
 <section id="ess-mathrm-limit">
-<span id="hp-main-1"></span><h3><span class="math notranslate nohighlight">\(ESS_{\mathrm{limit}}\)</span><a class="headerlink" href="#ess-mathrm-limit" title="Permalink to this heading">#</a></h3>
+<span id="hp-main-ess-limit"></span><h3><span class="math notranslate nohighlight">\(ESS_{\mathrm{limit}}\)</span><a class="headerlink" href="#ess-mathrm-limit" title="Permalink to this heading">#</a></h3>
+<p>(0,1)の範囲をとる。
+<span class="math notranslate nohighlight">\(ESS_{\mathrm{limit}}\)</span>は<a class="reference internal" href="intro.html#smc-main-ess"><span class="std std-ref">ESS</span></a>と密接に関係するハイパーパラメータである。
+<span class="math notranslate nohighlight">\(ESS_{\mathrm{limit}}\)</span>を大きくするほど、推定は速く進行するが精度は落ちる。</p>
 </section>
-<section id="reduction-rate">
-<span id="hp-main-2"></span><h3>γ_reduction_rate<a class="headerlink" href="#reduction-rate" title="Permalink to this heading">#</a></h3>
+<section id="r-mathrm-threshold">
+<span id="hp-main-r-threshold"></span><h3><span class="math notranslate nohighlight">\(r_{\mathrm{threshold}}\)</span><a class="headerlink" href="#r-mathrm-threshold" title="Permalink to this heading">#</a></h3>
+<p>(0,1]の範囲をとる。
+mutationステップの終了条件を決める。
+どれだけの粒子が提案パラメータを受け入れたのかを計算し、被採択粒子数𝑟_𝑎𝑐を求める。
+そして、r_ac/np&gt;<span class="math notranslate nohighlight">\(r_{\mathrm{threshold}}\)</span>であれば、十分にかき混ぜられたと考え、次のステップに進む。</p>
 </section>
 <section id="n-mathrm-particle">
-<span id="hp-main-3"></span><h3><span class="math notranslate nohighlight">\(N_{\mathrm{particle}}\)</span><a class="headerlink" href="#n-mathrm-particle" title="Permalink to this heading">#</a></h3>
+<span id="hp-main-n-particle"></span><h3><span class="math notranslate nohighlight">\(N_{\mathrm{particle}}\)</span><a class="headerlink" href="#n-mathrm-particle" title="Permalink to this heading">#</a></h3>
+<p>粒子数を表す。
+各粒子はパラメータ空間上の候補点を表し、これらの集合によって事後分布が近似される。
+粒子数を増やすことで分布近似の精度は向上するが、計算コストも増加する。</p>
 </section>
 </section>
 <hr class="docutils" />
 <section id="id3">
 <h2>補足的なハイパーパラメータ<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
-<section id="yeee">
-<h3>yeee<a class="headerlink" href="#yeee" title="Permalink to this heading">#</a></h3>
+<section id="mhstep-mathrm-factor">
+<span id="hp-sub-mhstep-factor"></span><h3><span class="math notranslate nohighlight">\(MHstep_{\mathrm{factor}}\)</span><a class="headerlink" href="#mhstep-mathrm-factor" title="Permalink to this heading">#</a></h3>
+<p>Metropolis–Hastings（MH）法における提案分布のスケール係数。
+パラメータ更新時のステップサイズを制御する。</p>
+</section>
+<section id="mhstep-mathrm-factor-cov">
+<span id="hp-sub-mhstep-factor-cov"></span><h3><span class="math notranslate nohighlight">\(MHstep_{\mathrm{factor\_cov}}\)</span><a class="headerlink" href="#mhstep-mathrm-factor-cov" title="Permalink to this heading">#</a></h3>
+<p>粒子分布の共分散行列を用いた MH 提案分布に対するスケール係数。
+粒子間の相関構造をどの程度反映するかを制御する。</p>
+</section>
+<section id="n-mathrm-mh-mathrm-adaptive">
+<span id="hp-sub-ad-mhstep-num"></span><h3><span class="math notranslate nohighlight">\(N_{\mathrm{MH}}^{\mathrm{adaptive}}\)</span><a class="headerlink" href="#n-mathrm-mh-mathrm-adaptive" title="Permalink to this heading">#</a></h3>
+<p>γ=1の場合のミューテーションステップの反復回数。
+受理率や粒子分布の情報を用いて、提案分布を調整する段階で使用される。</p>
+</section>
+<section id="n-mathrm-mh">
+<span id="hp-sub-mhstep-num"></span><h3><span class="math notranslate nohighlight">\(N_{\mathrm{MH}}\)</span><a class="headerlink" href="#n-mathrm-mh" title="Permalink to this heading">#</a></h3>
+<p>通常のミューテーションステップの反復回数。
+受理率や粒子分布の情報を用いて、提案分布を調整する段階で使用される。</p>
+</section>
+<section id="mhstep-mathrm-ratio">
+<span id="hp-sub-mhstep-ratio"></span><h3><span class="math notranslate nohighlight">\(MHstep_{\mathrm{ratio}}\)</span><a class="headerlink" href="#mhstep-mathrm-ratio" title="Permalink to this heading">#</a></h3>
+<p>MH法における提案分布の広さを制御する係数。
+mutationステップにおける探索戦略の比重を調整する。</p>
+</section>
+<section id="r-mathrm-threshold-mathrm-final">
+<span id="hp-sub-r-threshold-f"></span><h3><span class="math notranslate nohighlight">\(r_{\mathrm{threshold}}^{\mathrm{final}}\)</span><a class="headerlink" href="#r-mathrm-threshold-mathrm-final" title="Permalink to this heading">#</a></h3>
+<p>γ=1におけるr_thresholdを決める。
+通常のr_thresholdよりは大きい。</p>
+</section>
+<section id="r-mathrm-threshold-mathrm-min">
+<span id="hp-sub-r-threshold-min"></span><h3><span class="math notranslate nohighlight">\(r_{\mathrm{threshold}}^{\mathrm{min}}\)</span><a class="headerlink" href="#r-mathrm-threshold-mathrm-min" title="Permalink to this heading">#</a></h3>
+<p>採択率がこのパラメータより小さい場合、提案分布を狭める。</p>
+</section>
+<section id="delta-gamma-max">
+<span id="hp-sub-d-gamma-max"></span><h3><span class="math notranslate nohighlight">\(\Delta \gamma_{\max}\)</span><a class="headerlink" href="#delta-gamma-max" title="Permalink to this heading">#</a></h3>
+<p><span class="xref std std-ref">γ(tempering factor)</span>の1ステップあたりの最大増分.
+分布が急激に変化するのを防ぎ、縮退を抑制する役割を持つ</p>
+</section>
+<section id="mathrm-reduction-itr">
+<span id="hp-sub-gm-reduction-itr"></span><h3><span class="math notranslate nohighlight">\(γ_{\mathrm{reduction_itr}}\)</span><a class="headerlink" href="#mathrm-reduction-itr" title="Permalink to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(\Delta \gamma\)</span> の縮小を試行する最大反復回数。
+tempering ステップが過度に細分化されることを防ぐための制限値である。</p>
+</section>
+<section id="mathrm-reduction-rate">
+<span id="hp-sub-gm-reduction-rate"></span><h3><span class="math notranslate nohighlight">\(γ_{\mathrm{reduction_rate}}\)</span><a class="headerlink" href="#mathrm-reduction-rate" title="Permalink to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(\Delta \gamma\)</span> を動的に減少させる際の減衰率。
+ESS などの安定性条件が満たされない場合に、
+<span class="math notranslate nohighlight">\(\Delta \gamma\)</span> を段階的に小さくするために用いられる。</p>
 </section>
 </section>
 </section>
@@ -491,12 +560,21 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">このページについて</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">主要なハイパーパラメータ</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ess-mathrm-limit"><span class="math notranslate nohighlight">\(ESS_{\mathrm{limit}}\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reduction-rate">γ_reduction_rate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r-mathrm-threshold"><span class="math notranslate nohighlight">\(r_{\mathrm{threshold}}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#n-mathrm-particle"><span class="math notranslate nohighlight">\(N_{\mathrm{particle}}\)</span></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">補足的なハイパーパラメータ</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yeee">yeee</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mhstep-mathrm-factor"><span class="math notranslate nohighlight">\(MHstep_{\mathrm{factor}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mhstep-mathrm-factor-cov"><span class="math notranslate nohighlight">\(MHstep_{\mathrm{factor\_cov}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#n-mathrm-mh-mathrm-adaptive"><span class="math notranslate nohighlight">\(N_{\mathrm{MH}}^{\mathrm{adaptive}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#n-mathrm-mh"><span class="math notranslate nohighlight">\(N_{\mathrm{MH}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mhstep-mathrm-ratio"><span class="math notranslate nohighlight">\(MHstep_{\mathrm{ratio}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r-mathrm-threshold-mathrm-final"><span class="math notranslate nohighlight">\(r_{\mathrm{threshold}}^{\mathrm{final}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r-mathrm-threshold-mathrm-min"><span class="math notranslate nohighlight">\(r_{\mathrm{threshold}}^{\mathrm{min}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#delta-gamma-max"><span class="math notranslate nohighlight">\(\Delta \gamma_{\max}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathrm-reduction-itr"><span class="math notranslate nohighlight">\(γ_{\mathrm{reduction_itr}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathrm-reduction-rate"><span class="math notranslate nohighlight">\(γ_{\mathrm{reduction_rate}}\)</span></a></li>
 </ul>
 </li>
 </ul>
