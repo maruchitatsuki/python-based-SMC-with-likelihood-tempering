@@ -393,10 +393,10 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">推定</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">何をどう設定したのか</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">推定結果</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">出力</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">まとめ</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">考察</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">推定結果について</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">他の手法には適用可能か</a></li>
 </ul>
@@ -537,15 +537,172 @@ document.write(`
 </section>
 <section id="id12">
 <h2>推定<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<p>本節では、ミカエリス–メンテンモデルに基づくパラメータ推定の設定と、<br />
+その結果として得られる出力について説明する。</p>
+<hr class="docutils" />
 <section id="id13">
 <h3>何をどう設定したのか<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
+<p>本問題では、以下のパラメータを推定対象とする。</p>
+<ul class="simple">
+<li><p>最大反応速度 <span class="math notranslate nohighlight">\(V_{\max}\)</span></p></li>
+<li><p>ミカエリス定数 <span class="math notranslate nohighlight">\(K_m\)</span></p></li>
+<li><p>（必要に応じて）観測ノイズの標準偏差 <span class="math notranslate nohighlight">\(\sigma\)</span></p></li>
+</ul>
+<p>基質濃度の時間発展は、次の常微分方程式でモデル化される。</p>
+<p><span class="math notranslate nohighlight">\(\dfrac{dS(t)}{dt} = - \dfrac{V_{\max} S(t)}{K_m + S(t)}\)</span></p>
+<p>生成物量は</p>
+<p><span class="math notranslate nohighlight">\(P(t) = S_0 - S(t)\)</span></p>
+<p>として定義し、観測データは以下のガウスノイズモデルに従うと仮定する。</p>
+<p><span class="math notranslate nohighlight">\(P_{\mathrm{obs}}(t) = P_{\mathrm{model}}(t) + \varepsilon(t)\)</span></p>
+<p><span class="math notranslate nohighlight">\(\varepsilon(t) \sim \mathcal{N}(0,\sigma^2)\)</span></p>
+<p>複数の初期基質濃度条件 <span class="math notranslate nohighlight">\(S_0^{(i)}\)</span> に対して得られた時系列データを同時に用い、<br />
+全条件で共通のパラメータ <span class="math notranslate nohighlight">\((V_{\max}, K_m, \sigma)\)</span> を推定する。</p>
+<p>推定はベイズ的枠組みに基づき、尤度関数は次式で与えられる。</p>
+<p>$\log p(\mathcal{D} \mid \theta)
+= \sum_{i=1}^{N_{\mathrm{cond}}}
+\sum_{j=1}^{N_t}
+\left[</p>
+<ul class="simple">
+<li><p>\dfrac{1}{2}\log(2\pi\sigma^2)</p></li>
+<li><p>\dfrac{
+\left(
+P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
+\right)^2
+}{2\sigma^2}
+\right]$</p></li>
+</ul>
+<p>ここで <span class="math notranslate nohighlight">\(\theta = \{V_{\max}, K_m, \sigma\}\)</span> は推定対象のパラメータ集合である。</p>
+<hr class="docutils" />
+<p>以下のようにメインから呼び出す関数を定義した。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- ODEとシミュレーション（t配列を指定する版） ---</span>
+<span class="k">def</span> <span class="nf">mm_ode</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span> <span class="n">Vmax</span> <span class="o">*</span> <span class="n">S</span> <span class="o">/</span> <span class="p">(</span><span class="n">Km</span> <span class="o">+</span> <span class="n">S</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">simulate_mm_on_grid</span><span class="p">(</span><span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">,</span> <span class="n">S0</span><span class="p">,</span> <span class="n">t_array</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    観測時刻 t_array に合わせてミカエリスメンテン進行曲線を解く。</span>
+<span class="sd">    戻り値: P_model(t_array)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">t_span</span> <span class="o">=</span> <span class="p">(</span><span class="n">t_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">sol</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span>
+        <span class="n">fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">:</span> <span class="n">mm_ode</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">),</span>
+        <span class="n">t_span</span><span class="o">=</span><span class="n">t_span</span><span class="p">,</span>
+        <span class="n">y0</span><span class="o">=</span><span class="p">[</span><span class="n">S0</span><span class="p">],</span>
+        <span class="n">t_eval</span><span class="o">=</span><span class="n">t_array</span><span class="p">,</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;RK45&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">S_model</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">P_model</span> <span class="o">=</span> <span class="n">S0</span> <span class="o">-</span> <span class="n">S_model</span>
+    <span class="k">return</span> <span class="n">P_model</span>
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">log_likelihood_mm_multi</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    複数の S0 条件のデータを使った対数尤度関数。</span>
+<span class="sd">    </span>
+<span class="sd">    params  : [Vmax, Km, sigma]</span>
+<span class="sd">    dataset : load_all_mm_data() で読み込んだデータのリスト</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+        
+    <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">params</span>
+
+    <span class="c1"># σを推定しない場合，sigmaはsigma_trueに固定される</span>
+    <span class="k">if</span> <span class="n">est_sigma</span><span class="p">:</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma_true</span>
+
+
+    <span class="k">if</span> <span class="n">sigma</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+
+    <span class="n">logL_total</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">P_model_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_ex</span><span class="p">):</span>
+        <span class="n">t</span>     <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;t&quot;</span><span class="p">]</span>
+        <span class="n">P_obs</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;P_obs&quot;</span><span class="p">]</span>
+        <span class="n">S0</span>    <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;S0&quot;</span><span class="p">]</span>
+
+        <span class="c1"># モデル予測</span>
+        <span class="n">P_model</span> <span class="o">=</span> <span class="n">simulate_mm_on_grid</span><span class="p">(</span><span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">,</span> <span class="n">S0</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+
+        <span class="c1"># 残差</span>
+        <span class="n">residual</span> <span class="o">=</span> <span class="n">P_obs</span> <span class="o">-</span> <span class="n">P_model</span>
+
+        <span class="n">logL_i</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">datapoint</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> \
+                 <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">residual</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">logL_total</span> <span class="o">+=</span> <span class="n">logL_i</span>
+        <span class="n">P_model_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">P_model</span><span class="p">)</span>
+
+
+    <span class="k">return</span> <span class="n">logL_total</span><span class="p">,</span> <span class="n">P_model_list</span>
+
+<span class="k">def</span> <span class="nf">sim_particle</span><span class="p">(</span><span class="n">particle</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sim_particle&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 並列化計算を実行する</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">log_likelihood_mm_multi</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">particle</span><span class="p">[</span><span class="n">i</span><span class="p">,:])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_particle</span><span class="p">)]</span>
+    <span class="c1"># print(results)</span>
+
+    <span class="c1"># 並列計算の結果を取得する</span>
+    <span class="n">llk_Cl</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+    <span class="c1"># 取得した結果を使える形に成型する</span>
+    <span class="n">llk</span><span class="p">,</span> <span class="n">C_l_</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">llk_Cl</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">llk</span><span class="p">,</span><span class="n">C_l_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">23</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">P_model</span> <span class="o">=</span> <span class="n">S0</span> <span class="o">-</span> <span class="n">S_model</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>     <span class="k">return</span> <span class="n">P_model</span>
+<span class="ne">---&gt; </span><span class="mi">23</span> <span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">def</span> <span class="nf">log_likelihood_mm_multi</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span><span class="sd">     複数の S0 条件のデータを使った対数尤度関数。</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span><span class="sd">     </span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span><span class="sd">     params  : [Vmax, Km, sigma]</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span><span class="sd">     dataset : load_all_mm_data() で読み込んだデータのリスト</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span>     <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">params</span>
+
+<span class="ne">NameError</span>: name &#39;ray&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="id14">
-<h3>推定結果<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<h3>出力<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<p>推定の結果として、以下の量が得られる。</p>
+<ul class="simple">
+<li><p>各パラメータ <span class="math notranslate nohighlight">\(V_{\max}, K_m, (\sigma)\)</span> の推定値</p></li>
+<li><p>パラメータの事後分布（またはその近似）</p></li>
+<li><p>各粒子あるいはサンプルに対応するモデル予測 <span class="math notranslate nohighlight">\(P_{\mathrm{model}}(t)\)</span></p></li>
+</ul>
+<p>これらの出力を用いることで、</p>
+<ul class="simple">
+<li><p>推定値と真値（疑似データの場合）の比較</p></li>
+<li><p>パラメータ不確実性の評価</p></li>
+<li><p>モデル予測と観測データの整合性の確認</p></li>
+</ul>
+<p>が可能となる。</p>
+<p>特に、異なる初期基質濃度条件に対して<br />
+単一のパラメータ集合で一貫した説明が可能かどうかは、<br />
+モデルの妥当性を判断する重要な指標となる。</p>
 </section>
 </section>
 <section id="id15">
-<h2>まとめ<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h2>
+<h2>考察<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h2>
 <section id="id16">
 <h3>推定結果について<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
 </section>
@@ -594,11 +751,6 @@ For example, here’s some sample Matplotlib code:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x1d499620bb0&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -622,9 +774,6 @@ For example, here’s some sample Matplotlib code:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">custom_lines</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Cold&#39;</span><span class="p">,</span> <span class="s1">&#39;Medium&#39;</span><span class="p">,</span> <span class="s1">&#39;Hot&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/a5ce989de8ce057087826bc0e007fe74f08b1378d0934d78b54f3749bae0cc6c.png" src="_images/a5ce989de8ce057087826bc0e007fe74f08b1378d0934d78b54f3749bae0cc6c.png" />
 </div>
 </div>
 <p>There is a lot more that you can do with outputs (such as including interactive outputs)
@@ -715,10 +864,10 @@ with your book. For more information about this, see <a class="reference externa
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">推定</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">何をどう設定したのか</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">推定結果</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">出力</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">まとめ</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">考察</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">推定結果について</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">他の手法には適用可能か</a></li>
 </ul>
