@@ -376,30 +376,25 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">このページで伝えたいこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mcmc">MCMCとの違い</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smc">SMCを構成する基本要素</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#particle">Particle</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">重み</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling">Resampling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ess">ESS</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tempering-factor">γ(tempering factor)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">事前分布・中間分布・事後分布</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">SMCのフロー</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">尤度テンパリング</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">データテンパリング</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">SMCのフロー</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialization">1. Initialization</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-calculation">2. Likelihood calculation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3. Resampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3. Resampling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mutation">4. Mutation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">重みはなぜ偏るのか</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">なぜResamplingが必要なのか</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-tempering-data-tempering">Likelihood tempering と Data tempering</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-tempering">Data tempering</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-tempering">Likelihood tempering</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">SMCの出力</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">SMCの利点</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">本コードで提供するもの</a></li>
 </ul>
             </nav>
@@ -438,6 +433,10 @@ document.write(`
 likelihood tempering は data tempering よりも利用例が少ない手法で、尤度の影響を徐々に強めていくことで，滑らかに事前分布から事後分布へと遷移させていく手法です。</p>
 </section>
 <hr class="docutils" />
+<section id="mcmc">
+<h2>MCMCとの違い<a class="headerlink" href="#mcmc" title="Permalink to this heading">#</a></h2>
+<p>SMC法を説明する上で避けては通れないのが、MCMC法との比較です。</p>
+</section>
 <section id="smc">
 <h2>SMCを構成する基本要素<a class="headerlink" href="#smc" title="Permalink to this heading">#</a></h2>
 <p>SMCアルゴリズムに関する詳細な説明は、<a class="reference external" href="https://github.com/maruchitatsuki/python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering/tree/main/SMC_Algorithm">GitHub repository</a>か、コードを読むと良い。</p>
@@ -451,7 +450,8 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
 <p>各粒子には、その粒子が<br />
 「現在の目標分布にどれだけ適合しているか」を表す重みが割り当てられます。
 具体的には尤度を用いて、それを行います。</p>
-<p>時間が進むにつれて、この重みは偏っていく傾向があるため、工夫が必要になります。</p>
+<p>重みが極端に偏ってしまうことを縮退と言い、これを防ぐために工夫が必要となります。
+その1つがESSの導入です。</p>
 </section>
 <section id="resampling">
 <h3>Resampling<a class="headerlink" href="#resampling" title="Permalink to this heading">#</a></h3>
@@ -470,13 +470,6 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
 一方、Np個の粒子全てが等価であり、等しく活用されているときはESS=1となる。</p>
 <p>私たちのアルゴリズムでは、ESSが<a class="reference internal" href="Hyper_parameters.html#hp-main-ess-limit"><span class="std std-ref">ESS_limit</span></a>（<span class="math notranslate nohighlight">\(ESS_{\mathrm{limit}}\)</span>）を上回っているか否かによって推定の進行を制御している。</p>
 </section>
-<section id="tempering-factor">
-<span id="smc-main"></span><h3>γ(tempering factor)<a class="headerlink" href="#tempering-factor" title="Permalink to this heading">#</a></h3>
-<p>尤度の寄与を制御するスカラーで、0 から 1 に向かって逐次的に増加する。</p>
-<p><span class="math notranslate nohighlight">\(π(\theta \mid \theta, y) \propto p(y \mid \theta)^{\gamma_i}\, p(\theta)\)</span></p>
-<p>ここで、<span class="math notranslate nohighlight">\(π(\theta \mid \theta, y)\)</span>は中間分布を表し、<span class="math notranslate nohighlight">\(p(y \mid \theta)\)</span>は尤度<span class="math notranslate nohighlight">\(p(\theta)\)</span>は事前分布を表している。
-<span class="math notranslate nohighlight">\({\gamma_i}\)</span>はが大きいほど中間分布に対する尤度の影響が大きくなる。また、iはSMCのイテレーションの数を表し、i=0のとき<span class="math notranslate nohighlight">\({\gamma_i}\)</span>=0である。推定が終了するとき、<span class="math notranslate nohighlight">\({\gamma_i}\)</span>=1となる。</p>
-</section>
 <section id="id3">
 <h3>事前分布・中間分布・事後分布<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>SMCでは、最初から難しい分布を直接扱いません。</p>
@@ -488,9 +481,24 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
 <p>この変化は、温度（tempering）やデータ数の増加によって実現されます。</p>
 </section>
 </section>
-<hr class="docutils" />
 <section id="id4">
-<h2>SMCのフロー<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<h2>尤度テンパリング<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>尤度テンパリングでは、中間分布に寄与する尤度の影響を徐々に増大させていくのが特徴である。</p>
+<p><span class="math notranslate nohighlight">\(π(\theta \mid \theta, y) \propto p(y \mid \theta)^{\gamma_i}\, p(\theta)\)</span></p>
+<p>ここで、<span class="math notranslate nohighlight">\(π(\theta \mid \theta, y)\)</span>は中間分布を表し、<span class="math notranslate nohighlight">\(p(y \mid \theta)\)</span>は尤度<span class="math notranslate nohighlight">\(p(\theta)\)</span>は事前分布を表している。
+<span class="math notranslate nohighlight">\({\gamma_i}\)</span>はテンパリング因子と呼ばれ、大きいほど中間分布に対する尤度の影響が大きくなる。また、iはSMCのイテレーションの数を表し、i=0のとき<span class="math notranslate nohighlight">\({\gamma_i}\)</span>=0である。推定が終了するとき、<span class="math notranslate nohighlight">\({\gamma_i}\)</span>=1となる。</p>
+</section>
+<section id="id5">
+<h2>データテンパリング<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<p>データを少数から徐々に追加していき、<br />
+観測情報を段階的に強くしていく方法です。</p>
+<p>どちらも、</p>
+<p><strong>「簡単な分布から難しい分布へ移動する」</strong></p>
+<p>という点で本質的には同じ考え方に基づいています。</p>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h2>SMCのフロー<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
 <p>SMCは、大きく4つのステップで構成されています。</p>
 <ol class="arabic simple">
 <li><p>Initialization</p></li>
@@ -507,8 +515,8 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
 <h3>2. Likelihood calculation<a class="headerlink" href="#likelihood-calculation" title="Permalink to this heading">#</a></h3>
 <p>粒子の持つパラメータを用いて、尤度計算を行います。そして、各粒子の尤度を用いてそれぞれの重みを計算します。</p>
 </section>
-<section id="id5">
-<h3>3. Resampling<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<section id="id7">
+<h3>3. Resampling<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
 <p>粒子の持つ重みに応じて、確率的に粒子を複製・消失させます。
 例えば、全体の粒子数がNpであり、粒子全体で重みの正規化を行っているという条件を考えてみます。
 このとき、重みが1/2Npの粒子は50%の確率で消失し、50%の確率で存続します。
@@ -519,52 +527,12 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
 <p>Resampling後の粒子は、同一パラメータを持つ集団が複数存在します。
 そこで、各粒子に対してMetropolis Hasting法を行い、確率的に粒子の遷移を行います。</p>
 </section>
-<hr class="docutils" />
-<section id="id6">
-<h3>重みはなぜ偏るのか<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
-<p>分布が変化すると、<br />
-一部の粒子だけが新しい分布に適合し、<br />
-それ以外の粒子の重みは急激に小さくなります。</p>
-<p>この現象を「粒子退化」と呼びます。</p>
-</section>
-<section id="id7">
-<h3>なぜResamplingが必要なのか<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
-<p>粒子退化が進むと、<br />
-「粒子数は多いが、実質的には数個しか意味を持たない」<br />
-状態になります。</p>
-<p>再サンプリングは、この問題を回避するために不可欠な操作です。</p>
-<p>また、本アルゴリズムにおいてはESSを用いてResampling</p>
-</section>
-</section>
-<hr class="docutils" />
-<section id="likelihood-tempering-data-tempering">
-<h2>Likelihood tempering と Data tempering<a class="headerlink" href="#likelihood-tempering-data-tempering" title="Permalink to this heading">#</a></h2>
-<p>SMCでは、「分布を徐々に難しくする」方法として<br />
-主に以下の2つが使われます。</p>
-<section id="data-tempering">
-<h3>Data tempering<a class="headerlink" href="#data-tempering" title="Permalink to this heading">#</a></h3>
-<p>データを少数から徐々に追加していき、<br />
-観測情報を段階的に強くしていく方法です。</p>
-<p>どちらも、</p>
-<p><strong>「簡単な分布から難しい分布へ移動する」</strong></p>
-<p>という点で本質的には同じ考え方に基づいています。</p>
-</section>
-<section id="likelihood-tempering">
-<h3>Likelihood tempering<a class="headerlink" href="#likelihood-tempering" title="Permalink to this heading">#</a></h3>
-<p>尤度に指数（温度）をかけ、<br />
-その指数を 0 から 1 に徐々に増やしていく方法です。</p>
-</section>
 </section>
 <hr class="docutils" />
 <section id="id8">
-<h2>SMCの出力<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
-<p>SMCを実行することで、以下の情報が得られます。</p>
-<ul class="simple">
-<li><p>パラメータの事後分布</p></li>
-<li><p>推定値の不確実性（分散・信用区間など）</p></li>
-<li><p>正規化定数（Evidence）</p></li>
-</ul>
-<p>これは、点推定だけを行う手法とは大きく異なる利点です。</p>
+<h2>SMCの利点<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<p>SMCを行うことでパラメータの事後分布を得ることができ、不確実性を定量化することができます。
+これは、点推定だけを行う手法とは大きく異なる利点です。</p>
 </section>
 <hr class="docutils" />
 <section id="id9">
@@ -644,30 +612,25 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">このページで伝えたいこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mcmc">MCMCとの違い</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smc">SMCを構成する基本要素</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#particle">Particle</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">重み</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling">Resampling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ess">ESS</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tempering-factor">γ(tempering factor)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">事前分布・中間分布・事後分布</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">SMCのフロー</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">尤度テンパリング</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">データテンパリング</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">SMCのフロー</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialization">1. Initialization</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-calculation">2. Likelihood calculation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3. Resampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3. Resampling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mutation">4. Mutation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">重みはなぜ偏るのか</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">なぜResamplingが必要なのか</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-tempering-data-tempering">Likelihood tempering と Data tempering</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-tempering">Data tempering</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-tempering">Likelihood tempering</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">SMCの出力</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">SMCの利点</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">本コードで提供するもの</a></li>
 </ul>
   </nav></div>
