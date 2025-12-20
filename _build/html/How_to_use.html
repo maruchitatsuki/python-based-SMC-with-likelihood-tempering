@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>How to use our code &#8212; My sample book</title>
+    <title>How to Use &#8212; My sample book</title>
   
   
   
@@ -175,7 +175,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Example.html">Example code of Michaelis-Menten</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Hyper_parameters.html">Hyper parameters</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">How to use our code</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">How to Use</a></li>
 </ul>
 
     </div>
@@ -361,7 +361,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>How to use our code</h1>
+    <h1>How to Use</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -371,9 +371,23 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-cell">An example cell</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-notebook-with-myst-markdown">Create a notebook with MyST Markdown</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quickly-add-yaml-metadata-for-myst-notebooks">Quickly add YAML metadata for MyST Notebooks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">① このページについて</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">② 私たちのコードの利用方法</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">入手方法</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">どこをどう変えれば良いのか</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">モデル定義</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">観測モデル・尤度</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">推定対象パラメータ</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">③ 拡張</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">並列化について</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">重たい問題を扱う場合の注意点</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">まとめ</a></li>
 </ul>
             </nav>
         </div>
@@ -385,51 +399,127 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="how-to-use-our-code">
-<h1>How to use our code<a class="headerlink" href="#how-to-use-our-code" title="Permalink to this heading">#</a></h1>
-<p>私たちのコードをどのように使うのか、注意点やTIPS等をまとめています。</p>
-<p>Jupyter Book also lets you write text-based notebooks using MyST Markdown.
-See <a class="reference external" href="https://jupyterbook.org/file-types/myst-notebooks.html">the Notebooks with MyST Markdown documentation</a> for more detailed instructions.
-This page shows off a notebook written in MyST Markdown.</p>
-<section id="an-example-cell">
-<h2>An example cell<a class="headerlink" href="#an-example-cell" title="Permalink to this heading">#</a></h2>
-<p>With MyST Markdown, you can define code cells with a directive like so:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
-</pre></div>
-</div>
-</div>
-</div>
-<p>When your book is built, the contents of any <code class="docutils literal notranslate"><span class="pre">{code-cell}</span></code> blocks will be
-executed with your default Jupyter kernel, and their outputs will be displayed
-in-line with the rest of your content.</p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>Jupyter Book uses <a class="reference external" href="https://jupytext.readthedocs.io/en/latest/">Jupytext</a> to convert text-based files to notebooks, and can support <a class="reference external" href="https://jupyterbook.org/file-types/jupytext.html">many other text-based notebook files</a>.</p>
-</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-use">
+<h1>How to Use<a class="headerlink" href="#how-to-use" title="Permalink to this heading">#</a></h1>
+<section id="id1">
+<h2>① このページについて<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>本ページでは、本プロジェクトの目的と位置づけ、ならびに<br />
+提供しているコードの基本的な利用方法と拡張方法について説明する。</p>
+<p>想定する利用者は以下である。</p>
+<ul class="simple">
+<li><p>ODE ベースのモデルに対するパラメータ推定を行いたい利用者</p></li>
+<li><p>SMC / MCMC などの確率的推定アルゴリズムを利用する利用者</p></li>
+<li><p>研究・検証用途でコードを再利用・拡張したい利用者</p></li>
+</ul>
+<p>数理モデルや推定アルゴリズムの詳細については、<br />
+Model / Inference / Example 各ページを参照すること。</p>
 </section>
-<section id="create-a-notebook-with-myst-markdown">
-<h2>Create a notebook with MyST Markdown<a class="headerlink" href="#create-a-notebook-with-myst-markdown" title="Permalink to this heading">#</a></h2>
-<p>MyST Markdown notebooks are defined by two things:</p>
-<ol class="arabic simple">
-<li><p>YAML metadata that is needed to understand if / how it should convert text files to notebooks (including information about the kernel needed).
-See the YAML at the top of this page for example.</p></li>
-<li><p>The presence of <code class="docutils literal notranslate"><span class="pre">{code-cell}</span></code> directives, which will be executed with your book.</p></li>
-</ol>
-<p>That’s all that is needed to get started!</p>
-</section>
-<section id="quickly-add-yaml-metadata-for-myst-notebooks">
-<h2>Quickly add YAML metadata for MyST Notebooks<a class="headerlink" href="#quickly-add-yaml-metadata-for-myst-notebooks" title="Permalink to this heading">#</a></h2>
-<p>If you have a markdown file and you’d like to quickly add YAML metadata to it, so that Jupyter Book will treat it as a MyST Markdown Notebook, run the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span><span class="o">-</span><span class="n">book</span> <span class="n">myst</span> <span class="n">init</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">markdownfile</span><span class="o">.</span><span class="n">md</span>
+<hr class="docutils" />
+<section id="id2">
+<h2>② 私たちのコードの利用方法<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<section id="id3">
+<h3>入手方法<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>本コードは Git リポジトリとして配布されている。<br />
+以下の手順で取得する。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>&lt;repository-url&gt;
+<span class="nb">cd</span><span class="w"> </span>&lt;repository-name&gt;
 </pre></div>
 </div>
+<p>必要な Python パッケージは、以下のコマンドでインストールする。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<p>Jupyter Notebook または Jupyter Book を利用する場合は、<br />
+対応する Python 環境が構築されていることを確認する。</p>
+</section>
+<hr class="docutils" />
+<section id="id4">
+<h3>どこをどう変えれば良いのか<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>本コードは、問題依存部分と共通処理部分が明確に分離されている。<br />
+自分の問題に適用する際に主に変更が必要となるのは以下の箇所である。</p>
+<section id="id5">
+<h4>モデル定義<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>ODE の右辺（反応速度式・力学モデル）</p></li>
+<li><p>状態変数およびモデルパラメータの定義</p></li>
+</ul>
+<p>対象とする力学系に応じて、この部分を書き換えることで<br />
+別のモデルに容易に対応できる。</p>
+</section>
+<section id="id6">
+<h4>観測モデル・尤度<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>観測量の定義</p></li>
+<li><p>観測ノイズモデル（例：ガウスノイズ）</p></li>
+</ul>
+<p>観測誤差の構造が異なる場合は、<br />
+尤度関数の定義を適切に変更する必要がある。</p>
+</section>
+<section id="id7">
+<h4>推定対象パラメータ<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>推定するパラメータの種類</p></li>
+<li><p>固定するパラメータと推定するパラメータの切り分け</p></li>
+</ul>
+<p>これにより、</p>
+<ul class="simple">
+<li><p>一部のパラメータのみを推定する</p></li>
+<li><p>ノイズパラメータを同時に推定する</p></li>
+</ul>
+<p>といった設定が可能となる。</p>
+<p>具体的な変更箇所については、<br />
+Example ページを参照すること。</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id8">
+<h2>③ 拡張<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<section id="id9">
+<h3>並列化について<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>本コードは、計算コストの高い推定問題を想定し、<br />
+粒子単位・サンプル単位での並列化を前提として設計されている。</p>
+<ul class="simple">
+<li><p>各粒子の尤度計算は独立</p></li>
+<li><p>並列化により計算時間の短縮が可能</p></li>
+</ul>
+<p>並列化ライブラリ（例：Ray）を用いることで、</p>
+<ul class="simple">
+<li><p>粒子数の増加</p></li>
+<li><p>データ条件数の増加</p></li>
+<li><p>高次元パラメータ空間</p></li>
+</ul>
+<p>にも対応可能である。</p>
+</section>
+<hr class="docutils" />
+<section id="id10">
+<h3>重たい問題を扱う場合の注意点<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<p>計算負荷の大きい問題を扱う際には、以下の点に注意する。</p>
+<ul class="simple">
+<li><p>ODE ソルバの設定<br />
+不要に高精度な設定は計算時間を大きく増加させる。</p></li>
+<li><p>パラメータの同定可能性<br />
+情報量の少ないデータでは、推定が不安定になる可能性がある。</p></li>
+<li><p>並列化オーバーヘッド<br />
+問題規模によっては、並列化が逆効果になる場合がある。</p></li>
+<li><p>メモリ使用量<br />
+粒子数や保存する中間結果が多い場合、<br />
+メモリがボトルネックになることがある。</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id11">
+<h2>まとめ<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<p>本コードは、</p>
+<ul class="simple">
+<li><p>モデル定義を差し替えやすい構造</p></li>
+<li><p>並列計算を前提とした設計</p></li>
+<li><p>小規模問題から大規模問題への拡張性</p></li>
+</ul>
+<p>を備えた、推定問題のための汎用テンプレートである。</p>
+<p>Example を起点として、<br />
+自身の問題に合わせて段階的に拡張することを想定している。</p>
 </section>
 </section>
 
@@ -488,9 +578,23 @@ See the YAML at the top of this page for example.</p></li>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-cell">An example cell</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-notebook-with-myst-markdown">Create a notebook with MyST Markdown</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quickly-add-yaml-metadata-for-myst-notebooks">Quickly add YAML metadata for MyST Notebooks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">① このページについて</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">② 私たちのコードの利用方法</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">入手方法</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">どこをどう変えれば良いのか</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">モデル定義</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">観測モデル・尤度</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">推定対象パラメータ</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">③ 拡張</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">並列化について</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">重たい問題を扱う場合の注意点</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">まとめ</a></li>
 </ul>
   </nav></div>
 
