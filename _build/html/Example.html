@@ -177,6 +177,8 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Example code of Michaelis-Menten</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="Hyper_parameters.html">Hyper parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="How_to_use.html">How to use our code</a></li>
 </ul>
@@ -374,10 +376,50 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Example code of Michaelis-Menten</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">どのような問題か</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ミカエリスメンテン式</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ミカエリスメンテン式とは</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">数式表現</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">時間発展モデルへの拡張</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#frac-ds-t-dt">[
+\frac{dS(t)}{dt}</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">推定するパラメータについて</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">動力学パラメータ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">観測ノイズパラメータ（必要に応じて）</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">疑似データの作成方法</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">疑似データ生成の手順</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#p-text-obs-t">[
+P_{\text{obs}}(t)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">疑似データを用いる目的</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">推定</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">何をどう設定したのか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">推定結果</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">まとめ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">推定結果について</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">他の手法には適用可能か</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#markdown-notebooks">Markdown + notebooks</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#myst-markdown">MyST markdown</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-blocks-and-outputs">Code blocks and outputs</a></li>
 </ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -390,8 +432,171 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="example-code-of-michaelis-menten">
 <h1>Example code of Michaelis-Menten<a class="headerlink" href="#example-code-of-michaelis-menten" title="Permalink to this heading">#</a></h1>
+<p>ここでは、ミカエリスメンテン式に関するパラメータ推定を例として、私たちのコードでパラメータ推定を行う方法を解説する。</p>
+<section id="id1">
+<h2>どのような問題か<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>ミカエリス–メンテン式に基づく酵素反応モデルを用いて、<br />
+<strong>実験（あるいは疑似）データから反応パラメータを推定する問題</strong>を考える。</p>
+<p>本問題では、</p>
+<ul class="simple">
+<li><p>酵素反応の時間発展を常微分方程式（ODE）で記述し</p></li>
+<li><p>複数の初期基質濃度条件における観測データを用いて</p></li>
+<li><p>モデルパラメータを統計的に推定する</p></li>
+</ul>
+<p>ことを目的とする。</p>
+</section>
+<hr class="docutils" />
+<section id="id2">
+<h2>ミカエリスメンテン式<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<section id="id3">
+<h3>ミカエリスメンテン式とは<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>ミカエリス–メンテン式は、<strong>酵素反応の速さが基質濃度によってどのように変化するか</strong>を表す、最も基本的な反応速度式である。</p>
+<p>酵素反応では、基質濃度が低い場合には基質を増やすほど反応速度はほぼ比例的に増加する。<br />
+一方で、基質濃度が十分に高くなると酵素が飽和し、それ以上基質を増やしても反応速度はほとんど増加しなくなる。</p>
+<p>この <strong>「低濃度では比例、高濃度では飽和」</strong> という性質を簡潔に表したものがミカエリス–メンテン式である。</p>
+</section>
+<hr class="docutils" />
+<section id="id4">
+<h3>数式表現<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>ミカエリス–メンテン式は以下のように表される。</p>
+<p>[
+v = \frac{V_{\max} [S]}{K_m + [S]}
+]</p>
+<p>ここで、</p>
+<ul class="simple">
+<li><p>(v)：反応速度</p></li>
+<li><p>([S])：基質濃度</p></li>
+<li><p>(V_{\max})：最大反応速度</p></li>
+<li><p>(K_m)：ミカエリス定数</p></li>
+</ul>
+<p>を表す。</p>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h3>時間発展モデルへの拡張<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>本問題では反応速度式を用いて、基質濃度の時間変化を次の常微分方程式で表す。</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="frac-ds-t-dt">
+<h1>[
+\frac{dS(t)}{dt}<a class="headerlink" href="#frac-ds-t-dt" title="Permalink to this heading">#</a></h1>
+<ul class="simple">
+<li><p>\frac{V_{\max} S(t)}{K_m + S(t)}
+]</p></li>
+</ul>
+<p>ここで (S(t)) は時刻 (t) における基質濃度である。</p>
+<p>生成物量 (P(t)) は、初期基質濃度 (S_0) を用いて</p>
+<p>[
+P(t) = S_0 - S(t)
+]</p>
+<p>として計算される。</p>
+<hr class="docutils" />
+<section id="id6">
+<h2>推定するパラメータについて<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<p>本問題で推定対象とするパラメータは以下である。</p>
+<section id="id7">
+<h3>動力学パラメータ<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>最大反応速度 (V_{\max})</strong><br />
+酵素が完全に飽和したときの反応速度を表す。</p></li>
+<li><p><strong>ミカエリス定数 (K_m)</strong><br />
+反応速度が (V_{\max}/2) となるときの基質濃度であり、<br />
+酵素と基質の親和性の指標として解釈されることが多い。</p></li>
+</ul>
+</section>
+<section id="id8">
+<h3>観測ノイズパラメータ（必要に応じて）<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>観測誤差の標準偏差 (\sigma)</strong><br />
+観測値がモデル値からどの程度ばらつくかを表す。</p></li>
+</ul>
+<p>解析条件に応じて、</p>
+<ul class="simple">
+<li><p>(\sigma) を既知として固定する場合</p></li>
+<li><p>(\sigma) も未知パラメータとして同時に推定する場合</p></li>
+</ul>
+<p>の両方を考える。</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id9">
+<h2>疑似データの作成方法<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<p>実データの代わりに、既知の真のパラメータを用いて<br />
+<strong>疑似観測データ</strong>を生成する。</p>
+<section id="id10">
+<h3>疑似データ生成の手順<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>真のパラメータ<br />
+[
+V_{\max}^{\text{true}}, \quad K_m^{\text{true}}
+]
+を設定する。</p></li>
+<li><p>複数の初期基質濃度<br />
+[
+S_0^{(1)}, S_0^{(2)}, \dots, S_0^{(N)}
+]
+を用意する。</p></li>
+<li><p>各条件についてミカエリス–メンテン ODE を数値的に解き、<br />
+理論的な生成物量 (P_{\text{true}}(t)) を計算する。</p></li>
+<li><p>各時刻において、ガウス分布に従う観測ノイズを加える。</p></li>
+</ol>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="p-text-obs-t">
+<h1>[
+P_{\text{obs}}(t)<a class="headerlink" href="#p-text-obs-t" title="Permalink to this heading">#</a></h1>
+<p>P_{\text{true}}(t)
++
+\varepsilon(t),
+\quad
+\varepsilon(t) \sim \mathcal{N}(0,\sigma^2)
+]</p>
+<p>これにより、現実の実験データを模擬した疑似データを得る。</p>
+<hr class="docutils" />
+<section id="id11">
+<h2>疑似データを用いる目的<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>推定アルゴリズムの妥当性検証</p></li>
+<li><p>パラメータの同定可能性（identifiability）の確認</p></li>
+<li><p>推定精度および不確実性評価</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<section id="id12">
+<h2>まとめ<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<p>本問題は、</p>
+<blockquote>
+<div><p>ミカエリス–メンテン型酵素反応モデルを用いて、<br />
+複数条件の時系列データから<br />
+反応パラメータを統計的に推定する問題</p>
+</div></blockquote>
+<p>として定式化される。</p>
+<p>この枠組みは、ベイズ推定・MCMC・SMC などの手法を検証する<br />
+代表的なテスト問題として利用できる。</p>
+</section>
+<section id="id13">
+<h2>推定<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h2>
+<section id="id14">
+<h3>何をどう設定したのか<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="id15">
+<h3>推定結果<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="id16">
+<h2>まとめ<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h2>
+<section id="id17">
+<h3>推定結果について<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="id18">
+<h3>他の手法には適用可能か<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h3>
+<p>\</p>
 <p>You can also create content with Jupyter Notebooks. This means that you can include
 code blocks and their outputs in your book.</p>
+</section>
+</section>
 <section id="markdown-notebooks">
 <h2>Markdown + notebooks<a class="headerlink" href="#markdown-notebooks" title="Permalink to this heading">#</a></h2>
 <p>As it is markdown, you can embed images, HTML, etc into your posts!</p>
@@ -431,7 +636,7 @@ For example, here’s some sample Matplotlib code:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x1725db501c0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x23d07d101c0&gt;
 </pre></div>
 </div>
 </div>
@@ -532,10 +737,50 @@ with your book. For more information about this, see <a class="reference externa
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Example code of Michaelis-Menten</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">どのような問題か</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ミカエリスメンテン式</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ミカエリスメンテン式とは</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">数式表現</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">時間発展モデルへの拡張</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#frac-ds-t-dt">[
+\frac{dS(t)}{dt}</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">推定するパラメータについて</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">動力学パラメータ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">観測ノイズパラメータ（必要に応じて）</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">疑似データの作成方法</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">疑似データ生成の手順</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#p-text-obs-t">[
+P_{\text{obs}}(t)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">疑似データを用いる目的</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">推定</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">何をどう設定したのか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">推定結果</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">まとめ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">推定結果について</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">他の手法には適用可能か</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#markdown-notebooks">Markdown + notebooks</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#myst-markdown">MyST markdown</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-blocks-and-outputs">Code blocks and outputs</a></li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
