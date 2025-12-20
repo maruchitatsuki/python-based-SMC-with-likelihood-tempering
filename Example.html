@@ -386,7 +386,7 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#frac-ds-t-dt">[
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#frac-ds-t-dt">$[
 \frac{dS(t)}{dt}</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">推定するパラメータについて</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">動力学パラメータ</a></li>
@@ -399,7 +399,7 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#p-text-obs-t">[
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#p-text-obs-t">$[
 P_{\text{obs}}(t)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">疑似データを用いる目的</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">まとめ</a></li>
@@ -459,15 +459,15 @@ P_{\text{obs}}(t)</a><ul class="visible nav section-nav flex-column">
 <section id="id4">
 <h3>数式表現<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>ミカエリス–メンテン式は以下のように表される。</p>
-<p>[
+<p><span class="math notranslate nohighlight">\(\[
 v = \frac{V_{\max} [S]}{K_m + [S]}
-]</p>
+\]\)</span></p>
 <p>ここで、</p>
 <ul class="simple">
-<li><p>(v)：反応速度</p></li>
-<li><p>([S])：基質濃度</p></li>
-<li><p>(V_{\max})：最大反応速度</p></li>
-<li><p>(K_m)：ミカエリス定数</p></li>
+<li><p><span class="math notranslate nohighlight">\(\(v\)\)</span>：反応速度</p></li>
+<li><p><span class="math notranslate nohighlight">\(\([S]\)\)</span>：基質濃度</p></li>
+<li><p><span class="math notranslate nohighlight">\(\(V_{\max}\)\)</span>：最大反応速度</p></li>
+<li><p><span class="math notranslate nohighlight">\(\(K_m\)\)</span>：ミカエリス定数</p></li>
 </ul>
 <p>を表す。</p>
 </section>
@@ -479,17 +479,17 @@ v = \frac{V_{\max} [S]}{K_m + [S]}
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="frac-ds-t-dt">
-<h1>[
+<h1>$[
 \frac{dS(t)}{dt}<a class="headerlink" href="#frac-ds-t-dt" title="Permalink to this heading">#</a></h1>
 <ul class="simple">
 <li><p>\frac{V_{\max} S(t)}{K_m + S(t)}
-]</p></li>
+]$</p></li>
 </ul>
-<p>ここで (S(t)) は時刻 (t) における基質濃度である。</p>
-<p>生成物量 (P(t)) は、初期基質濃度 (S_0) を用いて</p>
-<p>[
+<p>ここで <span class="math notranslate nohighlight">\(\(S(t)\)\)</span> は時刻 <span class="math notranslate nohighlight">\(\(t\) \)</span>における基質濃度である。</p>
+<p>生成物量 <span class="math notranslate nohighlight">\(\(P(t)\)\)</span> は、初期基質濃度 <span class="math notranslate nohighlight">\(\(S_0\)\)</span> を用いて</p>
+<p><span class="math notranslate nohighlight">\(\[
 P(t) = S_0 - S(t)
-]</p>
+\]\)</span></p>
 <p>として計算される。</p>
 <hr class="docutils" />
 <section id="id6">
@@ -498,23 +498,23 @@ P(t) = S_0 - S(t)
 <section id="id7">
 <h3>動力学パラメータ<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p><strong>最大反応速度 (V_{\max})</strong><br />
+<li><p><strong>最大反応速度 <span class="math notranslate nohighlight">\(\(V_{\max}\)\)</span></strong><br />
 酵素が完全に飽和したときの反応速度を表す。</p></li>
-<li><p><strong>ミカエリス定数 (K_m)</strong><br />
-反応速度が (V_{\max}/2) となるときの基質濃度であり、<br />
+<li><p><strong>ミカエリス定数 <span class="math notranslate nohighlight">\(\(K_m\)\)</span></strong><br />
+反応速度が <span class="math notranslate nohighlight">\(\(V_{\max}/2\)\)</span> となるときの基質濃度であり、<br />
 酵素と基質の親和性の指標として解釈されることが多い。</p></li>
 </ul>
 </section>
 <section id="id8">
 <h3>観測ノイズパラメータ（必要に応じて）<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p><strong>観測誤差の標準偏差 (\sigma)</strong><br />
+<li><p><strong>観測誤差の標準偏差 <span class="math notranslate nohighlight">\(\(\sigma\)\)</span></strong><br />
 観測値がモデル値からどの程度ばらつくかを表す。</p></li>
 </ul>
 <p>解析条件に応じて、</p>
 <ul class="simple">
-<li><p>(\sigma) を既知として固定する場合</p></li>
-<li><p>(\sigma) も未知パラメータとして同時に推定する場合</p></li>
+<li><p><span class="math notranslate nohighlight">\(\(\sigma\)\)</span> を既知として固定する場合</p></li>
+<li><p><span class="math notranslate nohighlight">\(\(\sigma\)\)</span> も未知パラメータとして同時に推定する場合</p></li>
 </ul>
 <p>の両方を考える。</p>
 </section>
@@ -528,31 +528,31 @@ P(t) = S_0 - S(t)
 <h3>疑似データ生成の手順<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>真のパラメータ<br />
-[
+<span class="math notranslate nohighlight">\(\[
 V_{\max}^{\text{true}}, \quad K_m^{\text{true}}
-]
+\]\)</span>
 を設定する。</p></li>
 <li><p>複数の初期基質濃度<br />
-[
+<span class="math notranslate nohighlight">\(\[
 S_0^{(1)}, S_0^{(2)}, \dots, S_0^{(N)}
-]
+\]\)</span>
 を用意する。</p></li>
 <li><p>各条件についてミカエリス–メンテン ODE を数値的に解き、<br />
-理論的な生成物量 (P_{\text{true}}(t)) を計算する。</p></li>
+理論的な生成物量 <span class="math notranslate nohighlight">\(\(P_{\text{true}}(t)\)\)</span> を計算する。</p></li>
 <li><p>各時刻において、ガウス分布に従う観測ノイズを加える。</p></li>
 </ol>
 </section>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="p-text-obs-t">
-<h1>[
+<h1>$[
 P_{\text{obs}}(t)<a class="headerlink" href="#p-text-obs-t" title="Permalink to this heading">#</a></h1>
 <p>P_{\text{true}}(t)
 +
 \varepsilon(t),
 \quad
 \varepsilon(t) \sim \mathcal{N}(0,\sigma^2)
-]</p>
+]$</p>
 <p>これにより、現実の実験データを模擬した疑似データを得る。</p>
 <hr class="docutils" />
 <section id="id11">
@@ -636,7 +636,7 @@ For example, here’s some sample Matplotlib code:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x23d07d101c0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x23485850bb0&gt;
 </pre></div>
 </div>
 </div>
@@ -747,7 +747,7 @@ with your book. For more information about this, see <a class="reference externa
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#frac-ds-t-dt">[
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#frac-ds-t-dt">$[
 \frac{dS(t)}{dt}</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">推定するパラメータについて</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">動力学パラメータ</a></li>
@@ -760,7 +760,7 @@ with your book. For more information about this, see <a class="reference externa
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#p-text-obs-t">[
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#p-text-obs-t">$[
 P_{\text{obs}}(t)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">疑似データを用いる目的</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">まとめ</a></li>
