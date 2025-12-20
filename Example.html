@@ -576,7 +576,10 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
 <p>以下のようにメインから呼び出す関数を定義した。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- ODEとシミュレーション（t配列を指定する版） ---</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+
+
+<span class="c1"># --- ODEとシミュレーション（t配列を指定する版） ---</span>
 <span class="k">def</span> <span class="nf">mm_ode</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">):</span>
     <span class="k">return</span> <span class="o">-</span> <span class="n">Vmax</span> <span class="o">*</span> <span class="n">S</span> <span class="o">/</span> <span class="p">(</span><span class="n">Km</span> <span class="o">+</span> <span class="n">S</span><span class="p">)</span>
 
@@ -660,22 +663,9 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">23</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">P_model</span> <span class="o">=</span> <span class="n">S0</span> <span class="o">-</span> <span class="n">S_model</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span>     <span class="k">return</span> <span class="n">P_model</span>
-<span class="ne">---&gt; </span><span class="mi">23</span> <span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">def</span> <span class="nf">log_likelihood_mm_multi</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">26</span><span class="sd">     複数の S0 条件のデータを使った対数尤度関数。</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span><span class="sd">     </span>
-<span class="g g-Whitespace">     </span><span class="mi">28</span><span class="sd">     params  : [Vmax, Km, sigma]</span>
-<span class="g g-Whitespace">     </span><span class="mi">29</span><span class="sd">     dataset : load_all_mm_data() で読み込んだデータのリスト</span>
-<span class="g g-Whitespace">     </span><span class="mi">30</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">32</span>     <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">params</span>
-
-<span class="ne">NameError</span>: name &#39;ray&#39; is not defined
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-12-20 17:25:19,711	INFO util.py:159 -- Outdated packages:
+  ipywidgets==7.6.5 found, needs ipywidgets&gt;=8
+Run `pip install -U ipywidgets`, then restart the notebook server for rich notebook output.
 </pre></div>
 </div>
 </div>
@@ -751,6 +741,11 @@ For example, here’s some sample Matplotlib code:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x19d43433be0&gt;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -774,6 +769,9 @@ For example, here’s some sample Matplotlib code:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">custom_lines</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Cold&#39;</span><span class="p">,</span> <span class="s1">&#39;Medium&#39;</span><span class="p">,</span> <span class="s1">&#39;Hot&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a5ce989de8ce057087826bc0e007fe74f08b1378d0934d78b54f3749bae0cc6c.png" src="_images/a5ce989de8ce057087826bc0e007fe74f08b1378d0934d78b54f3749bae0cc6c.png" />
 </div>
 </div>
 <p>There is a lot more that you can do with outputs (such as including interactive outputs)
