@@ -25,9 +25,7 @@ kernelspec:
 
 ## 主要なハイパーパラメータ
 
-特に重要なハイパーパラメータは  
-$ESS_{\mathrm{limit}}$，$r_{\mathrm{threshold}}$$N_{\mathrm{particle}}$  
-の3つであり、サンプリング精度及びサンプリング時間に大きな影響を及ぼす。
+特に重要なハイパーパラメータは$ESS_{\mathrm{limit}}$，$r_{\mathrm{threshold}}$, $N_{\mathrm{particle}}$の3つであり、サンプリング精度及びサンプリング時間に大きな影響を及ぼす。
 
 (HP_main_ESS_limit)=
 ### $ESS_{\mathrm{limit}}$
