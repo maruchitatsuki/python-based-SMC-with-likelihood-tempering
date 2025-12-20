@@ -75,7 +75,7 @@ Metropolis–Hastings（MH）法における提案分布のスケール係数。
 粒子間の相関構造をどの程度反映するかを制御する。
 
 (HP_sub_ad_mhstep_num)=
-### $N_{\mathrm{MH}}^{\mathrm{adaptive}}$
+### $N_{{\mathrm{MH}},{\mathrm{adaptive}}}$
 
 $\gamma = 1$ の場合のミューテーションステップの反復回数。  
 受理率や粒子分布の情報を用いて、提案分布を調整する段階で使用される。
@@ -93,13 +93,13 @@ MH 法における提案分布の広さを制御する係数。
 mutation ステップにおける探索戦略の比重を調整する。
 
 (HP_sub_r_threshold_f)=
-### $r_{\mathrm{threshold}}^{\mathrm{final}}$
+### $r_{{\mathrm{threshold}},{\mathrm{final}}}$
 
 $\gamma = 1$ における $r_{\mathrm{threshold}}$ を決める。  
 通常の $r_{\mathrm{threshold}}$ よりは大きい。
 
 (HP_sub_r_threshold_min)=
-### $r_{\mathrm{threshold}}^{\mathrm{min}}$
+### $r_{{\mathrm{threshold}},{\mathrm{min}}}$
 
 採択率がこのパラメータより小さい場合、提案分布を狭める。
 
@@ -111,13 +111,13 @@ $\gamma = 1$ における $r_{\mathrm{threshold}}$ を決める。
 分布が急激に変化するのを防ぎ、縮退を抑制する役割を持つ。
 
 (HP_sub_gm_reduction_itr)=
-### $\gamma_{\mathrm{reduction\_itr}}$
+### $\gamma_{\mathrm{reduction\,itr}}$
 
 $\Delta \gamma$ の縮小を試行する最大反復回数。  
 tempering ステップが過度に細分化されることを防ぐための制限値である。
 
 (HP_sub_gm_reduction_rate)=
-### $\gamma_{\mathrm{reduction\_rate}}$
+### $\gamma_{\mathrm{reduction\,rate}}$
 
 $\Delta \gamma$ を動的に減少させる際の減衰率。  
 ESS などの安定性条件が満たされない場合に、  
