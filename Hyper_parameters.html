@@ -383,15 +383,15 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">補足的なハイパーパラメータ</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mhstep-mathrm-factor"><span class="math notranslate nohighlight">\(MHstep_{\mathrm{factor}}\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mhstep-mathrm-factor-cov"><span class="math notranslate nohighlight">\(MHstep_{\mathrm{factor\_cov}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mhstep-mathrm-factor-mathrm-cov"><span class="math notranslate nohighlight">\(MHstep_{{\mathrm{factor\}},{\mathrm{cov\}}}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#n-mathrm-mh-mathrm-adaptive"><span class="math notranslate nohighlight">\(N_{{\mathrm{MH}},{\mathrm{adaptive}}}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#n-mathrm-mh"><span class="math notranslate nohighlight">\(N_{\mathrm{MH}}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mhstep-mathrm-ratio"><span class="math notranslate nohighlight">\(MHstep_{\mathrm{ratio}}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r-mathrm-threshold-mathrm-final"><span class="math notranslate nohighlight">\(r_{{\mathrm{threshold}},{\mathrm{final}}}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r-mathrm-threshold-mathrm-min"><span class="math notranslate nohighlight">\(r_{{\mathrm{threshold}},{\mathrm{min}}}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#delta-gamma-max"><span class="math notranslate nohighlight">\(\Delta \gamma_{\max}\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gamma-mathrm-reduction-itr"><span class="math notranslate nohighlight">\(\gamma_{\mathrm{reduction\,itr}}\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gamma-mathrm-reduction-rate"><span class="math notranslate nohighlight">\(\gamma_{\mathrm{reduction\,rate}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gamma-mathrm-reduction-mathrm-itr"><span class="math notranslate nohighlight">\(\gamma_{{\mathrm{reduction\}},{\mathrm{itr\}}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hp-sub-gm-reduction-rate"><span class="math notranslate nohighlight">\(\gamma_{{\mathrm{reduction\}},{\mathrm{itr\}}}\)</span></a></li>
 </ul>
 </li>
 </ul>
@@ -451,8 +451,8 @@ mutation ステップの終了条件を決める。<br />
 <p>Metropolis–Hastings（MH）法における提案分布のスケール係数。<br />
 パラメータ更新時のステップサイズを制御する。</p>
 </section>
-<section id="mhstep-mathrm-factor-cov">
-<span id="hp-sub-mhstep-factor-cov"></span><h3><span class="math notranslate nohighlight">\(MHstep_{\mathrm{factor\_cov}}\)</span><a class="headerlink" href="#mhstep-mathrm-factor-cov" title="Permalink to this heading">#</a></h3>
+<section id="mhstep-mathrm-factor-mathrm-cov">
+<span id="hp-sub-mhstep-factor-cov"></span><h3><span class="math notranslate nohighlight">\(MHstep_{{\mathrm{factor\}},{\mathrm{cov\}}}\)</span><a class="headerlink" href="#mhstep-mathrm-factor-mathrm-cov" title="Permalink to this heading">#</a></h3>
 <p>粒子分布の共分散行列を用いた MH 提案分布に対するスケール係数。<br />
 粒子間の相関構造をどの程度反映するかを制御する。</p>
 </section>
@@ -486,13 +486,13 @@ mutation ステップにおける探索戦略の比重を調整する。</p>
 1 ステップあたりの最大増分。<br />
 分布が急激に変化するのを防ぎ、縮退を抑制する役割を持つ。</p>
 </section>
-<section id="gamma-mathrm-reduction-itr">
-<span id="hp-sub-gm-reduction-itr"></span><h3><span class="math notranslate nohighlight">\(\gamma_{\mathrm{reduction\,itr}}\)</span><a class="headerlink" href="#gamma-mathrm-reduction-itr" title="Permalink to this heading">#</a></h3>
+<section id="gamma-mathrm-reduction-mathrm-itr">
+<span id="hp-sub-gm-reduction-itr"></span><h3><span class="math notranslate nohighlight">\(\gamma_{{\mathrm{reduction\}},{\mathrm{itr\}}}\)</span><a class="headerlink" href="#gamma-mathrm-reduction-mathrm-itr" title="Permalink to this heading">#</a></h3>
 <p><span class="math notranslate nohighlight">\(\Delta \gamma\)</span> の縮小を試行する最大反復回数。<br />
 tempering ステップが過度に細分化されることを防ぐための制限値である。</p>
 </section>
-<section id="gamma-mathrm-reduction-rate">
-<span id="hp-sub-gm-reduction-rate"></span><h3><span class="math notranslate nohighlight">\(\gamma_{\mathrm{reduction\,rate}}\)</span><a class="headerlink" href="#gamma-mathrm-reduction-rate" title="Permalink to this heading">#</a></h3>
+<section id="hp-sub-gm-reduction-rate">
+<span id="id4"></span><h3><span class="math notranslate nohighlight">\(\gamma_{{\mathrm{reduction\}},{\mathrm{itr\}}}\)</span><a class="headerlink" href="#hp-sub-gm-reduction-rate" title="Permalink to this heading">#</a></h3>
 <p><span class="math notranslate nohighlight">\(\Delta \gamma\)</span> を動的に減少させる際の減衰率。<br />
 ESS などの安定性条件が満たされない場合に、<br />
 <span class="math notranslate nohighlight">\(\Delta \gamma\)</span> を段階的に小さくするために用いられる。</p>
@@ -573,15 +573,15 @@ ESS などの安定性条件が満たされない場合に、<br />
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">補足的なハイパーパラメータ</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mhstep-mathrm-factor"><span class="math notranslate nohighlight">\(MHstep_{\mathrm{factor}}\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mhstep-mathrm-factor-cov"><span class="math notranslate nohighlight">\(MHstep_{\mathrm{factor\_cov}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mhstep-mathrm-factor-mathrm-cov"><span class="math notranslate nohighlight">\(MHstep_{{\mathrm{factor\}},{\mathrm{cov\}}}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#n-mathrm-mh-mathrm-adaptive"><span class="math notranslate nohighlight">\(N_{{\mathrm{MH}},{\mathrm{adaptive}}}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#n-mathrm-mh"><span class="math notranslate nohighlight">\(N_{\mathrm{MH}}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mhstep-mathrm-ratio"><span class="math notranslate nohighlight">\(MHstep_{\mathrm{ratio}}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r-mathrm-threshold-mathrm-final"><span class="math notranslate nohighlight">\(r_{{\mathrm{threshold}},{\mathrm{final}}}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r-mathrm-threshold-mathrm-min"><span class="math notranslate nohighlight">\(r_{{\mathrm{threshold}},{\mathrm{min}}}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#delta-gamma-max"><span class="math notranslate nohighlight">\(\Delta \gamma_{\max}\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gamma-mathrm-reduction-itr"><span class="math notranslate nohighlight">\(\gamma_{\mathrm{reduction\,itr}}\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gamma-mathrm-reduction-rate"><span class="math notranslate nohighlight">\(\gamma_{\mathrm{reduction\,rate}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gamma-mathrm-reduction-mathrm-itr"><span class="math notranslate nohighlight">\(\gamma_{{\mathrm{reduction\}},{\mathrm{itr\}}}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hp-sub-gm-reduction-rate"><span class="math notranslate nohighlight">\(\gamma_{{\mathrm{reduction\}},{\mathrm{itr\}}}\)</span></a></li>
 </ul>
 </li>
 </ul>
