@@ -65,7 +65,7 @@ Metropolis–Hastings（MH）法における提案分布のスケール係数。
 パラメータ更新時のステップサイズを制御する。
 
 (HP_sub_mhstep_factor_cov)=
-### $MHstep_{{\mathrm{factor\}},{\mathrm{cov\}}}$
+### $MHstep_{\mathrm{factor},\,\mathrm{cov}}$
 
 粒子分布の共分散行列を用いた MH 提案分布に対するスケール係数。  
 粒子間の相関構造をどの程度反映するかを制御する。
@@ -107,13 +107,13 @@ $\gamma = 1$ における $r_{\mathrm{threshold}}$ を決める。
 分布が急激に変化するのを防ぎ、縮退を抑制する役割を持つ。
 
 (HP_sub_gm_reduction_itr)=
-### $\gamma_{{\mathrm{reduction\}},{\mathrm{itr\}}}$
+### $\gamma_{\mathrm{reduction},\,\mathrm{itr}}$
 
 $\Delta \gamma$ の縮小を試行する最大反復回数。  
 tempering ステップが過度に細分化されることを防ぐための制限値である。
 
 (HP_sub_gm_reduction_rate)=
-### $\gamma_{{\mathrm{reduction\}},{\mathrm{itr\}}}$
+### $\gamma_{\mathrm{reduction},\,\mathrm{rate}}$
 
 $\Delta \gamma$ を動的に減少させる際の減衰率。  
 ESS などの安定性条件が満たされない場合に、  
