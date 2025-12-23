@@ -102,7 +102,7 @@ $\gamma = 1$ における $r_{\mathrm{threshold}}$ を決める。
 (HP_sub_d_gamma_max)=
 ### $\Delta \gamma_{\max}$
 
-{ref}`$\gamma$（tempering factor） <SMC_main_γ>` の  
+$\gamma$（{ref}`tempering factor） <SMC_main_γ>` の  
 1 ステップあたりの最大増分。  
 分布が急激に変化するのを防ぎ、縮退を抑制する役割を持つ。
 
