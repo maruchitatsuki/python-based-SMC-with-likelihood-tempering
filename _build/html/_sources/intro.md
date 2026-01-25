@@ -1,154 +1,173 @@
 # Python based sequential monte carlo method with likelihood tempering
 
-このウェブサイトの目的は、likelihood tempering を用いた逐次モンテカルロ法(SMC法)に対する理解を深める手がかりを与えること、そして、私たちが実装したSMCコードの簡単な説明、ハイパーパラメータの解説、使用例、利用方法を示すことです。
+
+The purpose of this website is to offer guidance for deepening your understanding of Sequential Monte Carlo (SMC) methods with likelihood tempering, as well as to provide a simple explanation of our SMC implementation, its hyperparameters, usage examples, and instructions for use.
 
 ---
 
-## このページで伝えたいこと
+## Purpose of This Page
 
-Sequential Monte Carlo（SMC）は、
-<b>粒子集団でパラメータを追跡することで、近似的な分布を得る手法</b>
-です。
+Sequential Monte Carlo (SMC) is a  
+**method for approximating probability distributions by tracking a population of particles**  
+over time.
 
-MCMCと比較したときの最大の違いは、以下の2点にあります。
+Compared with MCMC, the two key differences are:
 
-- 単一のサンプルではなく、**粒子集団**を同時に扱う
-- 分布が「時間（ステップ）」とともに**徐々に変化**していく
+- Instead of a single sample path, SMC handles an entire **population of particles** simultaneously  
+- The distribution **gradually evolves over “time” (steps)**
 
-この構造により、SMCでは  
-1回の実行で **分布全体とその不確実性** を同時に得ることができます。
+Because of this structure, a single SMC run provides both the **overall distribution** and its **uncertainty** at the same time.
 
-また、SMC法には大別して2つの手法があります。それぞれ
-- data tempering
-- likelihood tempering (bridge approach)
-と呼ばれています。
+SMC methods can be broadly categorized into two approaches:
 
-data tempering は徐々にデータを追加し，分布を遷移させていく手法です．時系列データに適しており，データを追加する順序によって推定精度に影響が生じます．
-likelihood tempering は data tempering よりも利用例が少ない手法で、尤度の影響を徐々に強めていくことで，滑らかに事前分布から事後分布へと遷移させていく手法です。
+- **Data tempering**  
+- **Likelihood tempering (bridge approach)**
+
+Data tempering sequentially adds data to transition the distribution. It is suitable for time-series data, but the order in which data are added can affect estimation accuracy.  
+Likelihood tempering, which is less commonly used, smoothly shifts the distribution from the prior to the posterior by gradually increasing the influence of the likelihood.
 
 ---
 
-## MCMCとの違い
+## Differences from MCMC
 
-SMC法を説明する上で避けては通れないのが、MCMC法との比較です。
+When explaining SMC, it is essential to compare it with MCMC.
 
+---
 
-## SMCを構成する基本要素
+## Core Components of SMC
 
-SMCアルゴリズムに関する詳細な説明は、[GitHub repository](https://github.com/maruchitatsuki/python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering/tree/main/SMC_Algorithm)か、コードを読むと良い。
+Detailed explanations of the SMC algorithm can be found in the [GitHub repository](https://github.com/maruchitatsuki/python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering/tree/main/SMC_Algorithm), or by reading the source code directly.
 
 ### Particle
-粒子とは、パラメータ空間上のサンプルです。  
-SMCでは、1つの点ではなく多数の粒子の集合を使って分布を表現します。
+A *particle* is a sample in the parameter space.  
+In SMC, we represent the distribution not by a single point, but by a collection of many particles.
 
-### 重み
+### Weights
 
-各粒子には、その粒子が  
-「現在の目標分布にどれだけ適合しているか」を表す重みが割り当てられます。
-具体的には尤度を用いて、それを行います。
+Each particle is assigned a weight that represents  
+*how well that particle fits the current target distribution*.  
+In practice, this is determined using the likelihood.
 
-重みが極端に偏ってしまうことを縮退と言い、これを防ぐために工夫が必要となります。
-その1つがESSの導入です。
-
+When the weights become extremely imbalanced, the particle system suffers from **degeneracy**.  
+To mitigate this, we introduce the concept of ESS.
 
 ### Resampling
 
-重みが極端に偏ると、多くの粒子が実質的に意味を持たなくなります。  
-これを防ぐために、有効な粒子を複製し、  
-無効な粒子を捨てる操作がResamplingです。
-このとき、極端に重みの大きな粒子が存在すると、粒子集団の多様性が失われ<b>縮退</b>と呼ばれる現象が起こります。
-これを防ぐために、{ref}`ESS<SMC_main_ESS>`という指標が重要になっており、私たちのアルゴリズムではこのESSに基づいて尤度の影響を変化させていきます。
+When particle weights are highly imbalanced, most particles become effectively useless.  
+To avoid this, SMC performs **resampling**, an operation that duplicates effective particles and discards ineffective ones.
 
+If there exists a particle with an extremely large weight, diversity of the particle population may collapse, resulting in **degeneracy**.  
+To prevent this, the indicator {ref}`ESS<SMC_main_ESS>` plays an essential role.  
+In our algorithm, the influence of the likelihood is adjusted dynamically based on this ESS value.
 
 (SMC_main_ESS)=
 ### ESS
 
-ESSは有効粒子採択数の略称であり、以下の式で定義される。
+ESS stands for *Effective Sample Size* and is defined as:
+
+\[
+\mathrm{ESS} = \frac{1}{\sum_{m=1}^{N_p} w_m^2}
+\]
+
+This metric quantifies how imbalanced the weights are and represents the number of effectively contributing particles.  
+Consider the following extreme cases:
+
+- If one particle dominates all the weight among \(N_p\) particles, then ESS = 1.  
+- If all \(N_p\) particles contribute equally, then ESS = \(N_p\).
+
+In our algorithm, we control the progression of estimation depending on whether the ESS exceeds the threshold {ref}`ESS_limit <HP_main_ESS_limit>` (\(ESS_{\mathrm{limit}}\)).
+
+### Prior, Intermediate, and Posterior Distributions
+
+SMC does not attempt to directly handle a complex target distribution from the beginning.
+
+Instead, it transitions smoothly from:
+
+- an initial **easy** distribution  
+- to the **complex target** distribution
+
+This transition is realized through tempering (adjusting the temperature parameter) or increasing the number of data points.
 
 
-$\mathrm{ESS} = \frac{1}{\sum_{m=1}^{N_p} w_m^2}$
+## Likelihood Tempering
 
+In likelihood tempering, the influence of the likelihood on the intermediate distributions is gradually increased.
 
-この指標は重みの偏りの度合いを定量化し、有効に活用されている粒子の数を示す。
-極端な例を考えてみる。Np個の粒子のうち、一つだけに重みが偏っている場合はESS=Npとなる。
-一方、Np個の粒子全てが等価であり、等しく活用されているときはESS=1となる。
+\[
+\pi(\theta \mid y) \propto p(y \mid \theta)^{\gamma_i}\, p(\theta)
+\]
 
-私たちのアルゴリズムでは、ESSが{ref}`ESS_limit <HP_main_ESS_limit>`（$ESS_{\mathrm{limit}}$）を上回っているか否かによって推定の進行を制御している。
+Here, \(\pi(\theta \mid y)\) represents the intermediate distribution,  
+\(p(y \mid \theta)\) is the likelihood,  
+and \(p(\theta)\) is the prior distribution.
 
-### 事前分布・中間分布・事後分布
+The parameter \(\gamma_i\) is called the *tempering factor*.  
+A larger value of \(\gamma_i\) places more emphasis on the likelihood in the intermediate distribution.  
+The index \(i\) denotes the SMC iteration, and at \(i = 0\), \(\gamma_i = 0\).  
+When the estimation process ends, \(\gamma_i = 1\).
 
-SMCでは、最初から難しい分布を直接扱いません。
+## Data Tempering
 
-- 最初は「簡単な分布」
-- 徐々に「目的とする難しい分布」
+In data tempering, the data are gradually introduced in small portions,  
+thereby increasing the strength of observational information step by step.
 
-へと移動していきます。
+Both approaches share the same fundamental idea:
 
-この変化は、温度（tempering）やデータ数の増加によって実現されます。
-
-## 尤度テンパリング
-
-尤度テンパリングでは、中間分布に寄与する尤度の影響を徐々に増大させていくのが特徴である。
-
-$π(\theta \mid \theta, y) \propto p(y \mid \theta)^{\gamma_i}\, p(\theta)$
-
-ここで、$π(\theta \mid \theta, y)$は中間分布を表し、$p(y \mid \theta)$は尤度$p(\theta)$は事前分布を表している。
-${\gamma_i}$はテンパリング因子と呼ばれ、大きいほど中間分布に対する尤度の影響が大きくなる。また、iはSMCのイテレーションの数を表し、i=0のとき${\gamma_i}$=0である。推定が終了するとき、${\gamma_i}$=1となる。
-
-## データテンパリング
-
-データを少数から徐々に追加していき、  
-観測情報を段階的に強くしていく方法です。
-
-どちらも、
-
-**「簡単な分布から難しい分布へ移動する」**
-
-という点で本質的には同じ考え方に基づいています。
+**They transition from an easier distribution to a more complex one.**
 
 ---
 
-## SMCのフロー
+## SMC Workflow
 
-SMCは、大きく4つのステップで構成されています。
-1. Initialization
-2. Likelihood calculation
-3. Resampling
-4. Mutation
+SMC consists of four major steps:
 
-始めにInitializationを行った後、2~4を繰り返すことで事後分布を得ます。
+1. Initialization  
+2. Likelihood calculation  
+3. Resampling  
+4. Mutation  
+
+After performing Initialization, steps 2–4 are repeated to obtain the posterior distribution.
 
 ### 1. Initialization
 
-Initialization では初めに事前分布𝑝(𝜽) を定義し，𝑝(𝜽) から粒子をサンプリングします。
+In the Initialization step, we first define the prior distribution \(p(\theta)\)  
+and sample particles from this prior.
 
-### 2. Likelihood calculation
+### 2. Likelihood Calculation
 
-粒子の持つパラメータを用いて、尤度計算を行います。そして、各粒子の尤度を用いてそれぞれの重みを計算します。
+Using the parameters stored in each particle, we compute the likelihood.  
+Then, particle weights are updated according to their likelihood values.
 
 ### 3. Resampling
 
-粒子の持つ重みに応じて、確率的に粒子を複製・消失させます。
-例えば、全体の粒子数がNpであり、粒子全体で重みの正規化を行っているという条件を考えてみます。
-このとき、重みが1/2Npの粒子は50%の確率で消失し、50%の確率で存続します。
-重みが1.5/Npの粒子の場合は50%の確率で2つに複製され、50%の確率で1つのままになります。
+Particles are probabilistically duplicated or discarded according to their weights.  
+Suppose the total number of particles is \(N_p\), and the weights are normalized.
+
+- A particle with weight \(1/(2N_p)\) has a 50% chance of being discarded and a 50% chance of surviving.  
+- A particle with weight \(1.5/N_p\) has a 50% chance of producing two copies and a 50% chance of remaining as one.
 
 ### 4. Mutation
 
-Resampling後の粒子は、同一パラメータを持つ集団が複数存在します。
-そこで、各粒子に対してMetropolis Hasting法を行い、確率的に粒子の遷移を行います。
+After resampling, many particles may share identical parameter values.  
+To restore diversity, we apply a Metropolis–Hastings mutation step to each particle,  
+allowing particles to transition probabilistically.
 
 ---
 
-## SMCの利点
+## Advantages of SMC
 
-SMCを行うことでパラメータの事後分布を得ることができ、不確実性を定量化することができます。
-これは、点推定だけを行う手法とは大きく異なる利点です。
+SMC provides the posterior distribution of parameters,  
+allowing uncertainty to be quantified.  
+This is a major advantage compared with methods that only perform point estimation.
 
 ---
 
-## 本サイトで提供するもの
+## What This Site Provides
 
-本サイトではミカエリスメンテン式に関する推定を行ったExample, ハイパーパラメータに関する詳細な説明, 私たちのコードをどう利用するかについて提供します。
+This website offers:
+
+- an example estimation problem using the Michaelis–Menten model,  
+- detailed explanations of hyperparameters,  
+- and instructions on how to use our SMC code.
+
 ```{tableofcontents}
-```
