@@ -3,6 +3,9 @@
 
 The purpose of this website is to offer guidance for deepening your understanding of Sequential Monte Carlo (SMC) methods with likelihood tempering, as well as to provide a simple explanation of our SMC implementation, its hyperparameters, usage examples, and instructions for use.
 
+Author: Tatsuki Maruchi
+Affiliation: Nagoya University  
+
 ---
 
 ## Purpose of This Page
