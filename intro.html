@@ -62,8 +62,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -375,27 +373,27 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">このページで伝えたいこと</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mcmc">MCMCとの違い</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smc">SMCを構成する基本要素</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose-of-this-page">Purpose of This Page</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#differences-from-mcmc">Differences from MCMC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-components-of-smc">Core Components of SMC</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#particle">Particle</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">重み</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weights">Weights</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling">Resampling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ess">ESS</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">事前分布・中間分布・事後分布</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-intermediate-and-posterior-distributions">Prior, Intermediate, and Posterior Distributions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">尤度テンパリング</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">データテンパリング</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">SMCのフロー</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-tempering">Likelihood Tempering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-tempering">Data Tempering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smc-workflow">SMC Workflow</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialization">1. Initialization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-calculation">2. Likelihood calculation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3. Resampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-calculation">2. Likelihood Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3. Resampling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mutation">4. Mutation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">SMCの利点</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">本サイトで提供するもの</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advantages-of-smc">Advantages of SMC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-site-provides">What This Site Provides</a></li>
 </ul>
             </nav>
         </div>
@@ -409,135 +407,156 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="python-based-sequential-monte-carlo-method-with-likelihood-tempering">
 <h1>Python based sequential monte carlo method with likelihood tempering<a class="headerlink" href="#python-based-sequential-monte-carlo-method-with-likelihood-tempering" title="Permalink to this heading">#</a></h1>
-<p>このウェブサイトの目的は、likelihood tempering を用いた逐次モンテカルロ法(SMC法)に対する理解を深める手がかりを与えること、そして、私たちが実装したSMCコードの簡単な説明、ハイパーパラメータの解説、使用例、利用方法を示すことです。</p>
+<p>The purpose of this website is to offer guidance for deepening your understanding of Sequential Monte Carlo (SMC) methods with likelihood tempering, as well as to provide a simple explanation of our SMC implementation, its hyperparameters, usage examples, and instructions for use.</p>
 <hr class="docutils" />
-<section id="id1">
-<h2>このページで伝えたいこと<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>Sequential Monte Carlo（SMC）は、
-<b>粒子集団でパラメータを追跡することで、近似的な分布を得る手法</b>
-です。</p>
-<p>MCMCと比較したときの最大の違いは、以下の2点にあります。</p>
+<section id="purpose-of-this-page">
+<h2>Purpose of This Page<a class="headerlink" href="#purpose-of-this-page" title="Permalink to this heading">#</a></h2>
+<p>Sequential Monte Carlo (SMC) is a<br />
+<strong>method for approximating probability distributions by tracking a population of particles</strong><br />
+over time.</p>
+<p>Compared with MCMC, the two key differences are:</p>
 <ul class="simple">
-<li><p>単一のサンプルではなく、<strong>粒子集団</strong>を同時に扱う</p></li>
-<li><p>分布が「時間（ステップ）」とともに<strong>徐々に変化</strong>していく</p></li>
+<li><p>Instead of a single sample path, SMC handles an entire <strong>population of particles</strong> simultaneously</p></li>
+<li><p>The distribution <strong>gradually evolves over “time” (steps)</strong></p></li>
 </ul>
-<p>この構造により、SMCでは<br />
-1回の実行で <strong>分布全体とその不確実性</strong> を同時に得ることができます。</p>
-<p>また、SMC法には大別して2つの手法があります。それぞれ</p>
+<p>Because of this structure, a single SMC run provides both the <strong>overall distribution</strong> and its <strong>uncertainty</strong> at the same time.</p>
+<p>SMC methods can be broadly categorized into two approaches:</p>
 <ul class="simple">
-<li><p>data tempering</p></li>
-<li><p>likelihood tempering (bridge approach)
-と呼ばれています。</p></li>
+<li><p><strong>Data tempering</strong></p></li>
+<li><p><strong>Likelihood tempering (bridge approach)</strong></p></li>
 </ul>
-<p>data tempering は徐々にデータを追加し，分布を遷移させていく手法です．時系列データに適しており，データを追加する順序によって推定精度に影響が生じます．
-likelihood tempering は data tempering よりも利用例が少ない手法で、尤度の影響を徐々に強めていくことで，滑らかに事前分布から事後分布へと遷移させていく手法です。</p>
+<p>Data tempering sequentially adds data to transition the distribution. It is suitable for time-series data, but the order in which data are added can affect estimation accuracy.<br />
+Likelihood tempering, which is less commonly used, smoothly shifts the distribution from the prior to the posterior by gradually increasing the influence of the likelihood.</p>
 </section>
 <hr class="docutils" />
-<section id="mcmc">
-<h2>MCMCとの違い<a class="headerlink" href="#mcmc" title="Permalink to this heading">#</a></h2>
-<p>SMC法を説明する上で避けては通れないのが、MCMC法との比較です。</p>
+<section id="differences-from-mcmc">
+<h2>Differences from MCMC<a class="headerlink" href="#differences-from-mcmc" title="Permalink to this heading">#</a></h2>
+<p>When explaining SMC, it is essential to compare it with MCMC.</p>
 </section>
-<section id="smc">
-<h2>SMCを構成する基本要素<a class="headerlink" href="#smc" title="Permalink to this heading">#</a></h2>
-<p>SMCアルゴリズムに関する詳細な説明は、<a class="reference external" href="https://github.com/maruchitatsuki/python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering/tree/main/SMC_Algorithm">GitHub repository</a>か、コードを読むと良い。</p>
+<hr class="docutils" />
+<section id="core-components-of-smc">
+<h2>Core Components of SMC<a class="headerlink" href="#core-components-of-smc" title="Permalink to this heading">#</a></h2>
+<p>Detailed explanations of the SMC algorithm can be found in the <a class="reference external" href="https://github.com/maruchitatsuki/python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering/tree/main/SMC_Algorithm">GitHub repository</a>, or by reading the source code directly.</p>
 <section id="particle">
 <h3>Particle<a class="headerlink" href="#particle" title="Permalink to this heading">#</a></h3>
-<p>粒子とは、パラメータ空間上のサンプルです。<br />
-SMCでは、1つの点ではなく多数の粒子の集合を使って分布を表現します。</p>
+<p>A <em>particle</em> is a sample in the parameter space.<br />
+In SMC, we represent the distribution not by a single point, but by a collection of many particles.</p>
 </section>
-<section id="id2">
-<h3>重み<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<p>各粒子には、その粒子が<br />
-「現在の目標分布にどれだけ適合しているか」を表す重みが割り当てられます。
-具体的には尤度を用いて、それを行います。</p>
-<p>重みが極端に偏ってしまうことを縮退と言い、これを防ぐために工夫が必要となります。
-その1つがESSの導入です。</p>
+<section id="weights">
+<h3>Weights<a class="headerlink" href="#weights" title="Permalink to this heading">#</a></h3>
+<p>Each particle is assigned a weight that represents<br />
+<em>how well that particle fits the current target distribution</em>.<br />
+In practice, this is determined using the likelihood.</p>
+<p>When the weights become extremely imbalanced, the particle system suffers from <strong>degeneracy</strong>.<br />
+To mitigate this, we introduce the concept of ESS.</p>
 </section>
 <section id="resampling">
 <h3>Resampling<a class="headerlink" href="#resampling" title="Permalink to this heading">#</a></h3>
-<p>重みが極端に偏ると、多くの粒子が実質的に意味を持たなくなります。<br />
-これを防ぐために、有効な粒子を複製し、<br />
-無効な粒子を捨てる操作がResamplingです。
-このとき、極端に重みの大きな粒子が存在すると、粒子集団の多様性が失われ<b>縮退</b>と呼ばれる現象が起こります。
-これを防ぐために、<a class="reference internal" href="#smc-main-ess"><span class="std std-ref">ESS</span></a>という指標が重要になっており、私たちのアルゴリズムではこのESSに基づいて尤度の影響を変化させていきます。</p>
+<p>When particle weights are highly imbalanced, most particles become effectively useless.<br />
+To avoid this, SMC performs <strong>resampling</strong>, an operation that duplicates effective particles and discards ineffective ones.</p>
+<p>If there exists a particle with an extremely large weight, diversity of the particle population may collapse, resulting in <strong>degeneracy</strong>.<br />
+To prevent this, the indicator <a class="reference internal" href="#smc-main-ess"><span class="std std-ref">ESS</span></a> plays an essential role.<br />
+In our algorithm, the influence of the likelihood is adjusted dynamically based on this ESS value.</p>
 </section>
 <section id="ess">
 <span id="smc-main-ess"></span><h3>ESS<a class="headerlink" href="#ess" title="Permalink to this heading">#</a></h3>
-<p>ESSは有効粒子採択数の略称であり、以下の式で定義される。</p>
-<p><span class="math notranslate nohighlight">\(\mathrm{ESS} = \frac{1}{\sum_{m=1}^{N_p} w_m^2}\)</span></p>
-<p>この指標は重みの偏りの度合いを定量化し、有効に活用されている粒子の数を示す。
-極端な例を考えてみる。Np個の粒子のうち、一つだけに重みが偏っている場合はESS=Npとなる。
-一方、Np個の粒子全てが等価であり、等しく活用されているときはESS=1となる。</p>
-<p>私たちのアルゴリズムでは、ESSが<a class="reference internal" href="Hyper_parameters.html#hp-main-ess-limit"><span class="std std-ref">ESS_limit</span></a>（<span class="math notranslate nohighlight">\(ESS_{\mathrm{limit}}\)</span>）を上回っているか否かによって推定の進行を制御している。</p>
-</section>
-<section id="id3">
-<h3>事前分布・中間分布・事後分布<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
-<p>SMCでは、最初から難しい分布を直接扱いません。</p>
+<p>ESS stands for <em>Effective Sample Size</em> and is defined as:</p>
+<p>[
+\mathrm{ESS} = \frac{1}{\sum_{m=1}^{N_p} w_m^2}
+]</p>
+<p>This metric quantifies how imbalanced the weights are and represents the number of effectively contributing particles.<br />
+Consider the following extreme cases:</p>
 <ul class="simple">
-<li><p>最初は「簡単な分布」</p></li>
-<li><p>徐々に「目的とする難しい分布」</p></li>
+<li><p>If one particle dominates all the weight among (N_p) particles, then ESS = 1.</p></li>
+<li><p>If all (N_p) particles contribute equally, then ESS = (N_p).</p></li>
 </ul>
-<p>へと移動していきます。</p>
-<p>この変化は、温度（tempering）やデータ数の増加によって実現されます。</p>
+<p>In our algorithm, we control the progression of estimation depending on whether the ESS exceeds the threshold <a class="reference internal" href="Hyper_parameters.html#hp-main-ess-limit"><span class="std std-ref">ESS_limit</span></a> ((ESS_{\mathrm{limit}})).</p>
+</section>
+<section id="prior-intermediate-and-posterior-distributions">
+<h3>Prior, Intermediate, and Posterior Distributions<a class="headerlink" href="#prior-intermediate-and-posterior-distributions" title="Permalink to this heading">#</a></h3>
+<p>SMC does not attempt to directly handle a complex target distribution from the beginning.</p>
+<p>Instead, it transitions smoothly from:</p>
+<ul class="simple">
+<li><p>an initial <strong>easy</strong> distribution</p></li>
+<li><p>to the <strong>complex target</strong> distribution</p></li>
+</ul>
+<p>This transition is realized through tempering (adjusting the temperature parameter) or increasing the number of data points.</p>
 </section>
 </section>
-<section id="id4">
-<h2>尤度テンパリング<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
-<p>尤度テンパリングでは、中間分布に寄与する尤度の影響を徐々に増大させていくのが特徴である。</p>
-<p><span class="math notranslate nohighlight">\(π(\theta \mid \theta, y) \propto p(y \mid \theta)^{\gamma_i}\, p(\theta)\)</span></p>
-<p>ここで、<span class="math notranslate nohighlight">\(π(\theta \mid \theta, y)\)</span>は中間分布を表し、<span class="math notranslate nohighlight">\(p(y \mid \theta)\)</span>は尤度<span class="math notranslate nohighlight">\(p(\theta)\)</span>は事前分布を表している。
-<span class="math notranslate nohighlight">\({\gamma_i}\)</span>はテンパリング因子と呼ばれ、大きいほど中間分布に対する尤度の影響が大きくなる。また、iはSMCのイテレーションの数を表し、i=0のとき<span class="math notranslate nohighlight">\({\gamma_i}\)</span>=0である。推定が終了するとき、<span class="math notranslate nohighlight">\({\gamma_i}\)</span>=1となる。</p>
+<section id="likelihood-tempering">
+<h2>Likelihood Tempering<a class="headerlink" href="#likelihood-tempering" title="Permalink to this heading">#</a></h2>
+<p>In likelihood tempering, the influence of the likelihood on the intermediate distributions is gradually increased.</p>
+<p>[
+\pi(\theta \mid y) \propto p(y \mid \theta)^{\gamma_i}, p(\theta)
+]</p>
+<p>Here, (\pi(\theta \mid y)) represents the intermediate distribution,<br />
+(p(y \mid \theta)) is the likelihood,<br />
+and (p(\theta)) is the prior distribution.</p>
+<p>The parameter (\gamma_i) is called the <em>tempering factor</em>.<br />
+A larger value of (\gamma_i) places more emphasis on the likelihood in the intermediate distribution.<br />
+The index (i) denotes the SMC iteration, and at (i = 0), (\gamma_i = 0).<br />
+When the estimation process ends, (\gamma_i = 1).</p>
 </section>
-<section id="id5">
-<h2>データテンパリング<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
-<p>データを少数から徐々に追加していき、<br />
-観測情報を段階的に強くしていく方法です。</p>
-<p>どちらも、</p>
-<p><strong>「簡単な分布から難しい分布へ移動する」</strong></p>
-<p>という点で本質的には同じ考え方に基づいています。</p>
+<section id="data-tempering">
+<h2>Data Tempering<a class="headerlink" href="#data-tempering" title="Permalink to this heading">#</a></h2>
+<p>In data tempering, the data are gradually introduced in small portions,<br />
+thereby increasing the strength of observational information step by step.</p>
+<p>Both approaches share the same fundamental idea:</p>
+<p><strong>They transition from an easier distribution to a more complex one.</strong></p>
 </section>
 <hr class="docutils" />
-<section id="id6">
-<h2>SMCのフロー<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
-<p>SMCは、大きく4つのステップで構成されています。</p>
+<section id="smc-workflow">
+<h2>SMC Workflow<a class="headerlink" href="#smc-workflow" title="Permalink to this heading">#</a></h2>
+<p>SMC consists of four major steps:</p>
 <ol class="arabic simple">
 <li><p>Initialization</p></li>
 <li><p>Likelihood calculation</p></li>
 <li><p>Resampling</p></li>
 <li><p>Mutation</p></li>
 </ol>
-<p>始めにInitializationを行った後、2~4を繰り返すことで事後分布を得ます。</p>
+<p>After performing Initialization, steps 2–4 are repeated to obtain the posterior distribution.</p>
 <section id="initialization">
 <h3>1. Initialization<a class="headerlink" href="#initialization" title="Permalink to this heading">#</a></h3>
-<p>Initialization では初めに事前分布𝑝(𝜽) を定義し，𝑝(𝜽) から粒子をサンプリングします。</p>
+<p>In the Initialization step, we first define the prior distribution (p(\theta))<br />
+and sample particles from this prior.</p>
 </section>
 <section id="likelihood-calculation">
-<h3>2. Likelihood calculation<a class="headerlink" href="#likelihood-calculation" title="Permalink to this heading">#</a></h3>
-<p>粒子の持つパラメータを用いて、尤度計算を行います。そして、各粒子の尤度を用いてそれぞれの重みを計算します。</p>
+<h3>2. Likelihood Calculation<a class="headerlink" href="#likelihood-calculation" title="Permalink to this heading">#</a></h3>
+<p>Using the parameters stored in each particle, we compute the likelihood.<br />
+Then, particle weights are updated according to their likelihood values.</p>
 </section>
-<section id="id7">
-<h3>3. Resampling<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
-<p>粒子の持つ重みに応じて、確率的に粒子を複製・消失させます。
-例えば、全体の粒子数がNpであり、粒子全体で重みの正規化を行っているという条件を考えてみます。
-このとき、重みが1/2Npの粒子は50%の確率で消失し、50%の確率で存続します。
-重みが1.5/Npの粒子の場合は50%の確率で2つに複製され、50%の確率で1つのままになります。</p>
+<section id="id1">
+<h3>3. Resampling<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>Particles are probabilistically duplicated or discarded according to their weights.<br />
+Suppose the total number of particles is (N_p), and the weights are normalized.</p>
+<ul class="simple">
+<li><p>A particle with weight (1/(2N_p)) has a 50% chance of being discarded and a 50% chance of surviving.</p></li>
+<li><p>A particle with weight (1.5/N_p) has a 50% chance of producing two copies and a 50% chance of remaining as one.</p></li>
+</ul>
 </section>
 <section id="mutation">
 <h3>4. Mutation<a class="headerlink" href="#mutation" title="Permalink to this heading">#</a></h3>
-<p>Resampling後の粒子は、同一パラメータを持つ集団が複数存在します。
-そこで、各粒子に対してMetropolis Hasting法を行い、確率的に粒子の遷移を行います。</p>
+<p>After resampling, many particles may share identical parameter values.<br />
+To restore diversity, we apply a Metropolis–Hastings mutation step to each particle,<br />
+allowing particles to transition probabilistically.</p>
 </section>
 </section>
 <hr class="docutils" />
-<section id="id8">
-<h2>SMCの利点<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
-<p>SMCを行うことでパラメータの事後分布を得ることができ、不確実性を定量化することができます。
-これは、点推定だけを行う手法とは大きく異なる利点です。</p>
+<section id="advantages-of-smc">
+<h2>Advantages of SMC<a class="headerlink" href="#advantages-of-smc" title="Permalink to this heading">#</a></h2>
+<p>SMC provides the posterior distribution of parameters,<br />
+allowing uncertainty to be quantified.<br />
+This is a major advantage compared with methods that only perform point estimation.</p>
 </section>
 <hr class="docutils" />
-<section id="id9">
-<h2>本サイトで提供するもの<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
-<p>本サイトではミカエリスメンテン式に関する推定を行ったExample, ハイパーパラメータに関する詳細な説明, 私たちのコードをどう利用するかについて提供します。</p>
+<section id="what-this-site-provides">
+<h2>What This Site Provides<a class="headerlink" href="#what-this-site-provides" title="Permalink to this heading">#</a></h2>
+<p>This website offers:</p>
+<ul class="simple">
+<li><p>an example estimation problem using the Michaelis–Menten model,</p></li>
+<li><p>detailed explanations of hyperparameters,</p></li>
+<li><p>and instructions on how to use our SMC code.</p></li>
+</ul>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Example.html">Example code of Michaelis-Menten</a></li>
@@ -603,27 +622,27 @@ SMCでは、1つの点ではなく多数の粒子の集合を使って分布を�
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">このページで伝えたいこと</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mcmc">MCMCとの違い</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smc">SMCを構成する基本要素</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose-of-this-page">Purpose of This Page</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#differences-from-mcmc">Differences from MCMC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-components-of-smc">Core Components of SMC</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#particle">Particle</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">重み</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weights">Weights</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling">Resampling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ess">ESS</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">事前分布・中間分布・事後分布</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-intermediate-and-posterior-distributions">Prior, Intermediate, and Posterior Distributions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">尤度テンパリング</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">データテンパリング</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">SMCのフロー</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-tempering">Likelihood Tempering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-tempering">Data Tempering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smc-workflow">SMC Workflow</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialization">1. Initialization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-calculation">2. Likelihood calculation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3. Resampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-calculation">2. Likelihood Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3. Resampling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mutation">4. Mutation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">SMCの利点</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">本サイトで提供するもの</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advantages-of-smc">Advantages of SMC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-site-provides">What This Site Provides</a></li>
 </ul>
   </nav></div>
 
