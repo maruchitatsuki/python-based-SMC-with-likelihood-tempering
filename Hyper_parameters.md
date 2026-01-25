@@ -13,7 +13,13 @@ kernelspec:
 ---
 
 # Hyper parameters
-
+jupyter-book build .
+>>
+>> git add .
+>> git commit -m "update content"
+>> git push
+>>
+>> ghp-import -n -p -f _build/html
 ---
 
 ## このページについて
