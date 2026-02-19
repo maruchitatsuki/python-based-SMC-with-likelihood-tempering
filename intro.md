@@ -70,15 +70,15 @@ In our algorithm, the influence of the likelihood is adjusted dynamically based 
 
 ESS stands for *Effective Sample Size* and is defined as:
 
-\[
+$\[
 \mathrm{ESS} = \frac{1}{\sum_{m=1}^{N_p} w_m^2}
-\]
+\]$
 
 This metric quantifies how imbalanced the weights are and represents the number of effectively contributing particles.  
 Consider the following extreme cases:
 
-- If one particle dominates all the weight among \(N_p\) particles, then ESS = 1.  
-- If all \(N_p\) particles contribute equally, then ESS = \(N_p\).
+- If one particle dominates all the weight among $\(N_p\)$ particles, then ESS = 1.  
+- If all $\(N_p\)$ particles contribute equally, then ESS = $\(N_p\)$.
 
 In our algorithm, we control the progression of estimation depending on whether the ESS exceeds the threshold {ref}`ESS_limit <HP_main_ESS_limit>` (\(ESS_{\mathrm{limit}}\)).
 
