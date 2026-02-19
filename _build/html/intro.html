@@ -466,14 +466,14 @@ In our algorithm, the influence of the likelihood is adjusted dynamically based 
 <section id="ess">
 <span id="smc-main-ess"></span><h3>ESS<a class="headerlink" href="#ess" title="Permalink to this heading">#</a></h3>
 <p>ESS stands for <em>Effective Sample Size</em> and is defined as:</p>
-<p><span class="math notranslate nohighlight">\(\[
+<p><span class="math notranslate nohighlight">\(
 \mathrm{ESS} = \frac{1}{\sum_{m=1}^{N_p} w_m^2}
-\]\)</span></p>
+\)</span></p>
 <p>This metric quantifies how imbalanced the weights are and represents the number of effectively contributing particles.<br />
 Consider the following extreme cases:</p>
 <ul class="simple">
-<li><p>If one particle dominates all the weight among <span class="math notranslate nohighlight">\(\(N_p\)\)</span> particles, then ESS = 1.</p></li>
-<li><p>If all <span class="math notranslate nohighlight">\(\(N_p\)\)</span> particles contribute equally, then ESS = <span class="math notranslate nohighlight">\(\(N_p\)\)</span>.</p></li>
+<li><p>If one particle dominates all the weight among <span class="math notranslate nohighlight">\(N_p\)</span> particles, then ESS = 1.</p></li>
+<li><p>If all <span class="math notranslate nohighlight">\(N_p\)</span> particles contribute equally, then ESS = <span class="math notranslate nohighlight">\(N_p\)</span>.</p></li>
 </ul>
 <p>In our algorithm, we control the progression of estimation depending on whether the ESS exceeds the threshold <a class="reference internal" href="Hyper_parameters.html#hp-main-ess-limit"><span class="std std-ref">ESS_limit</span></a> ((ESS_{\mathrm{limit}})).</p>
 </section>
