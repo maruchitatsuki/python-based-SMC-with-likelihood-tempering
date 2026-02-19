@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>How to Use &#8212; My sample book</title>
+    <title>jupytext: formats: md:myst text_representation: extension: .md format_name: myst format_version: 0.13 jupytext_version: 1.11.5 kernelspec: display_name: Python 3 language: python name: python3 &#8212; My sample book</title>
   
   
   
@@ -175,7 +175,18 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Example.html">Example code of Michaelis-Menten</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Hyper_parameters.html">Hyper parameters</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">How to Use</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">jupytext:
+formats: md:myst
+text_representation:
+extension: .md
+format_name: myst
+format_version: 0.13
+jupytext_version: 1.11.5
+kernelspec:
+display_name: Python 3
+language: python
+name: python3</a></li>
+
 </ul>
 
     </div>
@@ -361,7 +372,17 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>How to Use</h1>
+    <h1>jupytext:
+formats: md:myst
+text_representation:
+extension: .md
+format_name: myst
+format_version: 0.13
+jupytext_version: 1.11.5
+kernelspec:
+display_name: Python 3
+language: python
+name: python3</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -371,24 +392,39 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">① このページについて</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">② 私たちのコードの利用方法</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">入手方法</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">どこをどう変えれば良いのか</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">モデル定義</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">観測モデル・尤度</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">推定対象パラメータ</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">jupytext:
+formats: md:myst
+text_representation:
+extension: .md
+format_name: myst
+format_version: 0.13
+jupytext_version: 1.11.5
+kernelspec:
+display_name: Python 3
+language: python
+name: python3</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use">How to Use</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-this-page">1. About This Page</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use-our-code">2. How to Use Our Code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-should-be-modified">What Should Be Modified?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-definition">Model Definition</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#observation-model-and-likelihood">Observation Model and Likelihood</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#target-parameters-for-estimation">Target Parameters for Estimation</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">③ 拡張</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">並列化について</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">重たい問題を扱う場合の注意点</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extensions">3. Extensions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelization">Parallelization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-for-computationally-heavy-problems">Notes for Computationally Heavy Problems</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -399,126 +435,269 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="how-to-use">
+  <!-- ---
+jupytext:
+  formats: md:myst
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.11.5
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
+
+# How to Use
+
+## ① このページについて
+
+本ページでは、本プロジェクトの目的と位置づけ、ならびに  
+提供しているコードの基本的な利用方法と拡張方法について説明する。
+
+想定する利用者は以下である。
+
+- ODE ベースのモデルに対するパラメータ推定を行いたい利用者
+- SMC / MCMC などの確率的推定アルゴリズムを利用する利用者
+- 研究・検証用途でコードを再利用・拡張したい利用者
+
+数理モデルや推定アルゴリズムの詳細については、  
+Model / Inference / Example 各ページを参照すること。
+
+---
+
+## ② 私たちのコードの利用方法
+
+### 入手方法
+
+本コードは Git リポジトリとして配布されている。  
+以下の手順で取得する。
+
+~~~bash
+git clone <repository-url>
+cd <repository-name>
+~~~
+
+必要な Python パッケージは、以下のコマンドでインストールする。
+
+~~~bash
+pip install -r requirements.txt
+~~~
+
+Jupyter Notebook または Jupyter Book を利用する場合は、  
+対応する Python 環境が構築されていることを確認する。
+
+---
+
+### どこをどう変えれば良いのか
+
+本コードは、問題依存部分と共通処理部分が明確に分離されている。自分の問題に適用する際に主に変更が必要となるのは以下の箇所である。
+
+#### モデル定義
+
+- ODE の右辺（反応速度式・力学モデル）
+- 状態変数およびモデルパラメータの定義
+
+対象とする力学系に応じて、この部分を書き換えることで  
+別のモデルに容易に対応できる。
+
+#### 観測モデル・尤度
+
+- 観測量の定義
+- 観測ノイズモデル（例：ガウスノイズ）
+
+観測誤差の構造が異なる場合は、  
+尤度関数の定義を適切に変更する必要がある。
+
+#### 推定対象パラメータ
+
+- 推定するパラメータの種類
+- 固定するパラメータと推定するパラメータの切り分け
+
+これにより、
+
+- 一部のパラメータのみを推定する
+- ノイズパラメータを同時に推定する
+
+といった設定が可能となる。
+
+具体的な変更箇所については、  
+Example ページを参照すること。
+
+---
+
+## ③ 拡張
+
+### 並列化について
+
+本コードは、計算コストの高い推定問題を想定し、  
+粒子単位・サンプル単位での並列化を前提として設計されている。
+
+- 各粒子の尤度計算は独立
+- 並列化により計算時間の短縮が可能
+
+並列化ライブラリ（例：Ray）を用いることで、
+
+- 粒子数の増加
+- データ条件数の増加
+- 高次元パラメータ空間
+
+にも対応可能である。
+
+---
+
+### 重たい問題を扱う場合の注意点
+
+計算負荷の大きい問題を扱う際には、以下の点に注意する。
+
+- ODE ソルバの設定  
+  不要に高精度な設定は計算時間を大きく増加させる。
+- パラメータの同定可能性  
+  情報量の少ないデータでは、推定が不安定になる可能性がある。
+- 並列化オーバーヘッド  
+  問題規模によっては、並列化が逆効果になる場合がある。
+- メモリ使用量  
+  粒子数や保存する中間結果が多い場合、  
+  メモリがボトルネックになることがある。
+
+---
+
+## まとめ
+
+本コードは、
+
+- モデル定義を差し替えやすい構造
+- 並列計算を前提とした設計
+- 小規模問題から大規模問題への拡張性
+
+を備えた、推定問題のための汎用テンプレートである。
+
+Example を起点として、  
+自身の問題に合わせて段階的に拡張することを想定している。 -->
+<hr class="docutils" />
+<section id="jupytext-formats-md-myst-text-representation-extension-md-format-name-myst-format-version-0-13-jupytext-version-1-11-5-kernelspec-display-name-python-3-language-python-name-python3">
+<h1>jupytext:
+formats: md:myst
+text_representation:
+extension: .md
+format_name: myst
+format_version: 0.13
+jupytext_version: 1.11.5
+kernelspec:
+display_name: Python 3
+language: python
+name: python3<a class="headerlink" href="#jupytext-formats-md-myst-text-representation-extension-md-format-name-myst-format-version-0-13-jupytext-version-1-11-5-kernelspec-display-name-python-3-language-python-name-python3" title="Permalink to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="how-to-use">
 <h1>How to Use<a class="headerlink" href="#how-to-use" title="Permalink to this heading">#</a></h1>
-<section id="id1">
-<h2>① このページについて<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>本ページでは、本プロジェクトの目的と位置づけ、ならびに<br />
-提供しているコードの基本的な利用方法と拡張方法について説明する。</p>
-<p>想定する利用者は以下である。</p>
+<section id="about-this-page">
+<h2>1. About This Page<a class="headerlink" href="#about-this-page" title="Permalink to this heading">#</a></h2>
+<p>This page explains the objective and positioning of this project, as well as the basic usage and extension of the provided code.</p>
+<p>The intended users are:</p>
 <ul class="simple">
-<li><p>ODE ベースのモデルに対するパラメータ推定を行いたい利用者</p></li>
-<li><p>SMC / MCMC などの確率的推定アルゴリズムを利用する利用者</p></li>
-<li><p>研究・検証用途でコードを再利用・拡張したい利用者</p></li>
+<li><p>Users who wish to perform parameter estimation for ODE-based models</p></li>
+<li><p>Users who utilize probabilistic inference algorithms such as SMC / MCMC</p></li>
+<li><p>Users who want to reuse or extend the code for research and validation purposes</p></li>
 </ul>
-<p>数理モデルや推定アルゴリズムの詳細については、<br />
-Model / Inference / Example 各ページを参照すること。</p>
+<p>For details on the mathematical models and inference algorithms, please refer to the Model / Inference / Example pages.</p>
 </section>
 <hr class="docutils" />
-<section id="id2">
-<h2>② 私たちのコードの利用方法<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
-<section id="id3">
-<h3>入手方法<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
-<p>本コードは Git リポジトリとして配布されている。<br />
-以下の手順で取得する。</p>
+<section id="how-to-use-our-code">
+<h2>2. How to Use Our Code<a class="headerlink" href="#how-to-use-our-code" title="Permalink to this heading">#</a></h2>
+<section id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h3>
+<p>The code is distributed as a Git repository.<br />
+Clone it using the following procedure:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>&lt;repository-url&gt;
 <span class="nb">cd</span><span class="w"> </span>&lt;repository-name&gt;
 </pre></div>
 </div>
-<p>必要な Python パッケージは、以下のコマンドでインストールする。</p>
+<p>Install the required Python packages with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </pre></div>
 </div>
-<p>Jupyter Notebook または Jupyter Book を利用する場合は、<br />
-対応する Python 環境が構築されていることを確認する。</p>
+<p>If you use Jupyter Notebook or Jupyter Book, ensure that the corresponding Python environment is properly configured.</p>
 </section>
 <hr class="docutils" />
-<section id="id4">
-<h3>どこをどう変えれば良いのか<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
-<p>本コードは、問題依存部分と共通処理部分が明確に分離されている。自分の問題に適用する際に主に変更が必要となるのは以下の箇所である。</p>
-<section id="id5">
-<h4>モデル定義<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<section id="what-should-be-modified">
+<h3>What Should Be Modified?<a class="headerlink" href="#what-should-be-modified" title="Permalink to this heading">#</a></h3>
+<p>The code is structured so that problem-specific components are clearly separated from common components. When adapting it to your own problem, the main parts to modify are:</p>
+<section id="model-definition">
+<h4>Model Definition<a class="headerlink" href="#model-definition" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
-<li><p>ODE の右辺（反応速度式・力学モデル）</p></li>
-<li><p>状態変数およびモデルパラメータの定義</p></li>
+<li><p>The right-hand side of the ODE (reaction rate equations or dynamical model)</p></li>
+<li><p>Definitions of state variables and model parameters</p></li>
 </ul>
-<p>対象とする力学系に応じて、この部分を書き換えることで<br />
-別のモデルに容易に対応できる。</p>
+<p>By rewriting this section according to the target dynamical system, the framework can be easily adapted to different models.</p>
 </section>
-<section id="id6">
-<h4>観測モデル・尤度<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<section id="observation-model-and-likelihood">
+<h4>Observation Model and Likelihood<a class="headerlink" href="#observation-model-and-likelihood" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
-<li><p>観測量の定義</p></li>
-<li><p>観測ノイズモデル（例：ガウスノイズ）</p></li>
+<li><p>Definition of observed quantities</p></li>
+<li><p>Observation noise model (e.g., Gaussian noise)</p></li>
 </ul>
-<p>観測誤差の構造が異なる場合は、<br />
-尤度関数の定義を適切に変更する必要がある。</p>
+<p>If the structure of measurement error differs, the likelihood function must be modified accordingly.</p>
 </section>
-<section id="id7">
-<h4>推定対象パラメータ<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<section id="target-parameters-for-estimation">
+<h4>Target Parameters for Estimation<a class="headerlink" href="#target-parameters-for-estimation" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
-<li><p>推定するパラメータの種類</p></li>
-<li><p>固定するパラメータと推定するパラメータの切り分け</p></li>
+<li><p>Which parameters to estimate</p></li>
+<li><p>Separation between fixed and estimated parameters</p></li>
 </ul>
-<p>これにより、</p>
+<p>This enables configurations such as:</p>
 <ul class="simple">
-<li><p>一部のパラメータのみを推定する</p></li>
-<li><p>ノイズパラメータを同時に推定する</p></li>
+<li><p>Estimating only a subset of parameters</p></li>
+<li><p>Jointly estimating noise parameters</p></li>
 </ul>
-<p>といった設定が可能となる。</p>
-<p>具体的な変更箇所については、<br />
-Example ページを参照すること。</p>
+<p>For concrete modification examples, refer to the Example page.</p>
 </section>
 </section>
 </section>
 <hr class="docutils" />
-<section id="id8">
-<h2>③ 拡張<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
-<section id="id9">
-<h3>並列化について<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
-<p>本コードは、計算コストの高い推定問題を想定し、<br />
-粒子単位・サンプル単位での並列化を前提として設計されている。</p>
+<section id="extensions">
+<h2>3. Extensions<a class="headerlink" href="#extensions" title="Permalink to this heading">#</a></h2>
+<section id="parallelization">
+<h3>Parallelization<a class="headerlink" href="#parallelization" title="Permalink to this heading">#</a></h3>
+<p>This code is designed for computationally intensive estimation problems and assumes parallelization at the particle or sample level.</p>
 <ul class="simple">
-<li><p>各粒子の尤度計算は独立</p></li>
-<li><p>並列化により計算時間の短縮が可能</p></li>
+<li><p>Likelihood evaluations for each particle are independent</p></li>
+<li><p>Parallelization can significantly reduce computation time</p></li>
 </ul>
-<p>並列化ライブラリ（例：Ray）を用いることで、</p>
+<p>By using parallelization libraries (e.g., Ray), the framework can handle:</p>
 <ul class="simple">
-<li><p>粒子数の増加</p></li>
-<li><p>データ条件数の増加</p></li>
-<li><p>高次元パラメータ空間</p></li>
+<li><p>Larger numbers of particles</p></li>
+<li><p>Increased data conditions</p></li>
+<li><p>Higher-dimensional parameter spaces</p></li>
 </ul>
-<p>にも対応可能である。</p>
 </section>
 <hr class="docutils" />
-<section id="id10">
-<h3>重たい問題を扱う場合の注意点<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
-<p>計算負荷の大きい問題を扱う際には、以下の点に注意する。</p>
+<section id="notes-for-computationally-heavy-problems">
+<h3>Notes for Computationally Heavy Problems<a class="headerlink" href="#notes-for-computationally-heavy-problems" title="Permalink to this heading">#</a></h3>
+<p>When dealing with large-scale or computationally demanding problems, consider the following:</p>
 <ul class="simple">
-<li><p>ODE ソルバの設定<br />
-不要に高精度な設定は計算時間を大きく増加させる。</p></li>
-<li><p>パラメータの同定可能性<br />
-情報量の少ないデータでは、推定が不安定になる可能性がある。</p></li>
-<li><p>並列化オーバーヘッド<br />
-問題規模によっては、並列化が逆効果になる場合がある。</p></li>
-<li><p>メモリ使用量<br />
-粒子数や保存する中間結果が多い場合、<br />
-メモリがボトルネックになることがある。</p></li>
+<li><p>ODE solver settings<br />
+Excessively strict tolerances may substantially increase computation time.</p></li>
+<li><p>Parameter identifiability<br />
+With limited or low-information data, estimation may become unstable.</p></li>
+<li><p>Parallelization overhead<br />
+Depending on problem size, parallelization may become inefficient.</p></li>
+<li><p>Memory usage<br />
+A large number of particles or stored intermediate results may cause memory bottlenecks.</p></li>
 </ul>
 </section>
 </section>
 <hr class="docutils" />
-<section id="id11">
-<h2>まとめ<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
-<p>本コードは、</p>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
+<p>This code serves as a general template for parameter estimation problems, featuring:</p>
 <ul class="simple">
-<li><p>モデル定義を差し替えやすい構造</p></li>
-<li><p>並列計算を前提とした設計</p></li>
-<li><p>小規模問題から大規模問題への拡張性</p></li>
+<li><p>A modular structure that facilitates model replacement</p></li>
+<li><p>A design assuming parallel computation</p></li>
+<li><p>Scalability from small-scale to large-scale problems</p></li>
 </ul>
-<p>を備えた、推定問題のための汎用テンプレートである。</p>
-<p>Example を起点として、<br />
-自身の問題に合わせて段階的に拡張することを想定している。</p>
+<p>Users are expected to start from the Example page and extend the framework step by step according to their specific problem.</p>
 </section>
 </section>
 
@@ -577,24 +756,39 @@ Example ページを参照すること。</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">① このページについて</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">② 私たちのコードの利用方法</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">入手方法</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">どこをどう変えれば良いのか</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">モデル定義</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">観測モデル・尤度</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">推定対象パラメータ</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">jupytext:
+formats: md:myst
+text_representation:
+extension: .md
+format_name: myst
+format_version: 0.13
+jupytext_version: 1.11.5
+kernelspec:
+display_name: Python 3
+language: python
+name: python3</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use">How to Use</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-this-page">1. About This Page</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use-our-code">2. How to Use Our Code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-should-be-modified">What Should Be Modified?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-definition">Model Definition</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#observation-model-and-likelihood">Observation Model and Likelihood</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#target-parameters-for-estimation">Target Parameters for Estimation</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">③ 拡張</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">並列化について</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">重たい問題を扱う場合の注意点</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extensions">3. Extensions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelization">Parallelization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-for-computationally-heavy-problems">Notes for Computationally Heavy Problems</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
