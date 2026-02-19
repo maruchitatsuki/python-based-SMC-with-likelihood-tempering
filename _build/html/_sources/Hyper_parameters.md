@@ -12,7 +12,7 @@ kernelspec:
   name: python3
 ---
 
-# Hyper parameters
+<!-- # Hyper parameters
 jupyter-book build .
 >>
 >> git add .
@@ -123,4 +123,154 @@ tempering ステップが過度に細分化されることを防ぐための制�
 
 $\Delta \gamma$ を動的に減少させる際の減衰率。  
 ESS などの安定性条件が満たされない場合に、  
-$\Delta \gamma$ を段階的に小さくするために用いられる。
+$\Delta \gamma$ を段階的に小さくするために用いられる。 -->
+
+# Hyperparameters
+
+~~~bash
+jupyter-book build .
+git add .
+git commit -m "update content"
+git push
+ghp-import -n -p -f _build/html
+~~~
+
+---
+
+## 1. About This Page
+
+This section summarizes the hyperparameters used in the Sequential Monte Carlo (SMC) algorithm adopted in this study and explains their roles in terms of algorithmic stability, efficiency, and accuracy.
+
+---
+
+## 2. Main Hyperparameters
+
+The three most important hyperparameters are  
+$ESS_{\mathrm{limit}}$, $r_{\mathrm{threshold}}$, and $N_{\mathrm{particle}}$.  
+They strongly influence both sampling accuracy and computational time.
+
+(HP_main_ESS_limit)=
+### $ESS_{\mathrm{limit}}$
+
+Takes values in $(0,1)$.  
+$ESS_{\mathrm{limit}}$ is closely related to {ref}`ESS <SMC_main_ESS>`.  
+
+Larger values of $ESS_{\mathrm{limit}}$ lead to faster progression of the estimation process but may reduce estimation accuracy.
+
+---
+
+(HP_main_r_threshold)=
+### $r_{\mathrm{threshold}}$
+
+Takes values in $(0,1]$.  
+This parameter determines the stopping criterion of the mutation step.
+
+The number of accepted particles, $r_{\mathrm{ac}}$, is computed.  
+If
+
+$
+\frac{r_{\mathrm{ac}}}{N_p} > r_{\mathrm{threshold}}
+$
+
+the particles are considered sufficiently mixed, and the algorithm proceeds to the next step.
+
+---
+
+(HP_main_N_particle)=
+### $N_{\mathrm{particle}}$
+
+Represents the number of particles.  
+
+Each particle corresponds to a candidate point in parameter space, and their ensemble approximates the posterior distribution.  
+
+Increasing the number of particles improves the accuracy of the distributional approximation but increases computational cost.
+
+---
+
+## 3. Auxiliary Hyperparameters
+
+(HP_sub_mhstep_factor)=
+### $MHstep_{\mathrm{factor}}$
+
+Scaling factor for the proposal distribution in the Metropolis–Hastings (MH) method.  
+It controls the step size of parameter updates.
+
+---
+
+(HP_sub_mhstep_factor_cov)=
+### $MHstep_{\mathrm{factor},\,\mathrm{cov}}$
+
+Scaling factor for the MH proposal distribution constructed using the covariance matrix of the particle distribution.  
+
+It determines how strongly the correlation structure among particles is reflected in the proposal.
+
+---
+
+(HP_sub_ad_mhstep_num)=
+### $N_{{\mathrm{MH}},{\mathrm{adaptive}}}$
+
+Number of mutation iterations when $\gamma = 1$ in the adaptive phase.  
+
+Used during the stage where the proposal distribution is adjusted based on acceptance rates and particle distribution information.
+
+---
+
+(HP_sub_mhstep_num)=
+### $N_{\mathrm{MH}}$
+
+Number of iterations in the standard mutation step.  
+
+Also used in adjusting the proposal distribution based on acceptance rates and particle statistics.
+
+---
+
+(HP_sub_mhstep_ratio)=
+### $MHstep_{\mathrm{ratio}}$
+
+Coefficient controlling the spread of the proposal distribution in the MH method.  
+
+It adjusts the balance of exploration in the mutation step.
+
+---
+
+(HP_sub_r_threshold_f)=
+### $r_{{\mathrm{threshold}},{\mathrm{final}}}$
+
+Determines $r_{\mathrm{threshold}}$ when $\gamma = 1$.  
+
+Typically set larger than the standard $r_{\mathrm{threshold}}$.
+
+---
+
+(HP_sub_r_threshold_min)=
+### $r_{{\mathrm{threshold}},{\mathrm{min}}}$
+
+If the acceptance rate falls below this value, the proposal distribution is narrowed.
+
+---
+
+(HP_sub_d_gamma_max)=
+### $\Delta \gamma_{\max}$
+
+Maximum increment of $\gamma$ (the {ref}`tempering factor <SMC_main_γ>`) per step.  
+
+Prevents abrupt changes in the target distribution and suppresses particle degeneracy.
+
+---
+
+(HP_sub_gm_reduction_itr)=
+### $\gamma_{\mathrm{reduction},\,\mathrm{itr}}$
+
+Maximum number of iterations for attempting reduction of $\Delta \gamma$.  
+
+This serves as a safeguard to prevent excessive subdivision of the tempering steps.
+
+---
+
+(HP_sub_gm_reduction_rate)=
+### $\gamma_{\mathrm{reduction},\,\mathrm{rate}}$
+
+Decay rate used when dynamically reducing $\Delta \gamma$.  
+
+If stability conditions such as ESS are not satisfied,  
+$\Delta \gamma$ is gradually reduced using this rate.
