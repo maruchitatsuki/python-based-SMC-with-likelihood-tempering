@@ -1,4 +1,4 @@
----
+<!-- ---
 jupytext:
   formats: md:myst
   text_representation:
@@ -138,4 +138,134 @@ Example ページを参照すること。
 を備えた、推定問題のための汎用テンプレートである。
 
 Example を起点として、  
-自身の問題に合わせて段階的に拡張することを想定している。
+自身の問題に合わせて段階的に拡張することを想定している。 -->
+
+---
+jupytext:
+  formats: md:myst
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.11.5
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
+# How to Use
+
+## 1. About This Page
+
+This page explains the objective and positioning of this project, as well as the basic usage and extension of the provided code.
+
+The intended users are:
+
+- Users who wish to perform parameter estimation for ODE-based models  
+- Users who utilize probabilistic inference algorithms such as SMC / MCMC  
+- Users who want to reuse or extend the code for research and validation purposes  
+
+For details on the mathematical models and inference algorithms, please refer to the Model / Inference / Example pages.
+
+---
+
+## 2. How to Use Our Code
+
+### Installation
+
+The code is distributed as a Git repository.  
+Clone it using the following procedure:
+
+~~~bash
+git clone <repository-url>
+cd <repository-name>
+~~~
+
+Install the required Python packages with:
+
+~~~bash
+pip install -r requirements.txt
+~~~
+
+If you use Jupyter Notebook or Jupyter Book, ensure that the corresponding Python environment is properly configured.
+
+---
+
+### What Should Be Modified?
+
+The code is structured so that problem-specific components are clearly separated from common components. When adapting it to your own problem, the main parts to modify are:
+
+#### Model Definition
+
+- The right-hand side of the ODE (reaction rate equations or dynamical model)  
+- Definitions of state variables and model parameters  
+
+By rewriting this section according to the target dynamical system, the framework can be easily adapted to different models.
+
+#### Observation Model and Likelihood
+
+- Definition of observed quantities  
+- Observation noise model (e.g., Gaussian noise)  
+
+If the structure of measurement error differs, the likelihood function must be modified accordingly.
+
+#### Target Parameters for Estimation
+
+- Which parameters to estimate  
+- Separation between fixed and estimated parameters  
+
+This enables configurations such as:
+
+- Estimating only a subset of parameters  
+- Jointly estimating noise parameters  
+
+For concrete modification examples, refer to the Example page.
+
+---
+
+## 3. Extensions
+
+### Parallelization
+
+This code is designed for computationally intensive estimation problems and assumes parallelization at the particle or sample level.
+
+- Likelihood evaluations for each particle are independent  
+- Parallelization can significantly reduce computation time  
+
+By using parallelization libraries (e.g., Ray), the framework can handle:
+
+- Larger numbers of particles  
+- Increased data conditions  
+- Higher-dimensional parameter spaces  
+
+---
+
+### Notes for Computationally Heavy Problems
+
+When dealing with large-scale or computationally demanding problems, consider the following:
+
+- ODE solver settings  
+  Excessively strict tolerances may substantially increase computation time.  
+
+- Parameter identifiability  
+  With limited or low-information data, estimation may become unstable.  
+
+- Parallelization overhead  
+  Depending on problem size, parallelization may become inefficient.  
+
+- Memory usage  
+  A large number of particles or stored intermediate results may cause memory bottlenecks.  
+
+---
+
+## Summary
+
+This code serves as a general template for parameter estimation problems, featuring:
+
+- A modular structure that facilitates model replacement  
+- A design assuming parallel computation  
+- Scalability from small-scale to large-scale problems  
+
+Users are expected to start from the Example page and extend the framework step by step according to their specific problem.
+
