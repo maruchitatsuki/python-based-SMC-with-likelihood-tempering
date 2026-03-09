@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Example code of Michaelis-Menten &#8212; My sample book</title>
   
@@ -29,39 +28,35 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Example';</script>
@@ -165,7 +160,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -208,9 +214,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -351,9 +357,9 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -413,10 +419,10 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="example-code-of-michaelis-menten">
-<h1>Example code of Michaelis-Menten<a class="headerlink" href="#example-code-of-michaelis-menten" title="Permalink to this heading">#</a></h1>
+<h1>Example code of Michaelis-Menten<a class="headerlink" href="#example-code-of-michaelis-menten" title="Link to this heading">#</a></h1>
 <p>ここでは、ミカエリスメンテン式に関するパラメータ推定を例として、私たちのコードでパラメータ推定を行う方法を解説する。</p>
 <section id="id1">
-<h2>どのような問題か<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<h2>どのような問題か<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>ミカエリス–メンテン式に基づく酵素反応モデルを用いて、<br />
 <strong>実験（あるいは疑似）データから反応パラメータを推定する問題</strong>を考える。</p>
 <p>本問題では、</p>
@@ -428,7 +434,7 @@ document.write(`
 <p>ことを目的とする。</p>
 <hr class="docutils" />
 <section id="id2">
-<h3>ミカエリスメンテン式とは<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<h3>ミカエリスメンテン式とは<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>ミカエリス–メンテン式は、<strong>酵素反応の速さが基質濃度によってどのように変化するか</strong>を表す、最も基本的な反応速度式である。</p>
 <p>酵素反応では、基質濃度が低い場合には基質を増やすほど反応速度はほぼ比例的に増加する。<br />
 一方で、基質濃度が十分に高くなると酵素が飽和し、それ以上基質を増やしても反応速度はほとんど増加しなくなる。</p>
@@ -436,7 +442,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="id3">
-<h3>数式表現<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<h3>数式表現<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>ミカエリス–メンテン式は以下のように表される。</p>
 <p><span class="math notranslate nohighlight">\(v = \dfrac{V_{\max}[S]}{K_m + [S]}\)</span></p>
 <p>ここで、</p>
@@ -450,7 +456,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="id4">
-<h3>時間発展モデルへの拡張<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<h3>時間発展モデルへの拡張<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>本問題では反応速度式を用いて、基質濃度の時間変化を次の常微分方程式で表す。</p>
 <p><span class="math notranslate nohighlight">\(\dfrac{dS(t)}{dt} = - \dfrac{V_{\max} S(t)}{K_m + S(t)}\)</span></p>
 <p>ここで <span class="math notranslate nohighlight">\(S(t)\)</span> は時刻 <span class="math notranslate nohighlight">\(t\)</span> における基質濃度である。</p>
@@ -461,10 +467,10 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="id5">
-<h2>推定するパラメータについて<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<h2>推定するパラメータについて<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
 <p>本問題で推定対象とするパラメータは以下である。</p>
 <section id="id6">
-<h3>動力学パラメータ<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<h3>動力学パラメータ<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>最大反応速度 <span class="math notranslate nohighlight">\(V_{\max}\)</span></strong><br />
 酵素が完全に飽和したときの反応速度を表す。</p></li>
@@ -474,7 +480,7 @@ document.write(`
 </ul>
 </section>
 <section id="id7">
-<h3>観測ノイズパラメータ（必要に応じて）<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<h3>観測ノイズパラメータ（必要に応じて）<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>観測誤差の標準偏差 <span class="math notranslate nohighlight">\(\sigma\)</span></strong><br />
 観測値がモデル値からどの程度ばらつくかを表す。</p></li>
@@ -489,11 +495,11 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="id8">
-<h2>疑似データの作成方法<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<h2>疑似データの作成方法<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
 <p>実データの代わりに、既知の真のパラメータを用いて<br />
 <strong>疑似観測データ</strong>を生成する。</p>
 <section id="id9">
-<h3>疑似データ生成の手順<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<h3>疑似データ生成の手順<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>真のパラメータ<br />
 <span class="math notranslate nohighlight">\(V_{\max}^{\mathrm{true}}, \; K_m^{\mathrm{true}}\)</span>
@@ -511,7 +517,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="id10">
-<h3>疑似データを用いる目的<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<h3>疑似データを用いる目的<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>推定アルゴリズムの妥当性検証</p></li>
 <li><p>パラメータの同定可能性（identifiability）の確認</p></li>
@@ -520,7 +526,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="id11">
-<h3>まとめ<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<h3>まとめ<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
 <p>本問題は、</p>
 <blockquote>
 <div><p>ミカエリス–メンテン型酵素反応モデルを用いて、<br />
@@ -533,12 +539,12 @@ document.write(`
 </section>
 </section>
 <section id="id12">
-<h2>推定<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<h2>推定<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
 <p>本節では、ミカエリス–メンテンモデルに基づくパラメータ推定の設定と、<br />
 その結果として得られる出力について説明する。</p>
 <hr class="docutils" />
 <section id="id13">
-<h3>何をどう設定したのか<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
+<h3>何をどう設定したのか<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
 <p>本問題では、以下のパラメータを推定対象とする。</p>
 <ul class="simple">
 <li><p>最大反応速度 <span class="math notranslate nohighlight">\(V_{\max}\)</span></p></li>
@@ -573,14 +579,14 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
 <p>以下のようにメインから呼び出す関数を定義した。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ray</span>
 
 
 <span class="c1"># --- ODEとシミュレーション ---</span>
-<span class="k">def</span> <span class="nf">mm_ode</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mm_ode</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">):</span>
     <span class="k">return</span> <span class="o">-</span> <span class="n">Vmax</span> <span class="o">*</span> <span class="n">S</span> <span class="o">/</span> <span class="p">(</span><span class="n">Km</span> <span class="o">+</span> <span class="n">S</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">simulate_mm_on_grid</span><span class="p">(</span><span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">,</span> <span class="n">S0</span><span class="p">,</span> <span class="n">t_array</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">simulate_mm_on_grid</span><span class="p">(</span><span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">,</span> <span class="n">S0</span><span class="p">,</span> <span class="n">t_array</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    観測時刻 t_array に合わせてミカエリスメンテン進行曲線を解く。</span>
 <span class="sd">    戻り値: P_model(t_array)</span>
@@ -599,7 +605,7 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
     <span class="k">return</span> <span class="n">P_model</span>
 
 <span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
-<span class="k">def</span> <span class="nf">log_likelihood_mm_multi</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">log_likelihood_mm_multi</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    複数の S0 条件のデータを使った対数尤度関数。</span>
 <span class="sd">    </span>
@@ -642,7 +648,7 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
 
     <span class="k">return</span> <span class="n">logL_total</span><span class="p">,</span> <span class="n">P_model_list</span>
 
-<span class="k">def</span> <span class="nf">sim_particle</span><span class="p">(</span><span class="n">particle</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sim_particle</span><span class="p">(</span><span class="n">particle</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sim_particle&#39;</span><span class="p">)</span>
 
     <span class="c1"># 並列化計算を実行する</span>
@@ -659,10 +665,22 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">ray</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># --- ODEとシミュレーション ---</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">def</span><span class="w"> </span><span class="nf">mm_ode</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">):</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;ray&#39;
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="id14">
-<h3>出力<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<h3>出力<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
 <p>推定の結果として、以下の量が得られる。</p>
 <ul class="simple">
 <li><p>各パラメータ <span class="math notranslate nohighlight">\(V_{\max}, K_m, (\sigma)\)</span> の推定値</p></li>
@@ -682,12 +700,12 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
 </section>
 </section>
 <section id="id15">
-<h2>考察<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h2>
+<h2>考察<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
 <section id="id16">
-<h3>推定結果について<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
+<h3>推定結果について<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
 </section>
 <section id="id17">
-<h3>他の手法には適用可能か<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
+<h3>他の手法には適用可能か<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
 </section>
 </section>
 </section>
@@ -807,7 +825,7 @@ By The Jupyter Book Community
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
