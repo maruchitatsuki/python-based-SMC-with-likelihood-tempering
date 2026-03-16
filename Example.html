@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Example code of Michaelis-Menten &#8212; My sample book</title>
   
@@ -29,39 +28,35 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Example';</script>
@@ -165,7 +160,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -208,9 +214,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -351,9 +357,9 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -410,12 +416,22 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="example-code-of-michaelis-menten">
+<<<<<<< HEAD
+<h1>Example code of Michaelis-Menten<a class="headerlink" href="#example-code-of-michaelis-menten" title="Link to this heading">#</a></h1>
+<p>ここでは、ミカエリスメンテン式に関するパラメータ推定を例として、私たちのコードでパラメータ推定を行う方法を解説する。</p>
+<section id="id1">
+<h2>どのような問題か<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>ミカエリス–メンテン式に基づく酵素反応モデルを用いて、<br />
+<strong>実験（あるいは疑似）データから反応パラメータを推定する問題</strong>を考える。</p>
+<p>本問題では、</p>
+=======
 <h1>Example code of Michaelis-Menten<a class="headerlink" href="#example-code-of-michaelis-menten" title="Permalink to this heading">#</a></h1>
 <p>We will use parameter estimation on the Michaelis-Menten formula as an example to illustrate how parameter estimation can be done in our code.</p>
 <section id="problem-description">
 <h2>Problem Description<a class="headerlink" href="#problem-description" title="Permalink to this heading">#</a></h2>
 <p>We consider a <strong>parameter estimation problem for an enzymatic reaction model based on the Michaelis–Menten equation</strong>, where reaction parameters are inferred from experimental (or synthetic) data.</p>
 <p>In this problem,</p>
+>>>>>>> 74a102f (update content)
 <ul class="simple">
 <li><p>the time evolution of the enzymatic reaction is described by an ordinary differential equation (ODE),</p></li>
 <li><p>observational data are obtained under multiple initial substrate concentration conditions,</p></li>
@@ -423,6 +439,21 @@ document.write(`
 </ul>
 <p>The goal is to determine a set of parameters that consistently explains the time-series data across all experimental conditions.</p>
 <hr class="docutils" />
+<<<<<<< HEAD
+<section id="id2">
+<h3>ミカエリスメンテン式とは<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>ミカエリス–メンテン式は、<strong>酵素反応の速さが基質濃度によってどのように変化するか</strong>を表す、最も基本的な反応速度式である。</p>
+<p>酵素反応では、基質濃度が低い場合には基質を増やすほど反応速度はほぼ比例的に増加する。<br />
+一方で、基質濃度が十分に高くなると酵素が飽和し、それ以上基質を増やしても反応速度はほとんど増加しなくなる。</p>
+<p>この <strong>「低濃度では比例、高濃度では飽和」</strong> という性質を簡潔に表したものがミカエリス–メンテン式である。</p>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h3>数式表現<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>ミカエリス–メンテン式は以下のように表される。</p>
+<p><span class="math notranslate nohighlight">\(v = \dfrac{V_{\max}[S]}{K_m + [S]}\)</span></p>
+<p>ここで、</p>
+=======
 <section id="what-is-the-michaelismenten-equation">
 <h3>What is the Michaelis–Menten Equation?<a class="headerlink" href="#what-is-the-michaelismenten-equation" title="Permalink to this heading">#</a></h3>
 <p>The <strong>Michaelis–Menten equation</strong> is one of the most fundamental rate equations used to describe how the reaction rate of an enzyme depends on the substrate concentration.</p>
@@ -441,6 +472,7 @@ document.write(`
 v = \dfrac{V_{\max}[S]}{K_m + [S]}
 \)</span></p>
 <p>where</p>
+>>>>>>> 74a102f (update content)
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\( v \)</span> : reaction rate</p></li>
 <li><p><span class="math notranslate nohighlight">\([S]\)</span> : substrate concentration</p></li>
@@ -449,6 +481,24 @@ v = \dfrac{V_{\max}[S]}{K_m + [S]}
 </ul>
 </section>
 <hr class="docutils" />
+<<<<<<< HEAD
+<section id="id4">
+<h3>時間発展モデルへの拡張<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>本問題では反応速度式を用いて、基質濃度の時間変化を次の常微分方程式で表す。</p>
+<p><span class="math notranslate nohighlight">\(\dfrac{dS(t)}{dt} = - \dfrac{V_{\max} S(t)}{K_m + S(t)}\)</span></p>
+<p>ここで <span class="math notranslate nohighlight">\(S(t)\)</span> は時刻 <span class="math notranslate nohighlight">\(t\)</span> における基質濃度である。</p>
+<p>生成物量 <span class="math notranslate nohighlight">\(P(t)\)</span> は、初期基質濃度 <span class="math notranslate nohighlight">\(S_0\)</span> を用いて</p>
+<p><span class="math notranslate nohighlight">\(P(t) = S_0 - S(t)\)</span></p>
+<p>として計算される。</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h2>推定するパラメータについて<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>本問題で推定対象とするパラメータは以下である。</p>
+<section id="id6">
+<h3>動力学パラメータ<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+=======
 <section id="extension-to-a-time-evolution-model">
 <h3>Extension to a Time Evolution Model<a class="headerlink" href="#extension-to-a-time-evolution-model" title="Permalink to this heading">#</a></h3>
 <p>In this study, the reaction rate expression is used to describe the <strong>time evolution of the substrate concentration</strong> through the following ordinary differential equation:</p>
@@ -468,6 +518,7 @@ P(t) = S_0 - S(t)
 <p>The parameters to be estimated in this problem are as follows.</p>
 <section id="kinetic-parameters">
 <h3>Kinetic Parameters<a class="headerlink" href="#kinetic-parameters" title="Permalink to this heading">#</a></h3>
+>>>>>>> 74a102f (update content)
 <ul class="simple">
 <li><p><strong>Maximum reaction rate <span class="math notranslate nohighlight">\(V_{\max}\)</span></strong><br />
 Represents the reaction rate when the enzyme is fully saturated with substrate.</p></li>
@@ -476,8 +527,13 @@ The substrate concentration at which the reaction rate equals <span class="math 
 It is often interpreted as an indicator of the affinity between enzyme and substrate.</p></li>
 </ul>
 </section>
+<<<<<<< HEAD
+<section id="id7">
+<h3>観測ノイズパラメータ（必要に応じて）<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+=======
 <section id="observation-noise-parameter-optional">
 <h3>Observation Noise Parameter (optional)<a class="headerlink" href="#observation-noise-parameter-optional" title="Permalink to this heading">#</a></h3>
+>>>>>>> 74a102f (update content)
 <ul class="simple">
 <li><p><strong>Observation noise standard deviation <span class="math notranslate nohighlight">\( \sigma\)</span></strong><br />
 Represents the variability of observed data around the model prediction.</p></li>
@@ -490,11 +546,20 @@ Represents the variability of observed data around the model prediction.</p></li
 </section>
 </section>
 <hr class="docutils" />
+<<<<<<< HEAD
+<section id="id8">
+<h2>疑似データの作成方法<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>実データの代わりに、既知の真のパラメータを用いて<br />
+<strong>疑似観測データ</strong>を生成する。</p>
+<section id="id9">
+<h3>疑似データ生成の手順<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+=======
 <section id="generation-of-synthetic-data">
 <h2>Generation of Synthetic Data<a class="headerlink" href="#generation-of-synthetic-data" title="Permalink to this heading">#</a></h2>
 <p>Instead of using experimental data, <strong>synthetic observational data</strong> are generated using known true parameters.</p>
 <section id="procedure-for-generating-synthetic-data">
 <h3>Procedure for Generating Synthetic Data<a class="headerlink" href="#procedure-for-generating-synthetic-data" title="Permalink to this heading">#</a></h3>
+>>>>>>> 74a102f (update content)
 <ol class="arabic simple">
 <li><p>Specify the true parameters</p></li>
 </ol>
@@ -525,9 +590,14 @@ P_{\mathrm{obs}}(t) = P_{\mathrm{true}}(t) + \varepsilon(t)
 <p>This procedure produces synthetic data that mimic realistic experimental observations.</p>
 </section>
 <hr class="docutils" />
+<<<<<<< HEAD
+<section id="id10">
+<h3>疑似データを用いる目的<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+=======
 <section id="purpose-of-using-synthetic-data">
 <h3>Purpose of Using Synthetic Data<a class="headerlink" href="#purpose-of-using-synthetic-data" title="Permalink to this heading">#</a></h3>
 <p>Synthetic data are used for the following purposes:</p>
+>>>>>>> 74a102f (update content)
 <ul class="simple">
 <li><p>validation of the parameter estimation algorithm</p></li>
 <li><p>examination of <strong>parameter identifiability</strong></p></li>
@@ -535,13 +605,35 @@ P_{\mathrm{obs}}(t) = P_{\mathrm{true}}(t) + \varepsilon(t)
 </ul>
 </section>
 <hr class="docutils" />
+<<<<<<< HEAD
+<section id="id11">
+<h3>まとめ<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>本問題は、</p>
+=======
 <section id="summary">
 <h3>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h3>
 <p>This problem can be formulated as</p>
+>>>>>>> 74a102f (update content)
 <blockquote>
 <div><p>a statistical parameter estimation problem in which the kinetic parameters of a Michaelis–Menten enzymatic reaction model are inferred from time-series data obtained under multiple experimental conditions.</p>
 </div></blockquote>
+<<<<<<< HEAD
+<p>として定式化される。</p>
+<p>この枠組みは、ベイズ推定・MCMC・SMC などの手法を検証する<br />
+代表的なテスト問題として利用できる。</p>
+</section>
+</section>
+<section id="id12">
+<h2>推定<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>本節では、ミカエリス–メンテンモデルに基づくパラメータ推定の設定と、<br />
+その結果として得られる出力について説明する。</p>
+<hr class="docutils" />
+<section id="id13">
+<h3>何をどう設定したのか<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>本問題では、以下のパラメータを推定対象とする。</p>
+=======
 <p>This framework is widely used as a <strong>benchmark problem for evaluating Bayesian inference methods</strong>, including</p>
+>>>>>>> 74a102f (update content)
 <ul class="simple">
 <li><p>Markov Chain Monte Carlo (MCMC)</p></li>
 <li><p>Sequential Monte Carlo (SMC)</p></li>
@@ -613,14 +705,19 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
 <p>The following function is defined and called from the main program.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ray</span>
 
 
+<<<<<<< HEAD
+<span class="c1"># --- ODEとシミュレーション ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mm_ode</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">):</span>
+=======
 <span class="c1"># --- ODE and simulation ---</span>
 <span class="k">def</span> <span class="nf">mm_ode</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">):</span>
+>>>>>>> 74a102f (update content)
     <span class="k">return</span> <span class="o">-</span> <span class="n">Vmax</span> <span class="o">*</span> <span class="n">S</span> <span class="o">/</span> <span class="p">(</span><span class="n">Km</span> <span class="o">+</span> <span class="n">S</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">simulate_mm_on_grid</span><span class="p">(</span><span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">,</span> <span class="n">S0</span><span class="p">,</span> <span class="n">t_array</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">simulate_mm_on_grid</span><span class="p">(</span><span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">,</span> <span class="n">S0</span><span class="p">,</span> <span class="n">t_array</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Solve the Michaelis–Menten progress curve on the observation time grid t_array.</span>
 <span class="sd">    Returns: P_model(t_array)</span>
@@ -639,7 +736,7 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
     <span class="k">return</span> <span class="n">P_model</span>
 
 <span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
-<span class="k">def</span> <span class="nf">log_likelihood_mm_multi</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">log_likelihood_mm_multi</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Log-likelihood function using data from multiple initial substrate concentration conditions.</span>
 
@@ -680,7 +777,7 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
 
     <span class="k">return</span> <span class="n">logL_total</span><span class="p">,</span> <span class="n">P_model_list</span>
 
-<span class="k">def</span> <span class="nf">sim_particle</span><span class="p">(</span><span class="n">particle</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sim_particle</span><span class="p">(</span><span class="n">particle</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sim_particle&#39;</span><span class="p">)</span>
 
     <span class="c1"># Run the likelihood calculation in parallel</span>
@@ -696,11 +793,29 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">ray</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># --- ODEとシミュレーション ---</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">def</span><span class="w"> </span><span class="nf">mm_ode</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">):</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;ray&#39;
+</pre></div>
+</div>
+</div>
 </div>
 </section>
+<<<<<<< HEAD
+<section id="id14">
+<h3>出力<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>推定の結果として、以下の量が得られる。</p>
+=======
 <section id="outputs">
 <h3>Outputs<a class="headerlink" href="#outputs" title="Permalink to this heading">#</a></h3>
 <p>The estimation procedure produces the following quantities.</p>
+>>>>>>> 74a102f (update content)
 <ul class="simple">
 <li><p>Estimated values of the parameters <span class="math notranslate nohighlight">\(V_{\max}, K_m, (\sigma)\)</span></p></li>
 <li><p>Posterior distributions (or their approximations) of the parameters</p></li>
@@ -712,7 +827,23 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
 <li><p>evaluate the uncertainty associated with the parameter estimates,</p></li>
 <li><p>assess the consistency between model predictions and observed data.</p></li>
 </ul>
+<<<<<<< HEAD
+<p>が可能となる。</p>
+<p>特に、異なる初期基質濃度条件に対して<br />
+単一のパラメータ集合で一貫した説明が可能かどうかは、<br />
+モデルの妥当性を判断する重要な指標となる。</p>
+</section>
+</section>
+<section id="id15">
+<h2>考察<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<section id="id16">
+<h3>推定結果について<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+</section>
+<section id="id17">
+<h3>他の手法には適用可能か<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+=======
 <p>In particular, the ability of a <strong>single parameter set</strong> to consistently explain time-series data obtained under <strong>different initial substrate concentration conditions</strong> is an important indicator for evaluating the validity of the model.</p>
+>>>>>>> 74a102f (update content)
 </section>
 </section>
 </section>
@@ -829,7 +960,7 @@ By The Jupyter Book Community
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
