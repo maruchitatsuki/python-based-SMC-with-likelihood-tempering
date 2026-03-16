@@ -164,8 +164,8 @@ The code is distributed as a Git repository.
 Clone it using the following procedure:
 
 ~~~bash
-git clone <repository-url>
-cd <repository-name>
+git clone https://github.com/maruchitatsuki/python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering
+cd python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering
 ~~~
 
 Install the required Python packages with:
