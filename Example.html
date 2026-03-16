@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Example code of Michaelis-Menten &#8212; My sample book</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Example';</script>
@@ -160,18 +165,7 @@
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -214,9 +208,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -357,9 +351,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -380,31 +374,28 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">どのような問題か</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ミカエリスメンテン式とは</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">数式表現</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">時間発展モデルへの拡張</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem Description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-michaelismenten-equation">What is the Michaelis–Menten Equation?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-expression">Mathematical Expression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extension-to-a-time-evolution-model">Extension to a Time Evolution Model</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">推定するパラメータについて</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">動力学パラメータ</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">観測ノイズパラメータ（必要に応じて）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters-to-estimate">Parameters to Estimate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kinetic-parameters">Kinetic Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#observation-noise-parameter-optional">Observation Noise Parameter (optional)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">疑似データの作成方法</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">疑似データ生成の手順</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">疑似データを用いる目的</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-of-synthetic-data">Generation of Synthetic Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#procedure-for-generating-synthetic-data">Procedure for Generating Synthetic Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose-of-using-synthetic-data">Purpose of Using Synthetic Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">推定</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">何をどう設定したのか</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">出力</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">考察</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">推定結果について</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">他の手法には適用可能か</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-estimation">Parameter Estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation-setup">Estimation Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-function">Likelihood Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs">Outputs</a></li>
 </ul>
 </li>
 </ul>
@@ -419,177 +410,220 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="example-code-of-michaelis-menten">
-<h1>Example code of Michaelis-Menten<a class="headerlink" href="#example-code-of-michaelis-menten" title="Link to this heading">#</a></h1>
-<p>ここでは、ミカエリスメンテン式に関するパラメータ推定を例として、私たちのコードでパラメータ推定を行う方法を解説する。</p>
-<section id="id1">
-<h2>どのような問題か<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p>ミカエリス–メンテン式に基づく酵素反応モデルを用いて、<br />
-<strong>実験（あるいは疑似）データから反応パラメータを推定する問題</strong>を考える。</p>
-<p>本問題では、</p>
+<h1>Example code of Michaelis-Menten<a class="headerlink" href="#example-code-of-michaelis-menten" title="Permalink to this heading">#</a></h1>
+<p>We will use parameter estimation on the Michaelis-Menten formula as an example to illustrate how parameter estimation can be done in our code.</p>
+<section id="problem-description">
+<h2>Problem Description<a class="headerlink" href="#problem-description" title="Permalink to this heading">#</a></h2>
+<p>We consider a <strong>parameter estimation problem for an enzymatic reaction model based on the Michaelis–Menten equation</strong>, where reaction parameters are inferred from experimental (or synthetic) data.</p>
+<p>In this problem,</p>
 <ul class="simple">
-<li><p>酵素反応の時間発展を常微分方程式（ODE）で記述し</p></li>
-<li><p>複数の初期基質濃度条件における観測データを用いて</p></li>
-<li><p>モデルパラメータを統計的に推定する</p></li>
+<li><p>the time evolution of the enzymatic reaction is described by an ordinary differential equation (ODE),</p></li>
+<li><p>observational data are obtained under multiple initial substrate concentration conditions,</p></li>
+<li><p>and the model parameters are statistically estimated from these observations.</p></li>
 </ul>
-<p>ことを目的とする。</p>
+<p>The goal is to determine a set of parameters that consistently explains the time-series data across all experimental conditions.</p>
 <hr class="docutils" />
-<section id="id2">
-<h3>ミカエリスメンテン式とは<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<p>ミカエリス–メンテン式は、<strong>酵素反応の速さが基質濃度によってどのように変化するか</strong>を表す、最も基本的な反応速度式である。</p>
-<p>酵素反応では、基質濃度が低い場合には基質を増やすほど反応速度はほぼ比例的に増加する。<br />
-一方で、基質濃度が十分に高くなると酵素が飽和し、それ以上基質を増やしても反応速度はほとんど増加しなくなる。</p>
-<p>この <strong>「低濃度では比例、高濃度では飽和」</strong> という性質を簡潔に表したものがミカエリス–メンテン式である。</p>
-</section>
-<hr class="docutils" />
-<section id="id3">
-<h3>数式表現<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<p>ミカエリス–メンテン式は以下のように表される。</p>
-<p><span class="math notranslate nohighlight">\(v = \dfrac{V_{\max}[S]}{K_m + [S]}\)</span></p>
-<p>ここで、</p>
+<section id="what-is-the-michaelismenten-equation">
+<h3>What is the Michaelis–Menten Equation?<a class="headerlink" href="#what-is-the-michaelismenten-equation" title="Permalink to this heading">#</a></h3>
+<p>The <strong>Michaelis–Menten equation</strong> is one of the most fundamental rate equations used to describe how the reaction rate of an enzyme depends on the substrate concentration.</p>
+<p>In enzyme kinetics:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(v\)</span>：反応速度</p></li>
-<li><p><span class="math notranslate nohighlight">\([S]\)</span>：基質濃度</p></li>
-<li><p><span class="math notranslate nohighlight">\(V_{\max}\)</span>：最大反応速度</p></li>
-<li><p><span class="math notranslate nohighlight">\(K_m\)</span>：ミカエリス定数</p></li>
+<li><p>When the substrate concentration is low, the reaction rate increases approximately proportionally with substrate concentration.</p></li>
+<li><p>When the substrate concentration becomes sufficiently high, the enzyme becomes saturated, and further increases in substrate concentration produce little change in the reaction rate.</p></li>
 </ul>
-<p>を表す。</p>
+<p>This characteristic behavior — <strong>linear increase at low concentration and saturation at high concentration</strong> — is compactly described by the Michaelis–Menten equation.</p>
 </section>
 <hr class="docutils" />
-<section id="id4">
-<h3>時間発展モデルへの拡張<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
-<p>本問題では反応速度式を用いて、基質濃度の時間変化を次の常微分方程式で表す。</p>
-<p><span class="math notranslate nohighlight">\(\dfrac{dS(t)}{dt} = - \dfrac{V_{\max} S(t)}{K_m + S(t)}\)</span></p>
-<p>ここで <span class="math notranslate nohighlight">\(S(t)\)</span> は時刻 <span class="math notranslate nohighlight">\(t\)</span> における基質濃度である。</p>
-<p>生成物量 <span class="math notranslate nohighlight">\(P(t)\)</span> は、初期基質濃度 <span class="math notranslate nohighlight">\(S_0\)</span> を用いて</p>
-<p><span class="math notranslate nohighlight">\(P(t) = S_0 - S(t)\)</span></p>
-<p>として計算される。</p>
-</section>
+<section id="mathematical-expression">
+<h3>Mathematical Expression<a class="headerlink" href="#mathematical-expression" title="Permalink to this heading">#</a></h3>
+<p>The Michaelis–Menten equation is expressed as</p>
+<p><span class="math notranslate nohighlight">\(
+v = \dfrac{V_{\max}[S]}{K_m + [S]}
+\)</span></p>
+<p>where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( v \)</span> : reaction rate</p></li>
+<li><p><span class="math notranslate nohighlight">\([S]\)</span> : substrate concentration</p></li>
+<li><p><span class="math notranslate nohighlight">\( V_{\max}\)</span> : maximum reaction rate</p></li>
+<li><p><span class="math notranslate nohighlight">\( K_m \)</span>: Michaelis constant</p></li>
+</ul>
 </section>
 <hr class="docutils" />
-<section id="id5">
-<h2>推定するパラメータについて<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
-<p>本問題で推定対象とするパラメータは以下である。</p>
-<section id="id6">
-<h3>動力学パラメータ<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><strong>最大反応速度 <span class="math notranslate nohighlight">\(V_{\max}\)</span></strong><br />
-酵素が完全に飽和したときの反応速度を表す。</p></li>
-<li><p><strong>ミカエリス定数 <span class="math notranslate nohighlight">\(K_m\)</span></strong><br />
-反応速度が <span class="math notranslate nohighlight">\(V_{\max}/2\)</span> となるときの基質濃度であり、<br />
-酵素と基質の親和性の指標として解釈されることが多い。</p></li>
-</ul>
-</section>
-<section id="id7">
-<h3>観測ノイズパラメータ（必要に応じて）<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><strong>観測誤差の標準偏差 <span class="math notranslate nohighlight">\(\sigma\)</span></strong><br />
-観測値がモデル値からどの程度ばらつくかを表す。</p></li>
-</ul>
-<p>解析条件に応じて、</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\sigma\)</span> を既知として固定する場合</p></li>
-<li><p><span class="math notranslate nohighlight">\(\sigma\)</span> も未知パラメータとして同時に推定する場合</p></li>
-</ul>
-<p>の両方を考える。</p>
+<section id="extension-to-a-time-evolution-model">
+<h3>Extension to a Time Evolution Model<a class="headerlink" href="#extension-to-a-time-evolution-model" title="Permalink to this heading">#</a></h3>
+<p>In this study, the reaction rate expression is used to describe the <strong>time evolution of the substrate concentration</strong> through the following ordinary differential equation:</p>
+<p><span class="math notranslate nohighlight">\(
+\dfrac{dS(t)}{dt} = - \dfrac{V_{\max} S(t)}{K_m + S(t)}
+\)</span></p>
+<p>where <span class="math notranslate nohighlight">\( S(t)\)</span> denotes the substrate concentration at time<span class="math notranslate nohighlight">\( t\)</span>.</p>
+<p>The product concentration <span class="math notranslate nohighlight">\( P(t) \)</span> is calculated from the initial substrate concentration <span class="math notranslate nohighlight">\( S_0 \)</span> as</p>
+<p><span class="math notranslate nohighlight">\(
+P(t) = S_0 - S(t)
+\)</span></p>
 </section>
 </section>
 <hr class="docutils" />
-<section id="id8">
-<h2>疑似データの作成方法<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
-<p>実データの代わりに、既知の真のパラメータを用いて<br />
-<strong>疑似観測データ</strong>を生成する。</p>
-<section id="id9">
-<h3>疑似データ生成の手順<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<section id="parameters-to-estimate">
+<h2>Parameters to Estimate<a class="headerlink" href="#parameters-to-estimate" title="Permalink to this heading">#</a></h2>
+<p>The parameters to be estimated in this problem are as follows.</p>
+<section id="kinetic-parameters">
+<h3>Kinetic Parameters<a class="headerlink" href="#kinetic-parameters" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Maximum reaction rate <span class="math notranslate nohighlight">\(V_{\max}\)</span></strong><br />
+Represents the reaction rate when the enzyme is fully saturated with substrate.</p></li>
+<li><p><strong>Michaelis constant <span class="math notranslate nohighlight">\(K_m\)</span></strong><br />
+The substrate concentration at which the reaction rate equals <span class="math notranslate nohighlight">\(V_{\max}/2\)</span>.<br />
+It is often interpreted as an indicator of the affinity between enzyme and substrate.</p></li>
+</ul>
+</section>
+<section id="observation-noise-parameter-optional">
+<h3>Observation Noise Parameter (optional)<a class="headerlink" href="#observation-noise-parameter-optional" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Observation noise standard deviation <span class="math notranslate nohighlight">\( \sigma\)</span></strong><br />
+Represents the variability of observed data around the model prediction.</p></li>
+</ul>
+<p>Depending on the analysis setting,</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \sigma \)</span> may be <strong>treated as known and fixed</strong>, or</p></li>
+<li><p><span class="math notranslate nohighlight">\( \sigma \)</span> may be <strong>estimated simultaneously with the kinetic parameters</strong>.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="generation-of-synthetic-data">
+<h2>Generation of Synthetic Data<a class="headerlink" href="#generation-of-synthetic-data" title="Permalink to this heading">#</a></h2>
+<p>Instead of using experimental data, <strong>synthetic observational data</strong> are generated using known true parameters.</p>
+<section id="procedure-for-generating-synthetic-data">
+<h3>Procedure for Generating Synthetic Data<a class="headerlink" href="#procedure-for-generating-synthetic-data" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p>真のパラメータ<br />
-<span class="math notranslate nohighlight">\(V_{\max}^{\mathrm{true}}, \; K_m^{\mathrm{true}}\)</span>
-を設定する。</p></li>
-<li><p>複数の初期基質濃度<br />
-<span class="math notranslate nohighlight">\(S_0^{(1)}, S_0^{(2)}, \dots, S_0^{(N)}\)</span>
-を用意する。</p></li>
-<li><p>各条件についてミカエリス–メンテン ODE を数値的に解き、<br />
-理論的な生成物量 <span class="math notranslate nohighlight">\(P_{\mathrm{true}}(t)\)</span> を計算する。</p></li>
-<li><p>各時刻において、ガウス分布に従う観測ノイズを加える。</p></li>
+<li><p>Specify the true parameters</p></li>
 </ol>
-<p><span class="math notranslate nohighlight">\(P_{\mathrm{obs}}(t) = P_{\mathrm{true}}(t) + \varepsilon(t)\)</span></p>
-<p><span class="math notranslate nohighlight">\(\varepsilon(t) \sim \mathcal{N}(0,\sigma^2)\)</span></p>
-<p>これにより、現実の実験データを模擬した疑似データを得る。</p>
+<p><span class="math notranslate nohighlight">\(
+V_{\max}^{\mathrm{true}}, \quad K_m^{\mathrm{true}}
+\)</span></p>
+<ol class="arabic simple" start="2">
+<li><p>Prepare multiple initial substrate concentrations</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(
+S_0^{(1)}, S_0^{(2)}, \dots, S_0^{(N)}
+\)</span></p>
+<ol class="arabic simple" start="3">
+<li><p>For each condition, numerically solve the Michaelis–Menten ODE to compute the theoretical product concentration</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(
+P_{\mathrm{true}}(t)
+\)</span></p>
+<ol class="arabic simple" start="4">
+<li><p>Add Gaussian observation noise at each time point</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(
+P_{\mathrm{obs}}(t) = P_{\mathrm{true}}(t) + \varepsilon(t)
+\)</span></p>
+<p><span class="math notranslate nohighlight">\(
+\varepsilon(t) \sim \mathcal{N}(0,\sigma^2)
+\)</span></p>
+<p>This procedure produces synthetic data that mimic realistic experimental observations.</p>
 </section>
 <hr class="docutils" />
-<section id="id10">
-<h3>疑似データを用いる目的<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<section id="purpose-of-using-synthetic-data">
+<h3>Purpose of Using Synthetic Data<a class="headerlink" href="#purpose-of-using-synthetic-data" title="Permalink to this heading">#</a></h3>
+<p>Synthetic data are used for the following purposes:</p>
 <ul class="simple">
-<li><p>推定アルゴリズムの妥当性検証</p></li>
-<li><p>パラメータの同定可能性（identifiability）の確認</p></li>
-<li><p>推定精度および不確実性評価</p></li>
+<li><p>validation of the parameter estimation algorithm</p></li>
+<li><p>examination of <strong>parameter identifiability</strong></p></li>
+<li><p>evaluation of estimation accuracy and uncertainty</p></li>
 </ul>
 </section>
 <hr class="docutils" />
-<section id="id11">
-<h3>まとめ<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
-<p>本問題は、</p>
+<section id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h3>
+<p>This problem can be formulated as</p>
 <blockquote>
-<div><p>ミカエリス–メンテン型酵素反応モデルを用いて、<br />
-複数条件の時系列データから<br />
-反応パラメータを統計的に推定する問題</p>
+<div><p>a statistical parameter estimation problem in which the kinetic parameters of a Michaelis–Menten enzymatic reaction model are inferred from time-series data obtained under multiple experimental conditions.</p>
 </div></blockquote>
-<p>として定式化される。</p>
-<p>この枠組みは、ベイズ推定・MCMC・SMC などの手法を検証する<br />
-代表的なテスト問題として利用できる。</p>
-</section>
-</section>
-<section id="id12">
-<h2>推定<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
-<p>本節では、ミカエリス–メンテンモデルに基づくパラメータ推定の設定と、<br />
-その結果として得られる出力について説明する。</p>
-<hr class="docutils" />
-<section id="id13">
-<h3>何をどう設定したのか<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
-<p>本問題では、以下のパラメータを推定対象とする。</p>
+<p>This framework is widely used as a <strong>benchmark problem for evaluating Bayesian inference methods</strong>, including</p>
 <ul class="simple">
-<li><p>最大反応速度 <span class="math notranslate nohighlight">\(V_{\max}\)</span></p></li>
-<li><p>ミカエリス定数 <span class="math notranslate nohighlight">\(K_m\)</span></p></li>
-<li><p>（必要に応じて）観測ノイズの標準偏差 <span class="math notranslate nohighlight">\(\sigma\)</span></p></li>
+<li><p>Markov Chain Monte Carlo (MCMC)</p></li>
+<li><p>Sequential Monte Carlo (SMC)</p></li>
+<li><p>other probabilistic inference techniques.</p></li>
 </ul>
-<p>基質濃度の時間発展は、次の常微分方程式でモデル化される。</p>
-<p><span class="math notranslate nohighlight">\(\dfrac{dS(t)}{dt} = - \dfrac{V_{\max} S(t)}{K_m + S(t)}\)</span></p>
-<p>生成物量は</p>
-<p><span class="math notranslate nohighlight">\(P(t) = S_0 - S(t)\)</span></p>
-<p>として定義し、観測データは以下のガウスノイズモデルに従うと仮定する。</p>
-<p><span class="math notranslate nohighlight">\(P_{\mathrm{obs}}(t) = P_{\mathrm{model}}(t) + \varepsilon(t)\)</span></p>
-<p><span class="math notranslate nohighlight">\(\varepsilon(t) \sim \mathcal{N}(0,\sigma^2)\)</span></p>
-<p>複数の初期基質濃度条件 <span class="math notranslate nohighlight">\(S_0^{(i)}\)</span> に対して得られた時系列データを同時に用い、<br />
-全条件で共通のパラメータ <span class="math notranslate nohighlight">\((V_{\max}, K_m, \sigma)\)</span> を推定する。</p>
-<p>推定はベイズ的枠組みに基づき、尤度関数は次式で与えられる。</p>
-<p>$\log p(\mathcal{D} \mid \theta)
-= \sum_{i=1}^{N_{\mathrm{cond}}}
-\sum_{j=1}^{N_t}
-\left[</p>
+</section>
+</section>
+<section id="parameter-estimation">
+<h2>Parameter Estimation<a class="headerlink" href="#parameter-estimation" title="Permalink to this heading">#</a></h2>
+<p>In this section, we describe the parameter estimation setup for the Michaelis–Menten model and the outputs obtained from the estimation procedure.</p>
+<hr class="docutils" />
+<section id="estimation-setup">
+<h3>Estimation Setup<a class="headerlink" href="#estimation-setup" title="Permalink to this heading">#</a></h3>
+<p>In this problem, the following parameters are estimated:</p>
 <ul class="simple">
-<li><p>\dfrac{1}{2}\log(2\pi\sigma^2)</p></li>
-<li><p>\dfrac{
+<li><p>Maximum reaction rate <span class="math notranslate nohighlight">\(V_{\max}\)</span></p></li>
+<li><p>Michaelis constant <span class="math notranslate nohighlight">\(K_m\)</span></p></li>
+<li><p>(optionally) observation noise standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span></p></li>
+</ul>
+<p>The time evolution of the substrate concentration is modeled by the following ordinary differential equation:</p>
+<p><span class="math notranslate nohighlight">\(
+\dfrac{dS(t)}{dt} = - \dfrac{V_{\max} S(t)}{K_m + S(t)}
+\)</span></p>
+<p>The product concentration is defined as</p>
+<p><span class="math notranslate nohighlight">\(
+P(t) = S_0 - S(t)
+\)</span></p>
+<p>The observational data are assumed to follow a Gaussian noise model:</p>
+<p><span class="math notranslate nohighlight">\(
+P_{\mathrm{obs}}(t) = P_{\mathrm{model}}(t) + \varepsilon(t)
+\)</span></p>
+<p><span class="math notranslate nohighlight">\(
+\varepsilon(t) \sim \mathcal{N}(0,\sigma^2)
+\)</span></p>
+<p>Time-series data obtained under multiple initial substrate concentration conditions (S_0^{(i)}) are used simultaneously.<br />
+The parameters <span class="math notranslate nohighlight">\((V_{\max}, K_m, \sigma)\)</span> are assumed to be <strong>shared across all experimental conditions</strong>.</p>
+</section>
+<hr class="docutils" />
+<section id="likelihood-function">
+<h3>Likelihood Function<a class="headerlink" href="#likelihood-function" title="Permalink to this heading">#</a></h3>
+<p>The estimation is performed within a Bayesian framework.<br />
+Under the Gaussian observation model, the log-likelihood function is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\log p(\mathcal{D} \mid \theta)
+=
+\sum_{i=1}^{N_{\mathrm{cond}}}
+\sum_{j=1}^{N_t}
+\left[
+-\frac{1}{2}\log(2\pi\sigma^2)
+-
+\frac{
 \left(
 P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
 \right)^2
 }{2\sigma^2}
-\right]$</p></li>
-</ul>
-<p>ここで <span class="math notranslate nohighlight">\(\theta = \{V_{\max}, K_m, \sigma\}\)</span> は推定対象のパラメータ集合である。</p>
+\right]
+\]</div>
+<p>where</p>
+<p><span class="math notranslate nohighlight">\(
+\theta = \{V_{\max}, K_m, \sigma\}
+\)</span></p>
+<p>denotes the set of parameters to be estimated.</p>
+</section>
 <hr class="docutils" />
-<p>以下のようにメインから呼び出す関数を定義した。</p>
+<section id="implementation">
+<h3>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h3>
+<p>The likelihood function is implemented through a simulation function that solves the ODE model and compares the predicted product concentration with the observed data.</p>
+<p>The following function is defined and called from the main program.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ray</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
 
 
-<span class="c1"># --- ODEとシミュレーション ---</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">mm_ode</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">):</span>
+<span class="c1"># --- ODE and simulation ---</span>
+<span class="k">def</span> <span class="nf">mm_ode</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">):</span>
     <span class="k">return</span> <span class="o">-</span> <span class="n">Vmax</span> <span class="o">*</span> <span class="n">S</span> <span class="o">/</span> <span class="p">(</span><span class="n">Km</span> <span class="o">+</span> <span class="n">S</span><span class="p">)</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">simulate_mm_on_grid</span><span class="p">(</span><span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">,</span> <span class="n">S0</span><span class="p">,</span> <span class="n">t_array</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">simulate_mm_on_grid</span><span class="p">(</span><span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">,</span> <span class="n">S0</span><span class="p">,</span> <span class="n">t_array</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    観測時刻 t_array に合わせてミカエリスメンテン進行曲線を解く。</span>
-<span class="sd">    戻り値: P_model(t_array)</span>
+<span class="sd">    Solve the Michaelis–Menten progress curve on the observation time grid t_array.</span>
+<span class="sd">    Returns: P_model(t_array)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">t_span</span> <span class="o">=</span> <span class="p">(</span><span class="n">t_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
@@ -605,22 +639,21 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
     <span class="k">return</span> <span class="n">P_model</span>
 
 <span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">log_likelihood_mm_multi</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">log_likelihood_mm_multi</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    複数の S0 条件のデータを使った対数尤度関数。</span>
-<span class="sd">    </span>
+<span class="sd">    Log-likelihood function using data from multiple initial substrate concentration conditions.</span>
+
 <span class="sd">    params  : [Vmax, Km, sigma]</span>
-<span class="sd">    dataset : load_all_mm_data() で読み込んだデータのリスト</span>
+<span class="sd">    dataset : list of data loaded by load_all_mm_data()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-        
+
     <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">params</span>
 
-    <span class="c1"># σを推定しない場合，sigmaはsigma_trueに固定される</span>
+    <span class="c1"># If sigma is not estimated, it is fixed to sigma_true</span>
     <span class="k">if</span> <span class="n">est_sigma</span><span class="p">:</span>
         <span class="n">sigma</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma_true</span>
-
 
     <span class="k">if</span> <span class="n">sigma</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
@@ -633,10 +666,10 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
         <span class="n">P_obs</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;P_obs&quot;</span><span class="p">]</span>
         <span class="n">S0</span>    <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;S0&quot;</span><span class="p">]</span>
 
-        <span class="c1"># モデル予測</span>
+        <span class="c1"># Model prediction</span>
         <span class="n">P_model</span> <span class="o">=</span> <span class="n">simulate_mm_on_grid</span><span class="p">(</span><span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">,</span> <span class="n">S0</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 
-        <span class="c1"># 残差</span>
+        <span class="c1"># Residual</span>
         <span class="n">residual</span> <span class="o">=</span> <span class="n">P_obs</span> <span class="o">-</span> <span class="n">P_model</span>
 
         <span class="n">logL_i</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">datapoint</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> \
@@ -645,67 +678,41 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
         <span class="n">logL_total</span> <span class="o">+=</span> <span class="n">logL_i</span>
         <span class="n">P_model_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">P_model</span><span class="p">)</span>
 
-
     <span class="k">return</span> <span class="n">logL_total</span><span class="p">,</span> <span class="n">P_model_list</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">sim_particle</span><span class="p">(</span><span class="n">particle</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">sim_particle</span><span class="p">(</span><span class="n">particle</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sim_particle&#39;</span><span class="p">)</span>
 
-    <span class="c1"># 並列化計算を実行する</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">log_likelihood_mm_multi</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">particle</span><span class="p">[</span><span class="n">i</span><span class="p">,:])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_particle</span><span class="p">)]</span>
-    <span class="c1"># print(results)</span>
+    <span class="c1"># Run the likelihood calculation in parallel</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">log_likelihood_mm_multi</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">particle</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_particle</span><span class="p">)]</span>
 
-    <span class="c1"># 並列計算の結果を取得する</span>
+    <span class="c1"># Retrieve the parallel computation results</span>
     <span class="n">llk_Cl</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 
-    <span class="c1"># 取得した結果を使える形に成型する</span>
+    <span class="c1"># Reshape the returned results</span>
     <span class="n">llk</span><span class="p">,</span> <span class="n">C_l_</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">llk_Cl</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">llk</span><span class="p">,</span><span class="n">C_l_</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">ray</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># --- ODEとシミュレーション ---</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">def</span><span class="w"> </span><span class="nf">mm_ode</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">Km</span><span class="p">):</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;ray&#39;
+    <span class="k">return</span> <span class="n">llk</span><span class="p">,</span> <span class="n">C_l_</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="id14">
-<h3>出力<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
-<p>推定の結果として、以下の量が得られる。</p>
+<section id="outputs">
+<h3>Outputs<a class="headerlink" href="#outputs" title="Permalink to this heading">#</a></h3>
+<p>The estimation procedure produces the following quantities.</p>
 <ul class="simple">
-<li><p>各パラメータ <span class="math notranslate nohighlight">\(V_{\max}, K_m, (\sigma)\)</span> の推定値</p></li>
-<li><p>パラメータの事後分布（またはその近似）</p></li>
-<li><p>各粒子あるいはサンプルに対応するモデル予測 <span class="math notranslate nohighlight">\(P_{\mathrm{model}}(t)\)</span></p></li>
+<li><p>Estimated values of the parameters <span class="math notranslate nohighlight">\(V_{\max}, K_m, (\sigma)\)</span></p></li>
+<li><p>Posterior distributions (or their approximations) of the parameters</p></li>
+<li><p>Model predictions <span class="math notranslate nohighlight">\(P_{\mathrm{model}}(t)\)</span> corresponding to each particle or sample</p></li>
 </ul>
-<p>これらの出力を用いることで、</p>
+<p>These outputs allow us to</p>
 <ul class="simple">
-<li><p>推定値と真値（疑似データの場合）の比較</p></li>
-<li><p>パラメータ不確実性の評価</p></li>
-<li><p>モデル予測と観測データの整合性の確認</p></li>
+<li><p>compare the estimated parameters with the true values (in the case of synthetic data),</p></li>
+<li><p>evaluate the uncertainty associated with the parameter estimates,</p></li>
+<li><p>assess the consistency between model predictions and observed data.</p></li>
 </ul>
-<p>が可能となる。</p>
-<p>特に、異なる初期基質濃度条件に対して<br />
-単一のパラメータ集合で一貫した説明が可能かどうかは、<br />
-モデルの妥当性を判断する重要な指標となる。</p>
-</section>
-</section>
-<section id="id15">
-<h2>考察<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
-<section id="id16">
-<h3>推定結果について<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
-</section>
-<section id="id17">
-<h3>他の手法には適用可能か<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>In particular, the ability of a <strong>single parameter set</strong> to consistently explain time-series data obtained under <strong>different initial substrate concentration conditions</strong> is an important indicator for evaluating the validity of the model.</p>
 </section>
 </section>
 </section>
@@ -774,31 +781,28 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">どのような問題か</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ミカエリスメンテン式とは</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">数式表現</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">時間発展モデルへの拡張</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem Description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-michaelismenten-equation">What is the Michaelis–Menten Equation?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-expression">Mathematical Expression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extension-to-a-time-evolution-model">Extension to a Time Evolution Model</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">推定するパラメータについて</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">動力学パラメータ</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">観測ノイズパラメータ（必要に応じて）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters-to-estimate">Parameters to Estimate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kinetic-parameters">Kinetic Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#observation-noise-parameter-optional">Observation Noise Parameter (optional)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">疑似データの作成方法</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">疑似データ生成の手順</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">疑似データを用いる目的</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-of-synthetic-data">Generation of Synthetic Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#procedure-for-generating-synthetic-data">Procedure for Generating Synthetic Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose-of-using-synthetic-data">Purpose of Using Synthetic Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">推定</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">何をどう設定したのか</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">出力</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">考察</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">推定結果について</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">他の手法には適用可能か</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-estimation">Parameter Estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation-setup">Estimation Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-function">Likelihood Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs">Outputs</a></li>
 </ul>
 </li>
 </ul>
@@ -825,7 +829,7 @@ By The Jupyter Book Community
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>
