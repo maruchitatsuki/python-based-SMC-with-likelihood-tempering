@@ -11,7 +11,7 @@ This documentation is associated with the following publication:
 Tatsuki Maruchi, Tomoyuki Yajima, Yoshiaki Kawajiri  
 AIChE Journal, First published: 09 March 2026  
 
-https://doi.org/10.1002/aic.70319
+<a href="https://doi.org/10.1002/aic.70319" target="_blank">https://doi.org/10.1002/aic.70319</a>
 
 If you use the algorithms, code, or methodology described in this documentation, please cite the above paper.
 
