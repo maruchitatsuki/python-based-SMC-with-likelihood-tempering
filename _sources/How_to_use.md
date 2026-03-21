@@ -11,6 +11,7 @@ kernelspec:
   language: python
   name: python3
 ---
+# How to use
 
 ## Code Availability
 
@@ -183,7 +184,7 @@ python-based-sequential-monte-carlo/
 
 ## Example
 
-`SMC_example` provides a complete and minimal implementation based on the Michaelis–Menten model.
+`Example code of Michaelis-Menten` provides a complete and minimal implementation based on the Michaelis–Menten model.
 
 Users are expected to use this example as the primary reference and modify it according to their specific problem.
 
