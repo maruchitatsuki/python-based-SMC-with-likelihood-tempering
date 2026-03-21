@@ -1,3 +1,20 @@
+## Code Availability
+
+The source code is available from the following GitHub repository:
+
+```text
+https://github.com/maruchitatsuki/python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering
+```
+
+Clone the repository with:
+
+```bash
+git clone https://github.com/maruchitatsuki/python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering.git
+cd python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering
+```
+
+---
+
 ## Quick Start
 
 The minimum workflow for using this framework is as follows:
