@@ -164,6 +164,7 @@ python-based-sequential-monte-carlo/
 │   ├── SMC_methanation_data.py
 │   └── SMC_methanation_main.py
 │
+├── requirements.txt
 └── README.md
 ```
 
