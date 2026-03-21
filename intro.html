@@ -478,7 +478,7 @@ Consider the following extreme cases:</p>
 <li><p>If one particle dominates all the weight among <span class="math notranslate nohighlight">\(N_p\)</span> particles, then ESS = 1.</p></li>
 <li><p>If all <span class="math notranslate nohighlight">\(N_p\)</span> particles contribute equally, then ESS = <span class="math notranslate nohighlight">\(N_p\)</span>.</p></li>
 </ul>
-<p>In our algorithm, we control the progression of estimation depending on whether the ESS exceeds the threshold <a class="reference internal" href="Hyper_parameters.html#hp-main-ess-limit"><span class="std std-ref">ESS_limit</span></a> ((ESS_{\mathrm{limit}})).</p>
+<p>In our algorithm, we control the progression of estimation depending on whether the ESS exceeds the threshold <a class="reference internal" href="Hyper_parameters.html#hp-main-ess-limit"><span class="std std-ref">ESS_limit</span></a> (<span class="math notranslate nohighlight">\(ESS_{\mathrm{limit}}\)</span>).</p>
 </section>
 <section id="prior-intermediate-and-posterior-distributions">
 <h3>Prior, Intermediate, and Posterior Distributions<a class="headerlink" href="#prior-intermediate-and-posterior-distributions" title="Permalink to this heading">#</a></h3>
@@ -494,16 +494,16 @@ Consider the following extreme cases:</p>
 <section id="likelihood-tempering">
 <h2>Likelihood Tempering<a class="headerlink" href="#likelihood-tempering" title="Permalink to this heading">#</a></h2>
 <p>In likelihood tempering, the influence of the likelihood on the intermediate distributions is gradually increased.</p>
-<p>[
-\pi(\theta \mid y) \propto p(y \mid \theta)^{\gamma_i}, p(\theta)
-]</p>
-<p>Here, (\pi(\theta \mid y)) represents the intermediate distribution,<br />
-(p(y \mid \theta)) is the likelihood,<br />
-and (p(\theta)) is the prior distribution.</p>
-<p>The parameter (\gamma_i) is called the <em>tempering factor</em>.<br />
-A larger value of (\gamma_i) places more emphasis on the likelihood in the intermediate distribution.<br />
-The index (i) denotes the SMC iteration, and at (i = 0), (\gamma_i = 0).<br />
-When the estimation process ends, (\gamma_i = 1).</p>
+<p><span class="math notranslate nohighlight">\(
+\pi(\theta \mid y) \propto p(y \mid \theta)^{\gamma_i}\, p(\theta)
+\)</span></p>
+<p>Here, <span class="math notranslate nohighlight">\(\pi(\theta \mid y)\)</span> represents the intermediate distribution,<br />
+<span class="math notranslate nohighlight">\(p(y \mid \theta)\)</span> is the likelihood,<br />
+and <span class="math notranslate nohighlight">\(p(\theta)\)</span> is the prior distribution.</p>
+<p>The parameter <span class="math notranslate nohighlight">\(\gamma_i\)</span> is called the <em>tempering factor</em>.<br />
+A larger value of <span class="math notranslate nohighlight">\(\gamma_i\)</span> places more emphasis on the likelihood in the intermediate distribution.<br />
+The index <span class="math notranslate nohighlight">\(i\)</span> denotes the SMC iteration, and at <span class="math notranslate nohighlight">\(i = 0\)</span>, <span class="math notranslate nohighlight">\(\gamma_i = 0\)</span>.<br />
+When the estimation process ends, <span class="math notranslate nohighlight">\(\gamma_i = 1\)</span>.</p>
 </section>
 <section id="data-tempering">
 <h2>Data Tempering<a class="headerlink" href="#data-tempering" title="Permalink to this heading">#</a></h2>
@@ -526,7 +526,7 @@ thereby increasing the strength of observational information step by step.</p>
 <hr class="docutils" />
 <section id="initialization">
 <h3>1. Initialization<a class="headerlink" href="#initialization" title="Permalink to this heading">#</a></h3>
-<p>In the Initialization step, we first define the prior distribution (p(\theta))<br />
+<p>In the Initialization step, we first define the prior distribution <span class="math notranslate nohighlight">\(p(\theta)\)</span>
 and sample particles from this prior.</p>
 <figure class="align-default" id="id2">
 <a class="reference internal image-reference" href="_images/Initialization.png"><img alt="_images/Initialization.png" src="_images/Initialization.png" style="width: 700px;" /></a>
@@ -551,10 +551,10 @@ Then, particle weights are updated according to their likelihood values.</p>
 <section id="id1">
 <h3>3. Resampling<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>Particles are probabilistically duplicated or discarded according to their weights.<br />
-Suppose the total number of particles is (N_p), and the weights are normalized.</p>
+Suppose the total number of particles is <span class="math notranslate nohighlight">\(N_p\)</span>, and the weights are normalized.</p>
 <ul class="simple">
-<li><p>A particle with weight (1/(2N_p)) has a 50% chance of being discarded and a 50% chance of surviving.</p></li>
-<li><p>A particle with weight (1.5/N_p) has a 50% chance of producing two copies and a 50% chance of remaining as one.</p></li>
+<li><p>A particle with weight <span class="math notranslate nohighlight">\(1/(2N_p)\)</span> has a 50% chance of being discarded and a 50% chance of surviving.</p></li>
+<li><p>A particle with weight <span class="math notranslate nohighlight">\(1.5/N_p\)</span> has a 50% chance of producing two copies and a 50% chance of remaining as one.</p></li>
 </ul>
 <figure class="align-default" id="id4">
 <a class="reference internal image-reference" href="_images/Resampling.png"><img alt="_images/Resampling.png" src="_images/Resampling.png" style="width: 700px;" /></a>

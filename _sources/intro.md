@@ -84,7 +84,7 @@ Consider the following extreme cases:
 - If one particle dominates all the weight among $N_p$ particles, then ESS = 1.  
 - If all $N_p$ particles contribute equally, then ESS = $N_p$.
 
-In our algorithm, we control the progression of estimation depending on whether the ESS exceeds the threshold {ref}`ESS_limit <HP_main_ESS_limit>` (\(ESS_{\mathrm{limit}}\)).
+In our algorithm, we control the progression of estimation depending on whether the ESS exceeds the threshold {ref}`ESS_limit <HP_main_ESS_limit>` ($ESS_{\mathrm{limit}}$).
 
 ### Prior, Intermediate, and Posterior Distributions
 
@@ -102,18 +102,18 @@ This transition is realized through tempering (adjusting the temperature paramet
 
 In likelihood tempering, the influence of the likelihood on the intermediate distributions is gradually increased.
 
-\[
+$
 \pi(\theta \mid y) \propto p(y \mid \theta)^{\gamma_i}\, p(\theta)
-\]
+$
 
-Here, \(\pi(\theta \mid y)\) represents the intermediate distribution,  
-\(p(y \mid \theta)\) is the likelihood,  
-and \(p(\theta)\) is the prior distribution.
+Here, $\pi(\theta \mid y)$ represents the intermediate distribution,  
+$p(y \mid \theta)$ is the likelihood,  
+and $p(\theta)$ is the prior distribution.
 
-The parameter \(\gamma_i\) is called the *tempering factor*.  
-A larger value of \(\gamma_i\) places more emphasis on the likelihood in the intermediate distribution.  
-The index \(i\) denotes the SMC iteration, and at \(i = 0\), \(\gamma_i = 0\).  
-When the estimation process ends, \(\gamma_i = 1\).
+The parameter $\gamma_i$ is called the *tempering factor*.  
+A larger value of $\gamma_i$ places more emphasis on the likelihood in the intermediate distribution.  
+The index $i$ denotes the SMC iteration, and at $i = 0$, $\gamma_i = 0$.  
+When the estimation process ends, $\gamma_i = 1$.
 
 ## Data Tempering
 
@@ -141,7 +141,7 @@ After performing Initialization, steps 2–4 are repeated to obtain the posterio
 
 ### 1. Initialization
 
-In the Initialization step, we first define the prior distribution \(p(\theta)\)  
+In the Initialization step, we first define the prior distribution $p(\theta)$ 
 and sample particles from this prior.
 
 ```{figure} Initialization.png
@@ -170,10 +170,10 @@ Particles before likelihood weighting.
 ### 3. Resampling
 
 Particles are probabilistically duplicated or discarded according to their weights.  
-Suppose the total number of particles is \(N_p\), and the weights are normalized.
+Suppose the total number of particles is $N_p$, and the weights are normalized.
 
-- A particle with weight \(1/(2N_p)\) has a 50% chance of being discarded and a 50% chance of surviving.  
-- A particle with weight \(1.5/N_p\) has a 50% chance of producing two copies and a 50% chance of remaining as one.
+- A particle with weight $1/(2N_p)$ has a 50% chance of being discarded and a 50% chance of surviving.  
+- A particle with weight $1.5/N_p$ has a 50% chance of producing two copies and a 50% chance of remaining as one.
 
 ```{figure} Resampling.png
 ---
