@@ -497,6 +497,9 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
 <p>For practical use, the main functions that need to be explicitly modified for a new problem are implemented in <code class="docutils literal notranslate"><span class="pre">SMC_example/Micmem_likelihood.py</span></code>.<br />
 These functions define the governing ODE, the simulation procedure on the observation grid, the log-likelihood evaluation, and the particle-wise likelihood calculation used in the SMC routine.<br />
 In other words, when adapting this framework to a different application, the core changes are typically concentrated in this part.</p>
+<p>In addition, the data required for likelihood evaluation (e.g., observed data, initial conditions) and SMC-related hyperparameters are, in this example, organized in <code class="docutils literal notranslate"><span class="pre">Micmem_settings.py</span></code> for clarity and modularity.<br />
+However, this separation is not mandatory. Users are free to define and manage these quantities in any way that suits their workflow—for instance, by directly specifying them in <code class="docutils literal notranslate"><span class="pre">Micmem_SMC_main.py</span></code> or integrating them into other scripts.<br />
+The framework does not impose a strict structure, and only requires that the likelihood function and the SMC routine receive the necessary inputs in a consistent format.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
