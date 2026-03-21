@@ -178,16 +178,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Example code of Michaelis-Menten</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Hyper_parameters.html">Hyperparameters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="How_to_use.html">Code Availability</a></li>
-
-
-
-
-
-
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="How_to_use.html">How to Use</a></li>
 </ul>
 
     </div>
@@ -383,16 +374,30 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem Description</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model">Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters">Parameters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-generation">Data Generation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective">Objective</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-estimation">Parameter Estimation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood">Likelihood</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs">Outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem Description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-michaelismenten-equation">What is the Michaelis–Menten Equation?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-expression">Mathematical Expression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extension-to-a-time-evolution-model">Extension to a Time Evolution Model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters-to-estimate">Parameters to Estimate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kinetic-parameters">Kinetic Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#observation-noise-parameter-optional">Observation Noise Parameter (optional)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-of-synthetic-data">Generation of Synthetic Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#procedure-for-generating-synthetic-data">Procedure for Generating Synthetic Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose-of-using-synthetic-data">Purpose of Using Synthetic Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-estimation">Parameter Estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation-setup">Estimation Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-function">Likelihood Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs">Outputs</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -409,70 +414,176 @@ document.write(`
 <p>We will use parameter estimation on the Michaelis-Menten formula as an example to illustrate how parameter estimation can be done in our code.</p>
 <section id="problem-description">
 <h2>Problem Description<a class="headerlink" href="#problem-description" title="Permalink to this heading">#</a></h2>
-<p>We consider a parameter estimation problem for a reaction model based on the Michaelis–Menten equation. The goal is to estimate model parameters from time-series data obtained under multiple initial conditions.</p>
-</section>
-<hr class="docutils" />
-<section id="model">
-<h2>Model<a class="headerlink" href="#model" title="Permalink to this heading">#</a></h2>
-<p>The reaction rate is given by</p>
-<div class="math notranslate nohighlight">
-\[
-v = \frac{V_{\max} S}{K_m + S}
-\]</div>
-<p>The time evolution of the substrate concentration is described by</p>
-<div class="math notranslate nohighlight">
-\[
-\frac{dS(t)}{dt} = - \frac{V_{\max} S(t)}{K_m + S(t)}
-\]</div>
-<p>The product concentration is computed as</p>
-<div class="math notranslate nohighlight">
-\[
-P(t) = S_0 - S(t)
-\]</div>
-</section>
-<hr class="docutils" />
-<section id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">#</a></h2>
+<p>We consider a <strong>parameter estimation problem for an enzymatic reaction model based on the Michaelis–Menten equation</strong>, where reaction parameters are inferred from experimental (or synthetic) data.</p>
+<p>In this problem,</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(V_{\max}\)</span>: maximum reaction rate</p></li>
-<li><p><span class="math notranslate nohighlight">\(K_m\)</span>: constant controlling how quickly saturation occurs</p></li>
-<li><p><span class="math notranslate nohighlight">\(\sigma\)</span> (optional): standard deviation of observation noise</p></li>
+<li><p>the time evolution of the enzymatic reaction is described by an ordinary differential equation (ODE),</p></li>
+<li><p>observational data are obtained under multiple initial substrate concentration conditions,</p></li>
+<li><p>and the model parameters are statistically estimated from these observations.</p></li>
+</ul>
+<p>The goal is to determine a set of parameters that consistently explains the time-series data across all experimental conditions.</p>
+<hr class="docutils" />
+<section id="what-is-the-michaelismenten-equation">
+<h3>What is the Michaelis–Menten Equation?<a class="headerlink" href="#what-is-the-michaelismenten-equation" title="Permalink to this heading">#</a></h3>
+<p>The <strong>Michaelis–Menten equation</strong> is one of the most fundamental rate equations used to describe how the reaction rate of an enzyme depends on the substrate concentration.</p>
+<p>In enzyme kinetics:</p>
+<ul class="simple">
+<li><p>When the substrate concentration is low, the reaction rate increases approximately proportionally with substrate concentration.</p></li>
+<li><p>When the substrate concentration becomes sufficiently high, the enzyme becomes saturated, and further increases in substrate concentration produce little change in the reaction rate.</p></li>
+</ul>
+<p>This characteristic behavior — <strong>linear increase at low concentration and saturation at high concentration</strong> — is compactly described by the Michaelis–Menten equation.</p>
+</section>
+<hr class="docutils" />
+<section id="mathematical-expression">
+<h3>Mathematical Expression<a class="headerlink" href="#mathematical-expression" title="Permalink to this heading">#</a></h3>
+<p>The Michaelis–Menten equation is expressed as</p>
+<p><span class="math notranslate nohighlight">\(
+v = \dfrac{V_{\max}[S]}{K_m + [S]}
+\)</span></p>
+<p>where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( v \)</span> : reaction rate</p></li>
+<li><p><span class="math notranslate nohighlight">\([S]\)</span> : substrate concentration</p></li>
+<li><p><span class="math notranslate nohighlight">\( V_{\max}\)</span> : maximum reaction rate</p></li>
+<li><p><span class="math notranslate nohighlight">\( K_m \)</span>: Michaelis constant</p></li>
 </ul>
 </section>
 <hr class="docutils" />
-<section id="data-generation">
-<h2>Data Generation<a class="headerlink" href="#data-generation" title="Permalink to this heading">#</a></h2>
-<p>Simulated data are generated as follows:</p>
+<section id="extension-to-a-time-evolution-model">
+<h3>Extension to a Time Evolution Model<a class="headerlink" href="#extension-to-a-time-evolution-model" title="Permalink to this heading">#</a></h3>
+<p>In this study, the reaction rate expression is used to describe the <strong>time evolution of the substrate concentration</strong> through the following ordinary differential equation:</p>
+<p><span class="math notranslate nohighlight">\(
+\dfrac{dS(t)}{dt} = - \dfrac{V_{\max} S(t)}{K_m + S(t)}
+\)</span></p>
+<p>where <span class="math notranslate nohighlight">\( S(t)\)</span> denotes the substrate concentration at time<span class="math notranslate nohighlight">\( t\)</span>.</p>
+<p>The product concentration <span class="math notranslate nohighlight">\( P(t) \)</span> is calculated from the initial substrate concentration <span class="math notranslate nohighlight">\( S_0 \)</span> as</p>
+<p><span class="math notranslate nohighlight">\(
+P(t) = S_0 - S(t)
+\)</span></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="parameters-to-estimate">
+<h2>Parameters to Estimate<a class="headerlink" href="#parameters-to-estimate" title="Permalink to this heading">#</a></h2>
+<p>The parameters to be estimated in this problem are as follows.</p>
+<section id="kinetic-parameters">
+<h3>Kinetic Parameters<a class="headerlink" href="#kinetic-parameters" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Maximum reaction rate <span class="math notranslate nohighlight">\(V_{\max}\)</span></strong><br />
+Represents the reaction rate when the enzyme is fully saturated with substrate.</p></li>
+<li><p><strong>Michaelis constant <span class="math notranslate nohighlight">\(K_m\)</span></strong><br />
+The substrate concentration at which the reaction rate equals <span class="math notranslate nohighlight">\(V_{\max}/2\)</span>.<br />
+It is often interpreted as an indicator of the affinity between enzyme and substrate.</p></li>
+</ul>
+</section>
+<section id="observation-noise-parameter-optional">
+<h3>Observation Noise Parameter (optional)<a class="headerlink" href="#observation-noise-parameter-optional" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Observation noise standard deviation <span class="math notranslate nohighlight">\( \sigma\)</span></strong><br />
+Represents the variability of observed data around the model prediction.</p></li>
+</ul>
+<p>Depending on the analysis setting,</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \sigma \)</span> may be <strong>treated as known and fixed</strong>, or</p></li>
+<li><p><span class="math notranslate nohighlight">\( \sigma \)</span> may be <strong>estimated simultaneously with the kinetic parameters</strong>.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="generation-of-synthetic-data">
+<h2>Generation of Synthetic Data<a class="headerlink" href="#generation-of-synthetic-data" title="Permalink to this heading">#</a></h2>
+<p>Instead of using experimental data, <strong>synthetic observational data</strong> are generated using known true parameters.</p>
+<section id="procedure-for-generating-synthetic-data">
+<h3>Procedure for Generating Synthetic Data<a class="headerlink" href="#procedure-for-generating-synthetic-data" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p>Set true parameters <span class="math notranslate nohighlight">\(V_{\max}^{\mathrm{true}}, K_m^{\mathrm{true}}\)</span></p></li>
-<li><p>Prepare multiple initial conditions <span class="math notranslate nohighlight">\(S_0^{(i)}\)</span></p></li>
-<li><p>Solve the ODE to obtain <span class="math notranslate nohighlight">\(P_{\text{true}}(t)\)</span></p></li>
-<li><p>Add Gaussian noise:</p></li>
+<li><p>Specify the true parameters</p></li>
 </ol>
-<div class="math notranslate nohighlight">
-\[
-P_{\text{obs}}(t) = P_{\text{true}}(t) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0,\sigma^2)
-\]</div>
+<p><span class="math notranslate nohighlight">\(
+V_{\max}^{\mathrm{true}}, \quad K_m^{\mathrm{true}}
+\)</span></p>
+<ol class="arabic simple" start="2">
+<li><p>Prepare multiple initial substrate concentrations</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(
+S_0^{(1)}, S_0^{(2)}, \dots, S_0^{(N)}
+\)</span></p>
+<ol class="arabic simple" start="3">
+<li><p>For each condition, numerically solve the Michaelis–Menten ODE to compute the theoretical product concentration</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(
+P_{\mathrm{true}}(t)
+\)</span></p>
+<ol class="arabic simple" start="4">
+<li><p>Add Gaussian observation noise at each time point</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(
+P_{\mathrm{obs}}(t) = P_{\mathrm{true}}(t) + \varepsilon(t)
+\)</span></p>
+<p><span class="math notranslate nohighlight">\(
+\varepsilon(t) \sim \mathcal{N}(0,\sigma^2)
+\)</span></p>
+<p>This procedure produces synthetic data that mimic realistic experimental observations.</p>
 </section>
 <hr class="docutils" />
-<section id="objective">
-<h2>Objective<a class="headerlink" href="#objective" title="Permalink to this heading">#</a></h2>
-<p>Estimate parameters that explain all observed time-series data consistently across different initial conditions.</p>
+<section id="purpose-of-using-synthetic-data">
+<h3>Purpose of Using Synthetic Data<a class="headerlink" href="#purpose-of-using-synthetic-data" title="Permalink to this heading">#</a></h3>
+<p>Synthetic data are used for the following purposes:</p>
+<ul class="simple">
+<li><p>validation of the parameter estimation algorithm</p></li>
+<li><p>examination of <strong>parameter identifiability</strong></p></li>
+<li><p>evaluation of estimation accuracy and uncertainty</p></li>
+</ul>
 </section>
 <hr class="docutils" />
-<section id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
-<p>This problem is commonly used to evaluate parameter estimation methods such as MCMC and SMC.</p>
+<section id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h3>
+<p>This problem can be formulated as</p>
+<blockquote>
+<div><p>a statistical parameter estimation problem in which the kinetic parameters of a Michaelis–Menten enzymatic reaction model are inferred from time-series data obtained under multiple experimental conditions.</p>
+</div></blockquote>
+<p>This framework is widely used as a <strong>benchmark problem for evaluating Bayesian inference methods</strong>, including</p>
+<ul class="simple">
+<li><p>Markov Chain Monte Carlo (MCMC)</p></li>
+<li><p>Sequential Monte Carlo (SMC)</p></li>
+<li><p>other probabilistic inference techniques.</p></li>
+</ul>
+</section>
 </section>
 <section id="parameter-estimation">
 <h2>Parameter Estimation<a class="headerlink" href="#parameter-estimation" title="Permalink to this heading">#</a></h2>
-<p>We estimate the parameters <span class="math notranslate nohighlight">\(\theta = \{V_{\max}, K_m, \sigma\}\)</span> from time-series data obtained under multiple initial conditions.</p>
-<p>All parameters are shared across different conditions.</p>
+<p>In this section, we describe the parameter estimation setup for the Michaelis–Menten model and the outputs obtained from the estimation procedure.</p>
+<hr class="docutils" />
+<section id="estimation-setup">
+<h3>Estimation Setup<a class="headerlink" href="#estimation-setup" title="Permalink to this heading">#</a></h3>
+<p>In this problem, the following parameters are estimated:</p>
+<ul class="simple">
+<li><p>Maximum reaction rate <span class="math notranslate nohighlight">\(V_{\max}\)</span></p></li>
+<li><p>Michaelis constant <span class="math notranslate nohighlight">\(K_m\)</span></p></li>
+<li><p>(optionally) observation noise standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span></p></li>
+</ul>
+<p>The time evolution of the substrate concentration is modeled by the following ordinary differential equation:</p>
+<p><span class="math notranslate nohighlight">\(
+\dfrac{dS(t)}{dt} = - \dfrac{V_{\max} S(t)}{K_m + S(t)}
+\)</span></p>
+<p>The product concentration is defined as</p>
+<p><span class="math notranslate nohighlight">\(
+P(t) = S_0 - S(t)
+\)</span></p>
+<p>The observational data are assumed to follow a Gaussian noise model:</p>
+<p><span class="math notranslate nohighlight">\(
+P_{\mathrm{obs}}(t) = P_{\mathrm{model}}(t) + \varepsilon(t)
+\)</span></p>
+<p><span class="math notranslate nohighlight">\(
+\varepsilon(t) \sim \mathcal{N}(0,\sigma^2)
+\)</span></p>
+<p>Time-series data obtained under multiple initial substrate concentration conditions (S_0^{(i)}) are used simultaneously.<br />
+The parameters <span class="math notranslate nohighlight">\((V_{\max}, K_m, \sigma)\)</span> are assumed to be <strong>shared across all experimental conditions</strong>.</p>
 </section>
 <hr class="docutils" />
-<section id="likelihood">
-<h2>Likelihood<a class="headerlink" href="#likelihood" title="Permalink to this heading">#</a></h2>
-<p>Assuming independent Gaussian noise, the log-likelihood is given by</p>
+<section id="likelihood-function">
+<h3>Likelihood Function<a class="headerlink" href="#likelihood-function" title="Permalink to this heading">#</a></h3>
+<p>The estimation is performed within a Bayesian framework.<br />
+Under the Gaussian observation model, the log-likelihood function is given by</p>
 <div class="math notranslate nohighlight">
 \[
 \log p(\mathcal{D} \mid \theta)
@@ -489,17 +600,17 @@ P_{\mathrm{obs}}^{(i)}(t_j) - P_{\mathrm{model}}^{(i)}(t_j)
 }{2\sigma^2}
 \right]
 \]</div>
+<p>where</p>
+<p><span class="math notranslate nohighlight">\(
+\theta = \{V_{\max}, K_m, \sigma\}
+\)</span></p>
+<p>denotes the set of parameters to be estimated.</p>
 </section>
 <hr class="docutils" />
 <section id="implementation">
-<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h2>
-<p>The likelihood is evaluated by solving the ODE model and comparing the predicted values with the observed data.</p>
-<p>For practical use, the main functions that need to be explicitly modified for a new problem are implemented in <code class="docutils literal notranslate"><span class="pre">SMC_example/Micmem_likelihood.py</span></code>.<br />
-These functions define the governing ODE, the simulation procedure on the observation grid, the log-likelihood evaluation, and the particle-wise likelihood calculation used in the SMC routine.<br />
-In other words, when adapting this framework to a different application, the core changes are typically concentrated in this part.</p>
-<p>In addition, the data required for likelihood evaluation (e.g., observed data, initial conditions) and SMC-related hyperparameters are, in this example, organized in <code class="docutils literal notranslate"><span class="pre">Micmem_settings.py</span></code> for clarity and modularity.<br />
-However, this separation is not mandatory. Users are free to define and manage these quantities in any way that suits their workflow—for instance, by directly specifying them in <code class="docutils literal notranslate"><span class="pre">Micmem_SMC_main.py</span></code> or integrating them into other scripts.<br />
-The framework does not impose a strict structure, and only requires that the likelihood function and the SMC routine receive the necessary inputs in a consistent format.</p>
+<h3>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h3>
+<p>The likelihood function is implemented through a simulation function that solves the ODE model and compares the predicted product concentration with the observed data.</p>
+<p>The following function is defined and called from the main program.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
@@ -586,13 +697,10 @@ The framework does not impose a strict structure, and only requires that the lik
 </div>
 </div>
 </div>
-<p>The functions shown above represent the central components that connect the mathematical model to the SMC algorithm.<br />
-Therefore, for other ODE-based parameter estimation problems, users mainly need to replace the model equation, the simulation routine, and the likelihood definition in this file while keeping the overall SMC framework unchanged.</p>
 </section>
-<hr class="docutils" />
 <section id="outputs">
-<h2>Outputs<a class="headerlink" href="#outputs" title="Permalink to this heading">#</a></h2>
-<p>The estimation procedure produces several outputs that are useful for both parameter identification and uncertainty quantification.</p>
+<h3>Outputs<a class="headerlink" href="#outputs" title="Permalink to this heading">#</a></h3>
+<p>The estimation procedure produces the following quantities.</p>
 <ul class="simple">
 <li><p>Estimated values of the parameters <span class="math notranslate nohighlight">\(V_{\max}, K_m, (\sigma)\)</span></p></li>
 <li><p>Posterior distributions (or their approximations) of the parameters</p></li>
@@ -600,18 +708,12 @@ Therefore, for other ODE-based parameter estimation problems, users mainly need 
 </ul>
 <p>These outputs allow us to</p>
 <ul class="simple">
-<li><p>compare the estimated parameters with the true values in the case of synthetic data,</p></li>
+<li><p>compare the estimated parameters with the true values (in the case of synthetic data),</p></li>
 <li><p>evaluate the uncertainty associated with the parameter estimates,</p></li>
 <li><p>assess the consistency between model predictions and observed data.</p></li>
 </ul>
 <p>In particular, the ability of a <strong>single parameter set</strong> to consistently explain time-series data obtained under <strong>different initial substrate concentration conditions</strong> is an important indicator for evaluating the validity of the model.</p>
-<p>An example of the posterior distribution output is shown below.</p>
-<figure class="align-default" id="posterior-distribution-example">
-<a class="reference internal image-reference" href="_images/Posterior_Distributions.png"><img alt="_images/Posterior_Distributions.png" src="_images/Posterior_Distributions.png" style="width: 600px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Example of posterior distributions obtained from the estimation.</span><a class="headerlink" href="#posterior-distribution-example" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
+</section>
 </section>
 </section>
 
@@ -679,16 +781,30 @@ Therefore, for other ODE-based parameter estimation problems, users mainly need 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem Description</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model">Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters">Parameters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-generation">Data Generation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective">Objective</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-estimation">Parameter Estimation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood">Likelihood</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs">Outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem Description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-michaelismenten-equation">What is the Michaelis–Menten Equation?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-expression">Mathematical Expression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extension-to-a-time-evolution-model">Extension to a Time Evolution Model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters-to-estimate">Parameters to Estimate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kinetic-parameters">Kinetic Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#observation-noise-parameter-optional">Observation Noise Parameter (optional)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-of-synthetic-data">Generation of Synthetic Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#procedure-for-generating-synthetic-data">Procedure for Generating Synthetic Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose-of-using-synthetic-data">Purpose of Using Synthetic Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-estimation">Parameter Estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation-setup">Estimation Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-function">Likelihood Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs">Outputs</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

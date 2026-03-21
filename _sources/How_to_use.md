@@ -1,213 +1,216 @@
-## Code Availability
+---
+jupytext:
+  formats: md:myst
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.11.5
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
 
-The source code is available from the following GitHub repository:
+<!--
+# How to Use
 
-```text
-https://github.com/maruchitatsuki/python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering
-```
+## ① このページについて
 
-Clone the repository with:
+本ページでは、本プロジェクトの目的と位置づけ、ならびに  
+提供しているコードの基本的な利用方法と拡張方法について説明する。
 
-```bash
-git clone https://github.com/maruchitatsuki/python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering.git
-cd python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering
-```
+想定する利用者は以下である。
+
+- ODE ベースのモデルに対するパラメータ推定を行いたい利用者
+- SMC / MCMC などの確率的推定アルゴリズムを利用する利用者
+- 研究・検証用途でコードを再利用・拡張したい利用者
+
+数理モデルや推定アルゴリズムの詳細については、  
+Model / Inference / Example 各ページを参照すること。
 
 ---
 
-## Quick Start
+## ② 私たちのコードの利用方法
 
-The minimum workflow for using this framework is as follows:
+### 入手方法
 
-1. Prepare your input data.  
-2. Edit `SMC_example/Micmem_settings.py` to define the estimation settings and data configuration.  
-3. Rewrite `sim_particle` and the related parts so that they match your own model and likelihood calculation.  
-4. Run the main script:
+本コードは Git リポジトリとして配布されている。  
+以下の手順で取得する。
 
-```bash
-python SMC_example/Micmem_SMC_main.py
-```
+~~~bash
+git clone <repository-url>
+cd <repository-name>
+~~~
 
----
+必要な Python パッケージは、以下のコマンドでインストールする。
 
-## Environment
-
-This code was developed and tested using **Python 3.10.12**.
-
-The required Python libraries are listed in:
-
-```
-requirements.txt
-```
-
-Install them before running the code:
-
-```bash
+~~~bash
 pip install -r requirements.txt
-```
+~~~
+
+Jupyter Notebook または Jupyter Book を利用する場合は、  
+対応する Python 環境が構築されていることを確認する。
 
 ---
 
-## How to Use
+### どこをどう変えれば良いのか
 
-### Execution Flow
+本コードは、問題依存部分と共通処理部分が明確に分離されている。自分の問題に適用する際に主に変更が必要となるのは以下の箇所である。
 
-When the script is executed:
+#### モデル定義
 
-1. Input data are loaded  
-2. The SMC algorithm is executed  
-3. The likelihood is evaluated for each particle  
-4. The posterior distribution is obtained  
+- ODE の右辺（反応速度式・力学モデル）
+- 状態変数およびモデルパラメータの定義
 
-The posterior samples are stored in the variable `p_pred`.
+対象とする力学系に応じて、この部分を書き換えることで  
+別のモデルに容易に対応できる。
 
----
+#### 観測モデル・尤度
 
-### Output
+- 観測量の定義
+- 観測ノイズモデル（例：ガウスノイズ）
 
-The estimation result is automatically saved as:
+観測誤差の構造が異なる場合は、  
+尤度関数の定義を適切に変更する必要がある。
 
-```
-Posterior_Distributions.png
-```
+#### 推定対象パラメータ
 
-This file contains histograms of the posterior distributions.
+- 推定するパラメータの種類
+- 固定するパラメータと推定するパラメータの切り分け
 
-Additional outputs (e.g., particle states or intermediate results) can be added if needed.
+これにより、
 
----
+- 一部のパラメータのみを推定する
+- ノイズパラメータを同時に推定する
 
-### Core Function
+といった設定が可能となる。
 
-The main program calls a function named `sim_particle`.
-
-- Input:
-  - all particles (parameter sets)
-
-- Output:
-  - likelihood values (required)
-  - optional additional outputs (e.g., simulation results)
-
-The likelihood must always be returned.
-
-Parallel computation is supported.  
-By default, parallelization is implemented using `ray`.
+具体的な変更箇所については、  
+Example ページを参照すること。
 
 ---
 
-### Input Data
+## ③ 拡張
 
-The input data format depends on the target problem.
+### 並列化について
 
-In the provided example:
+本コードは、計算コストの高い推定問題を想定し、  
+粒子単位・サンプル単位での並列化を前提として設計されている。
 
-- Data are stored in:
-  ```
-  SMC_example/data/
-  ```
-- Files:
-  ```
-  mm_pseudo_data_0.csv ~ mm_pseudo_data_5.csv
-  ```
-- Each file contains:
-  - time $t$
-  - $S_{\text{true}}$
-  - $P_{\text{true}}$
-  - $P_{\text{obs}}$
+- 各粒子の尤度計算は独立
+- 並列化により計算時間の短縮が可能
 
-In the estimation, only $t$ and $P_{\text{obs}}$ are used.
+並列化ライブラリ（例：Ray）を用いることで、
 
-Users should replace these data files with their own dataset.
+- 粒子数の増加
+- データ条件数の増加
+- 高次元パラメータ空間
 
-Note:  
-In practical applications, it may be preferable to use only data after the system reaches steady state. The current setup is for demonstration purposes.
+にも対応可能である。
 
 ---
 
-## Directory Structure
+### 重たい問題を扱う場合の注意点
 
-```
-python-based-sequential-monte-carlo/
-├── SMC_Algorithm/
-│   ├── algorithm1.png
-│   └── algorithm2.png
-│
-├── SMC_example/
-│   ├── data/
-│   ├── Micmem_likelihood.py
-│   ├── Micmem_settings.py
-│   ├── Micmem_SMC_main.py
-│   ├── Micmen_generate_data.py
-│   ├── mm_pseudo_data.csv
-│   └── Posterior_Distributions.png
-│
-├── SMC_methanation/
-│   ├── methanation_functions.py
-│   ├── methanation_set_conditon.py
-│   ├── methanation_set_likelihood.py
-│   ├── SMC_methanation.py
-│   ├── SMC_methanation_data.py
-│   └── SMC_methanation_main.py
-│
-└── README.md
-```
+計算負荷の大きい問題を扱う際には、以下の点に注意する。
+
+- ODE ソルバの設定  
+  不要に高精度な設定は計算時間を大きく増加させる。
+- パラメータの同定可能性  
+  情報量の少ないデータでは、推定が不安定になる可能性がある。
+- 並列化オーバーヘッド  
+  問題規模によっては、並列化が逆効果になる場合がある。
+- メモリ使用量  
+  粒子数や保存する中間結果が多い場合、  
+  メモリがボトルネックになることがある。
 
 ---
 
-## Directory Roles
+## まとめ
 
-- `SMC_Algorithm/`  
-  Algorithm figures used in the documentation  
+本コードは、
 
-- `SMC_example/`  
-  Minimal working example based on the Michaelis–Menten model  
+- モデル定義を差し替えやすい構造
+- 並列計算を前提とした設計
+- 小規模問題から大規模問題への拡張性
 
-- `SMC_methanation/`  
-  Code used in the publication (less modular and not intended as a template)  
+を備えた、推定問題のための汎用テンプレートである。
+
+Example を起点として、  
+自身の問題に合わせて段階的に拡張することを想定している。 -->
+
+# How to Use
+
+## 1. About This Page
+
+This page explains the objective and positioning of this project, as well as the basic usage and extension of the provided code.
+
+The intended users are:
+
+- Users who wish to perform parameter estimation for ODE-based models  
+- Users who utilize probabilistic inference algorithms such as SMC / MCMC  
+- Users who want to reuse or extend the code for research and validation purposes  
+
+For details on the mathematical models and inference algorithms, please refer to the Model / Inference / Example pages.
 
 ---
 
-## Example
+## 2. How to Use Our Code
 
-`SMC_example` provides a complete and minimal implementation based on the Michaelis–Menten model.
+### Installation
 
-Users are expected to use this example as the primary reference and modify it according to their specific problem.
+The code is distributed as a Git repository.  
+Clone it using the following procedure:
+
+~~~bash
+git clone <repository-url>
+cd <repository-name>
+~~~
+
+Install the required Python packages with:
+
+~~~bash
+pip install -r requirements.txt
+~~~
+
+If you use Jupyter Notebook or Jupyter Book, ensure that the corresponding Python environment is properly configured.
 
 ---
 
-## What to Modify
+### What Should Be Modified?
 
-To adapt the code to a different problem, modify the following components:
+The code is structured so that problem-specific components are clearly separated from common components. When adapting it to your own problem, the main parts to modify are:
 
-### Model
+#### Model Definition
 
-- ODE or system dynamics  
-- State variables and model parameters  
+- The right-hand side of the ODE (reaction rate equations or dynamical model)  
+- Definitions of state variables and model parameters  
 
-### Observation Model
+By rewriting this section according to the target dynamical system, the framework can be easily adapted to different models.
+
+#### Observation Model and Likelihood
 
 - Definition of observed quantities  
-- Measurement noise model (e.g., Gaussian noise)  
+- Observation noise model (e.g., Gaussian noise)  
 
-### Likelihood
+If the structure of measurement error differs, the likelihood function must be modified accordingly.
 
-- Implemented in `sim_particle`  
-- Must return likelihood values  
+#### Target Parameters for Estimation
 
-### Parameters
+- Which parameters to estimate  
+- Separation between fixed and estimated parameters  
 
-- Select which parameters to estimate  
-- Fix or estimate noise-related parameters if necessary  
+This enables configurations such as:
 
-### Settings
+- Estimating only a subset of parameters  
+- Jointly estimating noise parameters  
 
-- `SMC_example/Micmem_settings.py`
-  - SMC hyperparameters  
-  - data configuration  
+For concrete modification examples, refer to the Example page.
 
 ---
 
-## Extensions
+## 3. Extensions
 
 ### Parallelization
 
@@ -229,16 +232,16 @@ By using parallelization libraries (e.g., Ray), the framework can handle:
 When dealing with large-scale or computationally demanding problems, consider the following:
 
 - ODE solver settings  
-  Excessively strict tolerances may substantially increase computation time  
+  Excessively strict tolerances may substantially increase computation time.  
 
 - Parameter identifiability  
-  With limited or low-information data, estimation may become unstable  
+  With limited or low-information data, estimation may become unstable.  
 
 - Parallelization overhead  
-  Depending on problem size, parallelization may become inefficient  
+  Depending on problem size, parallelization may become inefficient.  
 
 - Memory usage  
-  A large number of particles or stored intermediate results may cause memory bottlenecks  
+  A large number of particles or stored intermediate results may cause memory bottlenecks.  
 
 ---
 
@@ -250,4 +253,5 @@ This code serves as a general template for parameter estimation problems, featur
 - A design assuming parallel computation  
 - Scalability from small-scale to large-scale problems  
 
-Users are expected to start from the example and extend the framework step by step according to their specific problem.
+Users are expected to start from the Example page and extend the framework step by step according to their specific problem.
+

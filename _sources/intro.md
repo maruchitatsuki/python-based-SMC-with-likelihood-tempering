@@ -3,17 +3,10 @@
 
 The purpose of this website is to offer guidance for deepening your understanding of Sequential Monte Carlo (SMC) methods with likelihood tempering, as well as to provide a simple explanation of our SMC implementation, its hyperparameters, usage examples, and instructions for use.
 
-## Related Publication
+Author: Tatsuki Maruchi
+Affiliation: Nagoya University  
 
-This documentation is associated with the following publication:
-
-**Sequential Monte Carlo with likelihood tempering and parallel implementation for uncertainty quantification**  
-Tatsuki Maruchi, Tomoyuki Yajima, Yoshiaki Kawajiri  
-AIChE Journal, First published: 09 March 2026  
-
-<a href="https://doi.org/10.1002/aic.70319" target="_blank">https://doi.org/10.1002/aic.70319</a>
-
-If you use the algorithms, code, or methodology described in this documentation, please cite the above paper.
+Last update: 2026-01-26
 
 ---
 
