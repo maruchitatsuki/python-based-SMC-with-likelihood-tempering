@@ -152,14 +152,48 @@ python SMC_example/Micmem_SMC_main.py
 
 ---
 
+### Execution Flow
+
+When the script is executed:
+
+1. Input data are loaded  
+2. The SMC algorithm is executed  
+3. The likelihood is evaluated for each particle  
+4. The posterior distribution is obtained  
+
+The posterior samples are stored in the variable `p_pred`.
+
+---
+
+### Output
+
+The estimation result is automatically saved as:
+
+```
+Posterior_Distributions.png
+```
+
+This file contains histograms of the posterior distributions.
+
+Additional outputs (e.g., particle states or intermediate results) can be added if needed.
+
+---
+
 ### Core Function
 
 The main program calls a function named `sim_particle`.
 
-This function must return:
+- Input:
+  - all particles (parameter sets)
 
-- the likelihood value (required)
-- optionally, additional outputs for each particle (e.g., simulation results)
+- Output:
+  - likelihood values (required)
+  - optional additional outputs (e.g., simulation results)
+
+The likelihood must always be returned.
+
+Parallel computation is supported.  
+By default, parallelization is implemented using `ray`.
 
 ---
 
@@ -175,6 +209,33 @@ This file includes:
 
 - SMC hyperparameters  
 - input data settings  
+
+---
+
+### Input Data
+
+The input data format depends on the target problem.
+
+In the provided example:
+
+- Data are stored in:
+  ```
+  SMC_example/data/
+  ```
+- Files:
+  ```
+  mm_pseudo_data_0.csv ~ mm_pseudo_data_5.csv
+  ```
+- Each file contains:
+  - time \(t\)
+  - \(S_{\text{true}}\)
+  - \(P_{\text{true}}\)
+  - \(P_{\text{obs}}\)
+
+In the estimation, only \(t\) and \(P_{\text{obs}}\) are used.
+
+Note:  
+In practical applications, it may be preferable to use only data after the system reaches steady state. The current setup is for demonstration purposes.
 
 ---
 
@@ -208,6 +269,19 @@ python-based-sequential-monte-carlo/
 
 ---
 
+### Directory Roles
+
+- `SMC_Algorithm/`  
+  Algorithm figures used in the documentation  
+
+- `SMC_example/`  
+  Minimal example based on the Michaelis–Menten model  
+
+- `SMC_methanation/`  
+  Code used in the publication (less structured than `SMC_example`)  
+
+---
+
 ### What to Modify
 
 To adapt the code to a different problem, modify the following:
@@ -215,22 +289,14 @@ To adapt the code to a different problem, modify the following:
 #### Model and Likelihood
 
 - `sim_particle` (in the likelihood file)
-  - define the model
-  - compute the likelihood
+  - define the model  
+  - compute the likelihood  
 
 #### Settings
 
 - `Micmem_settings.py`
-  - SMC parameters
-  - data configuration
-
----
-
-### Notes
-
-- The likelihood value must always be returned from `sim_particle`.
-- Additional outputs can be included if needed for analysis.
-
+  - SMC parameters  
+  - data configuration  
 ---
 
 ## 3. Extensions
