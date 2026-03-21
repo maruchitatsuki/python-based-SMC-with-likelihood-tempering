@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>How to Use &#8212; My sample book</title>
+    <title>Quick Start &#8212; My sample book</title>
   
   
   
@@ -62,8 +62,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'How_to_use';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -177,7 +175,11 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Example.html">Example code of Michaelis-Menten</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Hyper_parameters.html">Hyperparameters</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">How to Use</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Quick Start</a></li>
+
+
+
+
 
 
 
@@ -367,7 +369,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>How to Use</h1>
+    <h1>Quick Start</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -377,24 +379,25 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">How to Use</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entry-point">Entry Point</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Quick Start</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#environment">Environment</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use">How to Use</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#execution-flow">Execution Flow</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-function">Core Function</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-data">Input Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directory-structure">Directory Structure</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directory-roles">Directory Roles</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-to-modify">What to Modify</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-and-likelihood">Model and Likelihood</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#settings">Settings</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#directory-structure">Directory Structure</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#directory-roles">Directory Roles</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#what-to-modify">What to Modify</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model">Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observation-model">Observation Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood">Likelihood</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters">Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#settings">Settings</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#environment">Environment</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#extensions">Extensions</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelization">Parallelization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-for-computationally-heavy-problems">Notes for Computationally Heavy Problems</a></li>
@@ -413,143 +416,35 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <!--
-# How to Use
-
-## ① このページについて
-
-本ページでは、本プロジェクトの目的と位置づけ、ならびに  
-提供しているコードの基本的な利用方法と拡張方法について説明する。
-
-想定する利用者は以下である。
-
-- ODE ベースのモデルに対するパラメータ推定を行いたい利用者
-- SMC / MCMC などの確率的推定アルゴリズムを利用する利用者
-- 研究・検証用途でコードを再利用・拡張したい利用者
-
-数理モデルや推定アルゴリズムの詳細については、  
-Model / Inference / Example 各ページを参照すること。
-
----
-
-## ② 私たちのコードの利用方法
-
-### 入手方法
-
-本コードは Git リポジトリとして配布されている。  
-以下の手順で取得する。
-
-~~~bash
-git clone <repository-url>
-cd <repository-name>
-~~~
-
-必要な Python パッケージは、以下のコマンドでインストールする。
-
-~~~bash
-pip install -r requirements.txt
-~~~
-
-Jupyter Notebook または Jupyter Book を利用する場合は、  
-対応する Python 環境が構築されていることを確認する。
-
----
-
-### どこをどう変えれば良いのか
-
-本コードは、問題依存部分と共通処理部分が明確に分離されている。自分の問題に適用する際に主に変更が必要となるのは以下の箇所である。
-
-#### モデル定義
-
-- ODE の右辺（反応速度式・力学モデル）
-- 状態変数およびモデルパラメータの定義
-
-対象とする力学系に応じて、この部分を書き換えることで  
-別のモデルに容易に対応できる。
-
-#### 観測モデル・尤度
-
-- 観測量の定義
-- 観測ノイズモデル（例：ガウスノイズ）
-
-観測誤差の構造が異なる場合は、  
-尤度関数の定義を適切に変更する必要がある。
-
-#### 推定対象パラメータ
-
-- 推定するパラメータの種類
-- 固定するパラメータと推定するパラメータの切り分け
-
-これにより、
-
-- 一部のパラメータのみを推定する
-- ノイズパラメータを同時に推定する
-
-といった設定が可能となる。
-
-具体的な変更箇所については、  
-Example ページを参照すること。
-
----
-
-## ③ 拡張
-
-### 並列化について
-
-本コードは、計算コストの高い推定問題を想定し、  
-粒子単位・サンプル単位での並列化を前提として設計されている。
-
-- 各粒子の尤度計算は独立
-- 並列化により計算時間の短縮が可能
-
-並列化ライブラリ（例：Ray）を用いることで、
-
-- 粒子数の増加
-- データ条件数の増加
-- 高次元パラメータ空間
-
-にも対応可能である。
-
----
-
-### 重たい問題を扱う場合の注意点
-
-計算負荷の大きい問題を扱う際には、以下の点に注意する。
-
-- ODE ソルバの設定  
-  不要に高精度な設定は計算時間を大きく増加させる。
-- パラメータの同定可能性  
-  情報量の少ないデータでは、推定が不安定になる可能性がある。
-- 並列化オーバーヘッド  
-  問題規模によっては、並列化が逆効果になる場合がある。
-- メモリ使用量  
-  粒子数や保存する中間結果が多い場合、  
-  メモリがボトルネックになることがある。
-
----
-
-## まとめ
-
-本コードは、
-
-- モデル定義を差し替えやすい構造
-- 並列計算を前提とした設計
-- 小規模問題から大規模問題への拡張性
-
-を備えた、推定問題のための汎用テンプレートである。
-
-Example を起点として、  
-自身の問題に合わせて段階的に拡張することを想定している。 -->
-<section id="how-to-use">
-<h1>How to Use<a class="headerlink" href="#how-to-use" title="Permalink to this heading">#</a></h1>
-<section id="entry-point">
-<h2>Entry Point<a class="headerlink" href="#entry-point" title="Permalink to this heading">#</a></h2>
-<p>Run the following script to execute the parameter estimation:</p>
+  <section id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this heading">#</a></h1>
+<p>The minimum workflow for using this framework is as follows:</p>
+<ol class="arabic simple">
+<li><p>Prepare your input data.</p></li>
+<li><p>Edit <code class="docutils literal notranslate"><span class="pre">SMC_example/Micmem_settings.py</span></code> to define the estimation settings and data configuration.</p></li>
+<li><p>Rewrite <code class="docutils literal notranslate"><span class="pre">sim_particle</span></code> and the related parts so that they match your own model and likelihood calculation.</p></li>
+<li><p>Run the main script:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>SMC_example/Micmem_SMC_main.py
 </pre></div>
 </div>
-</section>
 <hr class="docutils" />
+</section>
+<section id="environment">
+<h1>Environment<a class="headerlink" href="#environment" title="Permalink to this heading">#</a></h1>
+<p>This code was developed and tested using <strong>Python 3.10.12</strong>.</p>
+<p>The required Python libraries are listed in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Install them before running the code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<hr class="docutils" />
+</section>
+<section id="how-to-use">
+<h1>How to Use<a class="headerlink" href="#how-to-use" title="Permalink to this heading">#</a></h1>
 <section id="execution-flow">
 <h2>Execution Flow<a class="headerlink" href="#execution-flow" title="Permalink to this heading">#</a></h2>
 <p>When the script is executed:</p>
@@ -591,52 +486,11 @@ Example を起点として、
 <p>The likelihood must always be returned.</p>
 <p>Parallel computation is supported.<br />
 By default, parallelization is implemented using <code class="docutils literal notranslate"><span class="pre">ray</span></code>.</p>
-</section>
 <hr class="docutils" />
-<section id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">#</a></h2>
-<p>All settings are managed in:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SMC_example</span><span class="o">/</span><span class="n">Micmem_settings</span><span class="o">.</span><span class="n">py</span>
-</pre></div>
-</div>
-<p>This file includes:</p>
-<ul class="simple">
-<li><p>SMC hyperparameters</p></li>
-<li><p>input data settings</p></li>
-</ul>
 </section>
-<hr class="docutils" />
-<section id="input-data">
-<h2>Input Data<a class="headerlink" href="#input-data" title="Permalink to this heading">#</a></h2>
-<p>The input data format depends on the target problem.</p>
-<p>In the provided example:</p>
-<ul>
-<li><p>Data are stored in:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SMC_example</span><span class="o">/</span><span class="n">data</span><span class="o">/</span>
-</pre></div>
-</div>
-</li>
-<li><p>Files:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mm_pseudo_data_0</span><span class="o">.</span><span class="n">csv</span> <span class="o">~</span> <span class="n">mm_pseudo_data_5</span><span class="o">.</span><span class="n">csv</span>
-</pre></div>
-</div>
-</li>
-<li><p>Each file contains:</p>
-<ul class="simple">
-<li><p>time <span class="math notranslate nohighlight">\(t\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(S_{\text{true}}\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(P_{\text{true}}\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(P_{\text{obs}}\)</span></p></li>
-</ul>
-</li>
-</ul>
-<p>In the estimation, only <span class="math notranslate nohighlight">\(t\)</span> and $P_{\text{obs}} are used.</p>
-<p>Note:<br />
-In practical applications, it may be preferable to use only data after the system reaches steady state. The current setup is for demonstration purposes.</p>
 </section>
-<hr class="docutils" />
 <section id="directory-structure">
-<h2>Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this heading">#</a></h2>
+<h1>Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this heading">#</a></h1>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>python-based-sequential-monte-carlo/
 ├── SMC_Algorithm/
 │   ├── algorithm1.png
@@ -662,71 +516,69 @@ In practical applications, it may be preferable to use only data after the syste
 └── README.md
 </pre></div>
 </div>
-</section>
 <hr class="docutils" />
+</section>
 <section id="directory-roles">
-<h2>Directory Roles<a class="headerlink" href="#directory-roles" title="Permalink to this heading">#</a></h2>
+<h1>Directory Roles<a class="headerlink" href="#directory-roles" title="Permalink to this heading">#</a></h1>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">SMC_Algorithm/</span></code><br />
 Algorithm figures used in the documentation</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">SMC_example/</span></code><br />
-Minimal example based on the Michaelis–Menten model</p></li>
+Minimal working example based on the Michaelis–Menten model</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">SMC_methanation/</span></code><br />
-Code used in the publication (less structured than <code class="docutils literal notranslate"><span class="pre">SMC_example</span></code>)</p></li>
+Code used in the publication (less modular and not intended as a template)</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<section id="example">
+<h1>Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">SMC_example</span></code> provides a complete and minimal implementation based on the Michaelis–Menten model.</p>
+<p>Users are expected to use this example as the primary reference and modify it according to their specific problem.</p>
+<hr class="docutils" />
+</section>
+<section id="what-to-modify">
+<h1>What to Modify<a class="headerlink" href="#what-to-modify" title="Permalink to this heading">#</a></h1>
+<p>To adapt the code to a different problem, modify the following components:</p>
+<section id="model">
+<h2>Model<a class="headerlink" href="#model" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>ODE or system dynamics</p></li>
+<li><p>State variables and model parameters</p></li>
 </ul>
 </section>
-<hr class="docutils" />
-<section id="what-to-modify">
-<h2>What to Modify<a class="headerlink" href="#what-to-modify" title="Permalink to this heading">#</a></h2>
-<p>To adapt the code to a different problem, modify the following:</p>
-<section id="model-and-likelihood">
-<h3>Model and Likelihood<a class="headerlink" href="#model-and-likelihood" title="Permalink to this heading">#</a></h3>
+<section id="observation-model">
+<h2>Observation Model<a class="headerlink" href="#observation-model" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">sim_particle</span></code> (in the likelihood file)</p>
-<ul>
-<li><p>define the model</p></li>
-<li><p>compute the likelihood</p></li>
+<li><p>Definition of observed quantities</p></li>
+<li><p>Measurement noise model (e.g., Gaussian noise)</p></li>
 </ul>
-</li>
+</section>
+<section id="likelihood">
+<h2>Likelihood<a class="headerlink" href="#likelihood" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Implemented in <code class="docutils literal notranslate"><span class="pre">sim_particle</span></code></p></li>
+<li><p>Must return likelihood values</p></li>
+</ul>
+</section>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Select which parameters to estimate</p></li>
+<li><p>Fix or estimate noise-related parameters if necessary</p></li>
 </ul>
 </section>
 <section id="settings">
-<h3>Settings<a class="headerlink" href="#settings" title="Permalink to this heading">#</a></h3>
+<h2>Settings<a class="headerlink" href="#settings" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Micmem_settings.py</span></code></p>
+<li><p><code class="docutils literal notranslate"><span class="pre">SMC_example/Micmem_settings.py</span></code></p>
 <ul>
-<li><p>SMC parameters</p></li>
+<li><p>SMC hyperparameters</p></li>
 <li><p>data configuration</p></li>
 </ul>
 </li>
 </ul>
 <hr class="docutils" />
 </section>
-</section>
-</section>
-<section id="quick-start">
-<h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this heading">#</a></h1>
-<p>The minimum workflow for using this framework is as follows:</p>
-<ol class="arabic simple">
-<li><p>Prepare your input data.</p></li>
-<li><p>Edit <code class="docutils literal notranslate"><span class="pre">Micmem_settings.py</span></code> to define the estimation settings and data configuration.</p></li>
-<li><p>Rewrite <code class="docutils literal notranslate"><span class="pre">sim_particle</span></code> and the related parts so that they match your own model and likelihood calculation.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">Micmem_SMC_main.py</span></code>.</p></li>
-</ol>
-<hr class="docutils" />
-</section>
-<section id="environment">
-<h1>Environment<a class="headerlink" href="#environment" title="Permalink to this heading">#</a></h1>
-<p>This code was developed and tested using <strong>Python 3.10.12</strong>.</p>
-<p>The required Python libraries are listed in:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
-</pre></div>
-</div>
-<p>Install them before running the code:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-</pre></div>
-</div>
-<hr class="docutils" />
 </section>
 <section id="extensions">
 <h1>Extensions<a class="headerlink" href="#extensions" title="Permalink to this heading">#</a></h1>
@@ -750,13 +602,13 @@ Code used in the publication (less structured than <code class="docutils literal
 <p>When dealing with large-scale or computationally demanding problems, consider the following:</p>
 <ul class="simple">
 <li><p>ODE solver settings<br />
-Excessively strict tolerances may substantially increase computation time.</p></li>
+Excessively strict tolerances may substantially increase computation time</p></li>
 <li><p>Parameter identifiability<br />
-With limited or low-information data, estimation may become unstable.</p></li>
+With limited or low-information data, estimation may become unstable</p></li>
 <li><p>Parallelization overhead<br />
-Depending on problem size, parallelization may become inefficient.</p></li>
+Depending on problem size, parallelization may become inefficient</p></li>
 <li><p>Memory usage<br />
-A large number of particles or stored intermediate results may cause memory bottlenecks.</p></li>
+A large number of particles or stored intermediate results may cause memory bottlenecks</p></li>
 </ul>
 <hr class="docutils" />
 </section>
@@ -769,7 +621,7 @@ A large number of particles or stored intermediate results may cause memory bott
 <li><p>A design assuming parallel computation</p></li>
 <li><p>Scalability from small-scale to large-scale problems</p></li>
 </ul>
-<p>Users are expected to start from the Example page and extend the framework step by step according to their specific problem.</p>
+<p>Users are expected to start from the example and extend the framework step by step according to their specific problem.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -827,24 +679,25 @@ A large number of particles or stored intermediate results may cause memory bott
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">How to Use</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entry-point">Entry Point</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Quick Start</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#environment">Environment</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use">How to Use</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#execution-flow">Execution Flow</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-function">Core Function</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-data">Input Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directory-structure">Directory Structure</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directory-roles">Directory Roles</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-to-modify">What to Modify</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-and-likelihood">Model and Likelihood</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#settings">Settings</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#directory-structure">Directory Structure</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#directory-roles">Directory Roles</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#what-to-modify">What to Modify</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model">Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observation-model">Observation Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood">Likelihood</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters">Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#settings">Settings</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#environment">Environment</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#extensions">Extensions</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelization">Parallelization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-for-computationally-heavy-problems">Notes for Computationally Heavy Problems</a></li>

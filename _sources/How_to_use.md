@@ -1,156 +1,37 @@
----
-jupytext:
-  formats: md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.11.5
-kernelspec:
-  display_name: Python 3
-  language: python
-  name: python3
----
+## Quick Start
 
-<!--
-# How to Use
+The minimum workflow for using this framework is as follows:
 
-## ① このページについて
-
-本ページでは、本プロジェクトの目的と位置づけ、ならびに  
-提供しているコードの基本的な利用方法と拡張方法について説明する。
-
-想定する利用者は以下である。
-
-- ODE ベースのモデルに対するパラメータ推定を行いたい利用者
-- SMC / MCMC などの確率的推定アルゴリズムを利用する利用者
-- 研究・検証用途でコードを再利用・拡張したい利用者
-
-数理モデルや推定アルゴリズムの詳細については、  
-Model / Inference / Example 各ページを参照すること。
-
----
-
-## ② 私たちのコードの利用方法
-
-### 入手方法
-
-本コードは Git リポジトリとして配布されている。  
-以下の手順で取得する。
-
-~~~bash
-git clone <repository-url>
-cd <repository-name>
-~~~
-
-必要な Python パッケージは、以下のコマンドでインストールする。
-
-~~~bash
-pip install -r requirements.txt
-~~~
-
-Jupyter Notebook または Jupyter Book を利用する場合は、  
-対応する Python 環境が構築されていることを確認する。
-
----
-
-### どこをどう変えれば良いのか
-
-本コードは、問題依存部分と共通処理部分が明確に分離されている。自分の問題に適用する際に主に変更が必要となるのは以下の箇所である。
-
-#### モデル定義
-
-- ODE の右辺（反応速度式・力学モデル）
-- 状態変数およびモデルパラメータの定義
-
-対象とする力学系に応じて、この部分を書き換えることで  
-別のモデルに容易に対応できる。
-
-#### 観測モデル・尤度
-
-- 観測量の定義
-- 観測ノイズモデル（例：ガウスノイズ）
-
-観測誤差の構造が異なる場合は、  
-尤度関数の定義を適切に変更する必要がある。
-
-#### 推定対象パラメータ
-
-- 推定するパラメータの種類
-- 固定するパラメータと推定するパラメータの切り分け
-
-これにより、
-
-- 一部のパラメータのみを推定する
-- ノイズパラメータを同時に推定する
-
-といった設定が可能となる。
-
-具体的な変更箇所については、  
-Example ページを参照すること。
-
----
-
-## ③ 拡張
-
-### 並列化について
-
-本コードは、計算コストの高い推定問題を想定し、  
-粒子単位・サンプル単位での並列化を前提として設計されている。
-
-- 各粒子の尤度計算は独立
-- 並列化により計算時間の短縮が可能
-
-並列化ライブラリ（例：Ray）を用いることで、
-
-- 粒子数の増加
-- データ条件数の増加
-- 高次元パラメータ空間
-
-にも対応可能である。
-
----
-
-### 重たい問題を扱う場合の注意点
-
-計算負荷の大きい問題を扱う際には、以下の点に注意する。
-
-- ODE ソルバの設定  
-  不要に高精度な設定は計算時間を大きく増加させる。
-- パラメータの同定可能性  
-  情報量の少ないデータでは、推定が不安定になる可能性がある。
-- 並列化オーバーヘッド  
-  問題規模によっては、並列化が逆効果になる場合がある。
-- メモリ使用量  
-  粒子数や保存する中間結果が多い場合、  
-  メモリがボトルネックになることがある。
-
----
-
-## まとめ
-
-本コードは、
-
-- モデル定義を差し替えやすい構造
-- 並列計算を前提とした設計
-- 小規模問題から大規模問題への拡張性
-
-を備えた、推定問題のための汎用テンプレートである。
-
-Example を起点として、  
-自身の問題に合わせて段階的に拡張することを想定している。 -->
-
-## How to Use
-
-### Entry Point
-
-Run the following script to execute the parameter estimation:
+1. Prepare your input data.  
+2. Edit `SMC_example/Micmem_settings.py` to define the estimation settings and data configuration.  
+3. Rewrite `sim_particle` and the related parts so that they match your own model and likelihood calculation.  
+4. Run the main script:
 
 ```bash
 python SMC_example/Micmem_SMC_main.py
 ```
 
 ---
+
+## Environment
+
+This code was developed and tested using **Python 3.10.12**.
+
+The required Python libraries are listed in:
+
+```
+requirements.txt
+```
+
+Install them before running the code:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## How to Use
 
 ### Execution Flow
 
@@ -197,49 +78,7 @@ By default, parallelization is implemented using `ray`.
 
 ---
 
-### Configuration
-
-All settings are managed in:
-
-```
-SMC_example/Micmem_settings.py
-```
-
-This file includes:
-
-- SMC hyperparameters  
-- input data settings  
-
----
-
-### Input Data
-
-The input data format depends on the target problem.
-
-In the provided example:
-
-- Data are stored in:
-  ```
-  SMC_example/data/
-  ```
-- Files:
-  ```
-  mm_pseudo_data_0.csv ~ mm_pseudo_data_5.csv
-  ```
-- Each file contains:
-  - time $t$
-  - $S_{\text{true}}$
-  - $P_{\text{true}}$
-  - $P_{\text{obs}}$
-
-In the estimation, only $t$ and $P_{\text{obs}} are used.
-
-Note:  
-In practical applications, it may be preferable to use only data after the system reaches steady state. The current setup is for demonstration purposes.
-
----
-
-### Directory Structure
+## Directory Structure
 
 ```
 python-based-sequential-monte-carlo/
@@ -269,62 +108,56 @@ python-based-sequential-monte-carlo/
 
 ---
 
-### Directory Roles
+## Directory Roles
 
 - `SMC_Algorithm/`  
   Algorithm figures used in the documentation  
 
 - `SMC_example/`  
-  Minimal example based on the Michaelis–Menten model  
+  Minimal working example based on the Michaelis–Menten model  
 
 - `SMC_methanation/`  
-  Code used in the publication (less structured than `SMC_example`)  
+  Code used in the publication (less modular and not intended as a template)  
 
 ---
 
-### What to Modify
+## Example
 
-To adapt the code to a different problem, modify the following:
+`SMC_example` provides a complete and minimal implementation based on the Michaelis–Menten model.
 
-#### Model and Likelihood
+Users are expected to use this example as the primary reference and modify it according to their specific problem.
 
-- `sim_particle` (in the likelihood file)
-  - define the model  
-  - compute the likelihood  
+---
 
-#### Settings
+## What to Modify
 
-- `Micmem_settings.py`
-  - SMC parameters  
+To adapt the code to a different problem, modify the following components:
+
+### Model
+
+- ODE or system dynamics  
+- State variables and model parameters  
+
+### Observation Model
+
+- Definition of observed quantities  
+- Measurement noise model (e.g., Gaussian noise)  
+
+### Likelihood
+
+- Implemented in `sim_particle`  
+- Must return likelihood values  
+
+### Parameters
+
+- Select which parameters to estimate  
+- Fix or estimate noise-related parameters if necessary  
+
+### Settings
+
+- `SMC_example/Micmem_settings.py`
+  - SMC hyperparameters  
   - data configuration  
----
-
-## Quick Start
-
-The minimum workflow for using this framework is as follows:
-
-1. Prepare your input data.  
-2. Edit `Micmem_settings.py` to define the estimation settings and data configuration.  
-3. Rewrite `sim_particle` and the related parts so that they match your own model and likelihood calculation.  
-4. Run `Micmem_SMC_main.py`.  
-
----
-
-## Environment
-
-This code was developed and tested using **Python 3.10.12**.
-
-The required Python libraries are listed in:
-
-```
-requirements.txt
-```
-
-Install them before running the code:
-
-```bash
-pip install -r requirements.txt
-```
 
 ---
 
@@ -350,16 +183,16 @@ By using parallelization libraries (e.g., Ray), the framework can handle:
 When dealing with large-scale or computationally demanding problems, consider the following:
 
 - ODE solver settings  
-  Excessively strict tolerances may substantially increase computation time.  
+  Excessively strict tolerances may substantially increase computation time  
 
 - Parameter identifiability  
-  With limited or low-information data, estimation may become unstable.  
+  With limited or low-information data, estimation may become unstable  
 
 - Parallelization overhead  
-  Depending on problem size, parallelization may become inefficient.  
+  Depending on problem size, parallelization may become inefficient  
 
 - Memory usage  
-  A large number of particles or stored intermediate results may cause memory bottlenecks.  
+  A large number of particles or stored intermediate results may cause memory bottlenecks  
 
 ---
 
@@ -371,4 +204,4 @@ This code serves as a general template for parameter estimation problems, featur
 - A design assuming parallel computation  
 - Scalability from small-scale to large-scale problems  
 
-Users are expected to start from the Example page and extend the framework step by step according to their specific problem.
+Users are expected to start from the example and extend the framework step by step according to their specific problem.
