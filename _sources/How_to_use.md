@@ -95,6 +95,35 @@ By default, parallelization is implemented using `ray`.
 
 ---
 
+### Input Data
+
+The input data format depends on the target problem.
+
+In the provided example:
+
+- Data are stored in:
+  ```
+  SMC_example/data/
+  ```
+- Files:
+  ```
+  mm_pseudo_data_0.csv ~ mm_pseudo_data_5.csv
+  ```
+- Each file contains:
+  - time $t$
+  - $S_{\text{true}}$
+  - $P_{\text{true}}$
+  - $P_{\text{obs}}$
+
+In the estimation, only $t$ and $P_{\text{obs}}$ are used.
+
+Users should replace these data files with their own dataset.
+
+Note:  
+In practical applications, it may be preferable to use only data after the system reaches steady state. The current setup is for demonstration purposes.
+
+---
+
 ## Directory Structure
 
 ```
