@@ -127,13 +127,13 @@ $\Delta \gamma$ を段階的に小さくするために用いられる。 -->
 
 # Hyperparameters
 
-~~~bash
+<!-- ~~~bash
 jupyter-book build .
 git add .
 git commit -m "update content"
 git push
 ghp-import -n -p -f _build/html
-~~~
+~~~ -->
 
 ---
 
