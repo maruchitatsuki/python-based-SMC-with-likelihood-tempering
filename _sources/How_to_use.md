@@ -140,73 +140,96 @@ Example ページを参照すること。
 Example を起点として、  
 自身の問題に合わせて段階的に拡張することを想定している。 -->
 
-# How to Use
+## How to Use
 
-## 1. About This Page
+### Entry Point
 
-This page explains the objective and positioning of this project, as well as the basic usage and extension of the provided code.
+Run the following script to execute the parameter estimation:
 
-The intended users are:
-
-- Users who wish to perform parameter estimation for ODE-based models  
-- Users who utilize probabilistic inference algorithms such as SMC / MCMC  
-- Users who want to reuse or extend the code for research and validation purposes  
-
-For details on the mathematical models and inference algorithms, please refer to the Model / Inference / Example pages.
+```bash
+python SMC_example/Micmem_SMC_main.py
+```
 
 ---
 
-## 2. How to Use Our Code
+### Core Function
 
-### Installation
+The main program calls a function named `sim_particle`.
 
-The code is distributed as a Git repository.  
-Clone it using the following procedure:
+This function must return:
 
-~~~bash
-git clone https://github.com/maruchitatsuki/python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering
-cd python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering
-~~~
-
-Install the required Python packages with:
-
-~~~bash
-pip install -r requirements.txt
-~~~
-
-If you use Jupyter Notebook or Jupyter Book, ensure that the corresponding Python environment is properly configured.
+- the likelihood value (required)
+- optionally, additional outputs for each particle (e.g., simulation results)
 
 ---
 
-### What Should Be Modified?
+### Configuration
 
-The code is structured so that problem-specific components are clearly separated from common components. When adapting it to your own problem, the main parts to modify are:
+All settings are managed in:
 
-#### Model Definition
+```
+SMC_example/Micmem_settings.py
+```
 
-- The right-hand side of the ODE (reaction rate equations or dynamical model)  
-- Definitions of state variables and model parameters  
+This file includes:
 
-By rewriting this section according to the target dynamical system, the framework can be easily adapted to different models.
+- SMC hyperparameters  
+- input data settings  
 
-#### Observation Model and Likelihood
+---
 
-- Definition of observed quantities  
-- Observation noise model (e.g., Gaussian noise)  
+### Directory Structure
 
-If the structure of measurement error differs, the likelihood function must be modified accordingly.
+```
+python-based-sequential-monte-carlo/
+├── SMC_Algorithm/
+│   ├── algorithm1.png
+│   └── algorithm2.png
+│
+├── SMC_example/
+│   ├── data/
+│   ├── Micmem_likelihood.py
+│   ├── Micmem_settings.py
+│   ├── Micmem_SMC_main.py
+│   ├── Micmen_generate_data.py
+│   ├── mm_pseudo_data.csv
+│   └── Posterior_Distributions.png
+│
+├── SMC_methanation/
+│   ├── methanation_functions.py
+│   ├── methanation_set_conditon.py
+│   ├── methanation_set_likelihood.py
+│   ├── SMC_methanation.py
+│   ├── SMC_methanation_data.py
+│   └── SMC_methanation_main.py
+│
+└── README.md
+```
 
-#### Target Parameters for Estimation
+---
 
-- Which parameters to estimate  
-- Separation between fixed and estimated parameters  
+### What to Modify
 
-This enables configurations such as:
+To adapt the code to a different problem, modify the following:
 
-- Estimating only a subset of parameters  
-- Jointly estimating noise parameters  
+#### Model and Likelihood
 
-For concrete modification examples, refer to the Example page.
+- `sim_particle` (in the likelihood file)
+  - define the model
+  - compute the likelihood
+
+#### Settings
+
+- `Micmem_settings.py`
+  - SMC parameters
+  - data configuration
+
+---
+
+### Notes
+
+- The likelihood value must always be returned from `sim_particle`.
+- Additional outputs can be included if needed for analysis.
 
 ---
 
