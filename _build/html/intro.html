@@ -529,16 +529,31 @@ thereby increasing the strength of observational information step by step.</p>
 <li><p>Mutation</p></li>
 </ol>
 <p>After performing Initialization, steps 2–4 are repeated to obtain the posterior distribution.</p>
+<hr class="docutils" />
 <section id="initialization">
 <h3>1. Initialization<a class="headerlink" href="#initialization" title="Permalink to this heading">#</a></h3>
 <p>In the Initialization step, we first define the prior distribution (p(\theta))<br />
 and sample particles from this prior.</p>
+<figure class="align-default" id="id2">
+<a class="reference internal image-reference" href="_images/Initialization.png"><img alt="_images/Initialization.png" src="_images/Initialization.png" style="width: 700px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Particles are initially sampled from the prior distribution.</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
+<hr class="docutils" />
 <section id="likelihood-calculation">
 <h3>2. Likelihood Calculation<a class="headerlink" href="#likelihood-calculation" title="Permalink to this heading">#</a></h3>
 <p>Using the parameters stored in each particle, we compute the likelihood.<br />
 Then, particle weights are updated according to their likelihood values.</p>
+<figure class="align-default" id="id3">
+<a class="reference internal image-reference" href="_images/Likelihood_calculation1.png"><img alt="_images/Likelihood_calculation1.png" src="_images/Likelihood_calculation1.png" style="width: 700px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Particles before likelihood weighting.</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
+<hr class="docutils" />
 <section id="id1">
 <h3>3. Resampling<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>Particles are probabilistically duplicated or discarded according to their weights.<br />
@@ -547,12 +562,40 @@ Suppose the total number of particles is (N_p), and the weights are normalized.<
 <li><p>A particle with weight (1/(2N_p)) has a 50% chance of being discarded and a 50% chance of surviving.</p></li>
 <li><p>A particle with weight (1.5/N_p) has a 50% chance of producing two copies and a 50% chance of remaining as one.</p></li>
 </ul>
+<figure class="align-default" id="id4">
+<a class="reference internal image-reference" href="_images/Resampling.png"><img alt="_images/Resampling.png" src="_images/Resampling.png" style="width: 700px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">High-weight particles are replicated, while low-weight particles are discarded.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
+<hr class="docutils" />
 <section id="mutation">
 <h3>4. Mutation<a class="headerlink" href="#mutation" title="Permalink to this heading">#</a></h3>
 <p>After resampling, many particles may share identical parameter values.<br />
 To restore diversity, we apply a Metropolis–Hastings mutation step to each particle,<br />
 allowing particles to transition probabilistically.</p>
+<figure class="align-default" id="id5">
+<a class="reference internal image-reference" href="_images/mutation.png"><img alt="_images/mutation.png" src="_images/mutation.png" style="width: 700px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Particles move stochastically to explore the posterior distribution.</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>After mutation, the particle set regains diversity and better approximates the posterior distribution.</p>
+<figure class="align-default" id="id6">
+<a class="reference internal image-reference" href="_images/After_mutation.png"><img alt="_images/After_mutation.png" src="_images/After_mutation.png" style="width: 700px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Particle distribution after mutation.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>At this point, one SMC iteration is completed.<br />
+The algorithm then proceeds to the next iteration, where likelihood evaluation is performed again based on the updated particles.</p>
+<figure class="align-default" id="id7">
+<a class="reference internal image-reference" href="_images/Likelihood_calculation2.png"><img alt="_images/Likelihood_calculation2.png" src="_images/Likelihood_calculation2.png" style="width: 700px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Likelihood evaluation in the next iteration, where particles are further concentrated in high-probability regions.</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 </section>
 <hr class="docutils" />
