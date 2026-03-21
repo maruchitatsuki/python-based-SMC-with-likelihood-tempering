@@ -133,15 +133,35 @@ SMC consists of four major steps:
 
 After performing Initialization, steps 2–4 are repeated to obtain the posterior distribution.
 
+---
+
 ### 1. Initialization
 
 In the Initialization step, we first define the prior distribution \(p(\theta)\)  
 and sample particles from this prior.
 
+```{figure} Initialization.png
+---
+width: 700px
+---
+Particles are initially sampled from the prior distribution.
+```
+
+---
+
 ### 2. Likelihood Calculation
 
 Using the parameters stored in each particle, we compute the likelihood.  
 Then, particle weights are updated according to their likelihood values.
+
+```{figure} Likelihood_calculation1.png
+---
+width: 700px
+---
+Particles before likelihood weighting.
+```
+
+---
 
 ### 3. Resampling
 
@@ -151,11 +171,46 @@ Suppose the total number of particles is \(N_p\), and the weights are normalized
 - A particle with weight \(1/(2N_p)\) has a 50% chance of being discarded and a 50% chance of surviving.  
 - A particle with weight \(1.5/N_p\) has a 50% chance of producing two copies and a 50% chance of remaining as one.
 
+```{figure} Resampling.png
+---
+width: 700px
+---
+High-weight particles are replicated, while low-weight particles are discarded.
+```
+
+---
+
 ### 4. Mutation
 
 After resampling, many particles may share identical parameter values.  
 To restore diversity, we apply a Metropolis–Hastings mutation step to each particle,  
 allowing particles to transition probabilistically.
+
+```{figure} mutation.png
+---
+width: 700px
+---
+Particles move stochastically to explore the posterior distribution.
+```
+
+After mutation, the particle set regains diversity and better approximates the posterior distribution.
+
+```{figure} After_mutation.png
+---
+width: 700px
+---
+Particle distribution after mutation.
+```
+
+At this point, one SMC iteration is completed.  
+The algorithm then proceeds to the next iteration, where likelihood evaluation is performed again based on the updated particles.
+
+```{figure} Likelihood_calculation2.png
+---
+width: 700px
+---
+Likelihood evaluation in the next iteration, where particles are further concentrated in high-probability regions.
+```
 
 ---
 
