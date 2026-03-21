@@ -227,12 +227,12 @@ In the provided example:
   mm_pseudo_data_0.csv ~ mm_pseudo_data_5.csv
   ```
 - Each file contains:
-  - time \(t\)
-  - \(S_{\text{true}}\)
-  - \(P_{\text{true}}\)
-  - \(P_{\text{obs}}\)
+  - time $t$
+  - $S_{\text{true}}$
+  - $P_{\text{true}}$
+  - $P_{\text{obs}}$
 
-In the estimation, only \(t\) and \(P_{\text{obs}}\) are used.
+In the estimation, only $t$ and $P_{\text{obs}} are used.
 
 Note:  
 In practical applications, it may be preferable to use only data after the system reaches steady state. The current setup is for demonstration purposes.
@@ -299,7 +299,36 @@ To adapt the code to a different problem, modify the following:
   - data configuration  
 ---
 
-## 3. Extensions
+## Quick Start
+
+The minimum workflow for using this framework is as follows:
+
+1. Prepare your input data.  
+2. Edit `Micmem_settings.py` to define the estimation settings and data configuration.  
+3. Rewrite `sim_particle` and the related parts so that they match your own model and likelihood calculation.  
+4. Run `Micmem_SMC_main.py`.  
+
+---
+
+## Environment
+
+This code was developed and tested using **Python 3.10.12**.
+
+The required Python libraries are listed in:
+
+```
+requirements.txt
+```
+
+Install them before running the code:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Extensions
 
 ### Parallelization
 
@@ -343,4 +372,3 @@ This code serves as a general template for parameter estimation problems, featur
 - Scalability from small-scale to large-scale problems  
 
 Users are expected to start from the Example page and extend the framework step by step according to their specific problem.
-
