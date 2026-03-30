@@ -1,0 +1,112 @@
+Traceback (most recent call last):
+  File "C:\Users\tatsu\Desktop\github_pages\github_env\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\tatsu\Desktop\github_pages\github_env\Lib\site-packages\nbclient\client.py", line 1323, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tatsu\Desktop\github_pages\github_env\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python312\Lib\asyncio\base_events.py", line 686, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\tatsu\Desktop\github_pages\github_env\Lib\site-packages\nbclient\client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\tatsu\Desktop\github_pages\github_env\Lib\site-packages\nbclient\client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\tatsu\Desktop\github_pages\github_env\Lib\site-packages\nbclient\client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import ray
+
+
+# --- ODE and simulation ---
+def mm_ode(t, S, Vmax, Km):
+    return - Vmax * S / (Km + S)
+
+def simulate_mm_on_grid(Vmax, Km, S0, t_array):
+    """
+    Solve the Michaelis–Menten progress curve on the observation time grid t_array.
+    Returns: P_model(t_array)
+    """
+    t_span = (t_array[0], t_array[-1])
+
+    sol = solve_ivp(
+        fun=lambda t, S: mm_ode(t, S, Vmax, Km),
+        t_span=t_span,
+        y0=[S0],
+        t_eval=t_array,
+        method="RK45",
+    )
+    S_model = sol.y[0]
+    P_model = S0 - S_model
+    return P_model
+
+@ray.remote
+def log_likelihood_mm_multi(params):
+    """
+    Log-likelihood function using data from multiple initial substrate concentration conditions.
+
+    params  : [Vmax, Km, sigma]
+    dataset : list of data loaded by load_all_mm_data()
+    """
+
+    Vmax, Km, sigma = params
+
+    # If sigma is not estimated, it is fixed to sigma_true
+    if est_sigma:
+        sigma = params[-1]
+    else:
+        sigma = sigma_true
+
+    if sigma <= 0:
+        return -np.inf
+
+    logL_total = 0.0
+    P_model_list = []
+
+    for i in range(n_ex):
+        t     = dataset[i]["t"]
+        P_obs = dataset[i]["P_obs"]
+        S0    = dataset[i]["S0"]
+
+        # Model prediction
+        P_model = simulate_mm_on_grid(Vmax, Km, S0, t)
+
+        # Residual
+        residual = P_obs - P_model
+
+        logL_i = -0.5 * datapoint * np.log(2*np.pi*sigma**2) \
+                 - np.sum(residual**2) / (2*sigma**2)
+
+        logL_total += logL_i
+        P_model_list.append(P_model)
+
+    return logL_total, P_model_list
+
+def sim_particle(particle):
+    print('sim_particle')
+
+    # Run the likelihood calculation in parallel
+    results = [log_likelihood_mm_multi.remote(particle[i, :]) for i in range(n_particle)]
+
+    # Retrieve the parallel computation results
+    llk_Cl = ray.get(results)
+
+    # Reshape the returned results
+    llk, C_l_ = zip(*llk_Cl)
+
+    return llk, C_l_
+------------------
+
+
+[31m---------------------------------------------------------------------------[39m
+[31mModuleNotFoundError[39m                       Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 1[39m
+[32m----> [39m[32m1[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mray[39;00m
+[32m      4[39m [38;5;66;03m# --- ODE and simulation ---[39;00m
+[32m      5[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mmm_ode[39m(t, S, Vmax, Km):
+
+[31mModuleNotFoundError[39m: No module named 'ray'
+
