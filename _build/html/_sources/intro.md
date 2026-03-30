@@ -144,7 +144,7 @@ After performing Initialization, steps 2–4 are repeated to obtain the posterio
 In the Initialization step, we first define the prior distribution $p(\theta)$ 
 and sample particles from this prior.
 
-```{figure} Initialization.png
+```{figure} Initialization_0330.png
 ---
 width: 700px
 ---
@@ -199,17 +199,28 @@ Particles move stochastically to explore the posterior distribution.
 
 After mutation, the particle set regains diversity and better approximates the posterior distribution.
 
+It is important to distinguish between the particle locations after mutation and the intermediate distribution represented in the background contour.
+In the first figure below, the particles are shown immediately after the mutation step, while the background contour still represents the intermediate distribution before updating it with the mutated particles.
+In the second figure, the background contour is reconstructed using the mutated particle set, so both the particles and the contour consistently reflect the updated intermediate distribution after mutation.
+
 ```{figure} After_mutation.png
 ---
 width: 700px
 ---
-Particle distribution after mutation.
+Particle distribution immediately after mutation. The background contour still represents the intermediate distribution before reconstruction using the mutated particles.
+```
+
+```{figure} After_mutation_0330.png
+---
+width: 700px
+---
+Particle distribution after mutation with the intermediate distribution reconstructed from the mutated particles.
 ```
 
 At this point, one SMC iteration is completed.  
 The algorithm then proceeds to the next iteration, where likelihood evaluation is performed again based on the updated particles.
 
-```{figure} Likelihood_calculation2.png
+```{figure} Likelihood_calculation2_0330.png
 ---
 width: 700px
 ---

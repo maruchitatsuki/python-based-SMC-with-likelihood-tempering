@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Python based sequential monte carlo method with likelihood tempering &#8212; My sample book</title>
   
@@ -29,39 +28,35 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
@@ -166,7 +161,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -209,9 +215,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -352,9 +358,9 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -408,7 +414,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="python-based-sequential-monte-carlo-method-with-likelihood-tempering">
-<h1>Python based sequential monte carlo method with likelihood tempering<a class="headerlink" href="#python-based-sequential-monte-carlo-method-with-likelihood-tempering" title="Permalink to this heading">#</a></h1>
+<h1>Python based sequential monte carlo method with likelihood tempering<a class="headerlink" href="#python-based-sequential-monte-carlo-method-with-likelihood-tempering" title="Link to this heading">#</a></h1>
 <p>The purpose of this website is to offer guidance for deepening your understanding of Sequential Monte Carlo (SMC) methods with likelihood tempering, as well as to provide a simple explanation of our SMC implementation, its hyperparameters, usage examples, and instructions for use.</p>
 <p>The SMC algorithm described in this website corresponds to the method used in the following paper:</p>
 <p>Maruchi, T., Yajima, T., and Kawajiri, Y.<br />
@@ -418,7 +424,7 @@ DOI: <a class="reference external" href="https://doi.org/10.1002/aic.70319">http
 <p>If this document or the associated code is useful for your research, please cite the above paper.</p>
 <hr class="docutils" />
 <section id="purpose-of-this-page">
-<h2>Purpose of This Page<a class="headerlink" href="#purpose-of-this-page" title="Permalink to this heading">#</a></h2>
+<h2>Purpose of This Page<a class="headerlink" href="#purpose-of-this-page" title="Link to this heading">#</a></h2>
 <p>Sequential Monte Carlo (SMC) is a<br />
 <strong>method for approximating probability distributions by tracking a population of particles</strong><br />
 over time.</p>
@@ -438,20 +444,20 @@ Likelihood tempering, which is less commonly used, smoothly shifts the distribut
 </section>
 <hr class="docutils" />
 <section id="differences-from-mcmc">
-<h2>Differences from MCMC<a class="headerlink" href="#differences-from-mcmc" title="Permalink to this heading">#</a></h2>
+<h2>Differences from MCMC<a class="headerlink" href="#differences-from-mcmc" title="Link to this heading">#</a></h2>
 <p>When explaining SMC, it is essential to compare it with MCMC.</p>
 </section>
 <hr class="docutils" />
 <section id="core-components-of-smc">
-<h2>Core Components of SMC<a class="headerlink" href="#core-components-of-smc" title="Permalink to this heading">#</a></h2>
+<h2>Core Components of SMC<a class="headerlink" href="#core-components-of-smc" title="Link to this heading">#</a></h2>
 <p>Detailed explanations of the SMC algorithm can be found in the <a class="reference external" href="https://github.com/maruchitatsuki/python-based-Sequential-Monte-Carlo-method-with-likelihood-tempering/tree/main/SMC_Algorithm">GitHub repository</a>, or by reading the source code directly.</p>
 <section id="particle">
-<h3>Particle<a class="headerlink" href="#particle" title="Permalink to this heading">#</a></h3>
+<h3>Particle<a class="headerlink" href="#particle" title="Link to this heading">#</a></h3>
 <p>A <em>particle</em> is a sample in the parameter space.<br />
 In SMC, we represent the distribution not by a single point, but by a collection of many particles.</p>
 </section>
 <section id="weights">
-<h3>Weights<a class="headerlink" href="#weights" title="Permalink to this heading">#</a></h3>
+<h3>Weights<a class="headerlink" href="#weights" title="Link to this heading">#</a></h3>
 <p>Each particle is assigned a weight that represents<br />
 <em>how well that particle fits the current target distribution</em>.<br />
 In practice, this is determined using the likelihood.</p>
@@ -459,7 +465,7 @@ In practice, this is determined using the likelihood.</p>
 To mitigate this, we introduce the concept of ESS.</p>
 </section>
 <section id="resampling">
-<h3>Resampling<a class="headerlink" href="#resampling" title="Permalink to this heading">#</a></h3>
+<h3>Resampling<a class="headerlink" href="#resampling" title="Link to this heading">#</a></h3>
 <p>When particle weights are highly imbalanced, most particles become effectively useless.<br />
 To avoid this, SMC performs <strong>resampling</strong>, an operation that duplicates effective particles and discards ineffective ones.</p>
 <p>If there exists a particle with an extremely large weight, diversity of the particle population may collapse, resulting in <strong>degeneracy</strong>.<br />
@@ -467,7 +473,7 @@ To prevent this, the indicator <a class="reference internal" href="#smc-main-ess
 In our algorithm, the influence of the likelihood is adjusted dynamically based on this ESS value.</p>
 </section>
 <section id="ess">
-<span id="smc-main-ess"></span><h3>ESS<a class="headerlink" href="#ess" title="Permalink to this heading">#</a></h3>
+<span id="smc-main-ess"></span><h3>ESS<a class="headerlink" href="#ess" title="Link to this heading">#</a></h3>
 <p>ESS stands for <em>Effective Sample Size</em> and is defined as:</p>
 <p><span class="math notranslate nohighlight">\(
 \mathrm{ESS} = \frac{1}{\sum_{m=1}^{N_p} w_m^2}
@@ -481,7 +487,7 @@ Consider the following extreme cases:</p>
 <p>In our algorithm, we control the progression of estimation depending on whether the ESS exceeds the threshold <a class="reference internal" href="Hyper_parameters.html#hp-main-ess-limit"><span class="std std-ref">ESS_limit</span></a> (<span class="math notranslate nohighlight">\(ESS_{\mathrm{limit}}\)</span>).</p>
 </section>
 <section id="prior-intermediate-and-posterior-distributions">
-<h3>Prior, Intermediate, and Posterior Distributions<a class="headerlink" href="#prior-intermediate-and-posterior-distributions" title="Permalink to this heading">#</a></h3>
+<h3>Prior, Intermediate, and Posterior Distributions<a class="headerlink" href="#prior-intermediate-and-posterior-distributions" title="Link to this heading">#</a></h3>
 <p>SMC does not attempt to directly handle a complex target distribution from the beginning.</p>
 <p>Instead, it transitions smoothly from:</p>
 <ul class="simple">
@@ -492,7 +498,7 @@ Consider the following extreme cases:</p>
 </section>
 </section>
 <section id="likelihood-tempering">
-<h2>Likelihood Tempering<a class="headerlink" href="#likelihood-tempering" title="Permalink to this heading">#</a></h2>
+<h2>Likelihood Tempering<a class="headerlink" href="#likelihood-tempering" title="Link to this heading">#</a></h2>
 <p>In likelihood tempering, the influence of the likelihood on the intermediate distributions is gradually increased.</p>
 <p><span class="math notranslate nohighlight">\(
 \pi(\theta \mid y) \propto p(y \mid \theta)^{\gamma_i}\, p(\theta)
@@ -506,7 +512,7 @@ The index <span class="math notranslate nohighlight">\(i\)</span> denotes the SM
 When the estimation process ends, <span class="math notranslate nohighlight">\(\gamma_i = 1\)</span>.</p>
 </section>
 <section id="data-tempering">
-<h2>Data Tempering<a class="headerlink" href="#data-tempering" title="Permalink to this heading">#</a></h2>
+<h2>Data Tempering<a class="headerlink" href="#data-tempering" title="Link to this heading">#</a></h2>
 <p>In data tempering, the data are gradually introduced in small portions,<br />
 thereby increasing the strength of observational information step by step.</p>
 <p>Both approaches share the same fundamental idea:</p>
@@ -514,7 +520,7 @@ thereby increasing the strength of observational information step by step.</p>
 </section>
 <hr class="docutils" />
 <section id="smc-workflow">
-<h2>SMC Workflow<a class="headerlink" href="#smc-workflow" title="Permalink to this heading">#</a></h2>
+<h2>SMC Workflow<a class="headerlink" href="#smc-workflow" title="Link to this heading">#</a></h2>
 <p>SMC consists of four major steps:</p>
 <ol class="arabic simple">
 <li><p>Initialization</p></li>
@@ -525,31 +531,33 @@ thereby increasing the strength of observational information step by step.</p>
 <p>After performing Initialization, steps 2–4 are repeated to obtain the posterior distribution.</p>
 <hr class="docutils" />
 <section id="initialization">
-<h3>1. Initialization<a class="headerlink" href="#initialization" title="Permalink to this heading">#</a></h3>
+<h3>1. Initialization<a class="headerlink" href="#initialization" title="Link to this heading">#</a></h3>
 <p>In the Initialization step, we first define the prior distribution <span class="math notranslate nohighlight">\(p(\theta)\)</span>
 and sample particles from this prior.</p>
 <figure class="align-default" id="id2">
-<a class="reference internal image-reference" href="_images/Initialization.png"><img alt="_images/Initialization.png" src="_images/Initialization.png" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="_images/Initialization_0330.png"><img alt="_images/Initialization_0330.png" src="_images/Initialization_0330.png" style="width: 700px;" />
+</a>
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Particles are initially sampled from the prior distribution.</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Particles are initially sampled from the prior distribution.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <hr class="docutils" />
 <section id="likelihood-calculation">
-<h3>2. Likelihood Calculation<a class="headerlink" href="#likelihood-calculation" title="Permalink to this heading">#</a></h3>
+<h3>2. Likelihood Calculation<a class="headerlink" href="#likelihood-calculation" title="Link to this heading">#</a></h3>
 <p>Using the parameters stored in each particle, we compute the likelihood.<br />
 Then, particle weights are updated according to their likelihood values.</p>
 <figure class="align-default" id="id3">
-<a class="reference internal image-reference" href="_images/Likelihood_calculation1.png"><img alt="_images/Likelihood_calculation1.png" src="_images/Likelihood_calculation1.png" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="_images/Likelihood_calculation1.png"><img alt="_images/Likelihood_calculation1.png" src="_images/Likelihood_calculation1.png" style="width: 700px;" />
+</a>
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Particles before likelihood weighting.</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Particles before likelihood weighting.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <hr class="docutils" />
 <section id="id1">
-<h3>3. Resampling<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h3>3. Resampling<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>Particles are probabilistically duplicated or discarded according to their weights.<br />
 Suppose the total number of particles is <span class="math notranslate nohighlight">\(N_p\)</span>, and the weights are normalized.</p>
 <ul class="simple">
@@ -557,51 +565,65 @@ Suppose the total number of particles is <span class="math notranslate nohighlig
 <li><p>A particle with weight <span class="math notranslate nohighlight">\(1.5/N_p\)</span> has a 50% chance of producing two copies and a 50% chance of remaining as one.</p></li>
 </ul>
 <figure class="align-default" id="id4">
-<a class="reference internal image-reference" href="_images/Resampling.png"><img alt="_images/Resampling.png" src="_images/Resampling.png" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="_images/Resampling.png"><img alt="_images/Resampling.png" src="_images/Resampling.png" style="width: 700px;" />
+</a>
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">High-weight particles are replicated, while low-weight particles are discarded.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">High-weight particles are replicated, while low-weight particles are discarded.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <hr class="docutils" />
 <section id="mutation">
-<h3>4. Mutation<a class="headerlink" href="#mutation" title="Permalink to this heading">#</a></h3>
+<h3>4. Mutation<a class="headerlink" href="#mutation" title="Link to this heading">#</a></h3>
 <p>After resampling, many particles may share identical parameter values.<br />
 To restore diversity, we apply a Metropolis–Hastings mutation step to each particle,<br />
 allowing particles to transition probabilistically.</p>
 <figure class="align-default" id="id5">
-<a class="reference internal image-reference" href="_images/mutation.png"><img alt="_images/mutation.png" src="_images/mutation.png" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="_images/mutation.png"><img alt="_images/mutation.png" src="_images/mutation.png" style="width: 700px;" />
+</a>
 <figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Particles move stochastically to explore the posterior distribution.</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Particles move stochastically to explore the posterior distribution.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>After mutation, the particle set regains diversity and better approximates the posterior distribution.</p>
+<p>It is important to distinguish between the particle locations after mutation and the intermediate distribution represented in the background contour.
+In the first figure below, the particles are shown immediately after the mutation step, while the background contour still represents the intermediate distribution before updating it with the mutated particles.
+In the second figure, the background contour is reconstructed using the mutated particle set, so both the particles and the contour consistently reflect the updated intermediate distribution after mutation.</p>
 <figure class="align-default" id="id6">
-<a class="reference internal image-reference" href="_images/After_mutation.png"><img alt="_images/After_mutation.png" src="_images/After_mutation.png" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="_images/After_mutation.png"><img alt="_images/After_mutation.png" src="_images/After_mutation.png" style="width: 700px;" />
+</a>
 <figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Particle distribution after mutation.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Particle distribution immediately after mutation. The background contour still represents the intermediate distribution before reconstruction using the mutated particles.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id7">
+<a class="reference internal image-reference" href="_images/After_mutation_0330.png"><img alt="_images/After_mutation_0330.png" src="_images/After_mutation_0330.png" style="width: 700px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Particle distribution after mutation with the intermediate distribution reconstructed from the mutated particles.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>At this point, one SMC iteration is completed.<br />
 The algorithm then proceeds to the next iteration, where likelihood evaluation is performed again based on the updated particles.</p>
-<figure class="align-default" id="id7">
-<a class="reference internal image-reference" href="_images/Likelihood_calculation2.png"><img alt="_images/Likelihood_calculation2.png" src="_images/Likelihood_calculation2.png" style="width: 700px;" /></a>
+<figure class="align-default" id="id8">
+<a class="reference internal image-reference" href="_images/Likelihood_calculation2_0330.png"><img alt="_images/Likelihood_calculation2_0330.png" src="_images/Likelihood_calculation2_0330.png" style="width: 700px;" />
+</a>
 <figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Likelihood evaluation in the next iteration, where particles are further concentrated in high-probability regions.</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Likelihood evaluation in the next iteration, where particles are further concentrated in high-probability regions.</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <hr class="docutils" />
 <section id="advantages-of-smc">
-<h2>Advantages of SMC<a class="headerlink" href="#advantages-of-smc" title="Permalink to this heading">#</a></h2>
+<h2>Advantages of SMC<a class="headerlink" href="#advantages-of-smc" title="Link to this heading">#</a></h2>
 <p>SMC provides the posterior distribution of parameters,<br />
 allowing uncertainty to be quantified.<br />
 This is a major advantage compared with methods that only perform point estimation.</p>
 </section>
 <hr class="docutils" />
 <section id="what-this-site-provides">
-<h2>What This Site Provides<a class="headerlink" href="#what-this-site-provides" title="Permalink to this heading">#</a></h2>
+<h2>What This Site Provides<a class="headerlink" href="#what-this-site-provides" title="Link to this heading">#</a></h2>
 <p>This website offers:</p>
 <ul class="simple">
 <li><p>an example estimation problem using the Michaelis–Menten model,</p></li>
@@ -718,7 +740,7 @@ By The Jupyter Book Community
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
